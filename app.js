@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const models = require('./database/models');
+const authMiddleware = require('./middleware/auth');
+const auth = require('./auth');
 
 // models.User.create({name: 'maks', email: 'qw@qw.we', password: '123qwe'})
 //     .then(data => console.log(data))
@@ -11,16 +13,36 @@ const app = express();
 app.use(bodyParser.json());
 app.use(urlencodedParser);
 
-app.post('/auth/register', (req, res) => {
+app.get('/protected', authMiddleware, (req, res) => {
+    res.json({message: "protected page"})
+});
+
+app.post('/signin', auth.signIn);
+app.post('/refresh-tokens', auth.refreshTokens);
+
+
+app.post('/auth/register', async (req, res) => {
     const { name, email, password } = req.body;
-    models.User.create({name, email, password});
+    // 1) check if email exists
+    await models.User.create({name, email, password});
+    
+    // 2) create access token and put it to cookie or go to login
     res.json({message: "User created"});
 });
 
 app.post('/auth/login', async (req, res) => {
-    const { email, password } = req.body;
-    const data = await models.User.findOne({ where: {email: email}})
-    res.json(data);
+    try {
+        const { email, password } = req.body;
+        const user = await models.User.findOne({ where: {email: email}})
+        /* 
+        1) check if data exists
+        2) comparing passwords hashes
+        3) create access token and put it to cookie
+        */
+       res.json(user.id);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 });
 
 
