@@ -39,12 +39,11 @@ app.post('/auth/login', async (req, res) => {
         2) comparing passwords hashes
         3) create access token and put it to cookie
         */
-       res.json(user.id);
+       res.json(user);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 });
-
 
 
 app.listen(4000, () => console.log('server started'));

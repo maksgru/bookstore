@@ -12,3 +12,8 @@ body {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+.btn-tog {
+  margin-bottom: 1rem;
+  box-shadow: none !important;
+}

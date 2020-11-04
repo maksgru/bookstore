@@ -13,3 +13,4 @@ export default class AuthServise {
         return data;
     };
 }
+
