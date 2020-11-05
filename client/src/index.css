@@ -21,7 +21,16 @@ body {
 .btn-bdnone {
   border: none !important;
 }
+.star-rat {
+  padding: 0.1em !important;
+}
 .btn-bdnone:hover {
   background: none !important;
   color: rgb(1, 58, 247) !important;
+}
+.gen-item {
+  color: black;
+}
+.gen-item:hover {
+  font-weight: bold;
 }

@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 const BookCard = () => {
   return (
-    <Card style={{ minWidth: "15rem", marginBottom: "20px" }}>
+    <Card style={{ minWidth: "14rem", maxWidth: "16rem", marginBottom: "20px" }}>
       <Card.Img
         variant="top"
         src="https://www.transparentpng.com/thumb/book/dvATkC-download-book.png"

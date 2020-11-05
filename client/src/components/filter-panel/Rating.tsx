@@ -9,8 +9,8 @@ const RatingForm = () => {
     {
       stars.map(item => (
         <div key={item}>
-          <Button variant="outline-warning btn-tog btn-bdnone" size="sm">
-            <i className="fa fa-star-o" aria-hidden="true" />
+          <Button variant="outline-warning btn-tog btn-bdnone star-rat" size="sm">
+            <i className="fa fa-star-o fa-2x" aria-hidden="true" />
           </Button>
         </div>
       ))

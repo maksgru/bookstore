@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { Form, Col } from "react-bootstrap";
 import RatingForm from "./Rating";
 
@@ -17,9 +18,11 @@ const FilterPanel = () => {
         <div>
           {Array.from(Array(10).keys()).map((item) => {
             return (
-              <div className="ml-4 font-weight-bold" key={item + "s"}>
-                literature genre
-              </div>
+              <Link to='/' key={item + "s"} style={{ textDecoration: 'none' }}>
+                <div className="ml-4 gen-item">
+                  literature genre
+                </div>
+              </Link>
             );
           })}
         </div>

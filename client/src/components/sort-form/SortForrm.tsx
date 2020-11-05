@@ -1,9 +1,8 @@
 import React from "react";
-import { Row, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 const SortForm = () => {
   return (
-    <Row className="justify-content-end mr-4">
       <Form inline>
         <Form.Label className="my-1 mr-2" htmlFor="sortBy">
           Sort by
@@ -20,7 +19,6 @@ const SortForm = () => {
           <option value="2">Price</option>
         </Form.Control>
       </Form>
-    </Row>
   );
 };
 
