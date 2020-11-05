@@ -17,3 +17,11 @@ body {
   margin-bottom: 1rem;
   box-shadow: none !important;
 }
+
+.btn-bdnone {
+  border: none !important;
+}
+.btn-bdnone:hover {
+  background: none !important;
+  color: rgb(1, 58, 247) !important;
+}
