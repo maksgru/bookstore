@@ -12,11 +12,11 @@ const FilterPanel = () => {
     "Rudyard Kipling",
   ];
   return (
-    <div className="p-2">
+    <Col md={4} xs={6} lg={3}>
       <div className="mb-3">
         <strong>Genres</strong>
         <div>
-          {Array.from(Array(10).keys()).map((item) => {
+          {Array.from(Array(5).keys()).map((item) => {
             return (
               <Link to='/' key={item + "s"} style={{ textDecoration: 'none' }}>
                 <div className="ml-4 gen-item">
@@ -61,7 +61,7 @@ const FilterPanel = () => {
           </Col>
         </Form.Row>
       </Form>
-    </div>
+    </Col>
   );
 };
 

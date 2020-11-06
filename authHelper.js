@@ -29,11 +29,11 @@ const updateDbRefreshToken = async (tokenId, userId) => {
     try {
         token = await models.Token.findOne({ where: {userId: userId}});
         if (!token) return await models.Token.create({userId, tokenId});
+        await token.destroy();
+        await models.Token.create({userId, tokenId});
     } catch (error) {
         console.log(error.message)
     }
-    await token.destroy();
-    await models.Token.create({userId, tokenId});
 };
 module.exports = {
     generateAccessToken,

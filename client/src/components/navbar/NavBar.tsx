@@ -1,23 +1,35 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
-
+import { Navbar, Nav, Container, Figure, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 const NavBar = () => {
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+      <Container>
+        <Navbar.Brand href="/">bookSTORE</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
+        <Nav className="float-right">
+          <Link to="/profile" className="p-0">
+            <Figure className="m-0">
+              <Figure.Image
+                className="m-0"
+                width={40}
+                height={40}
+                alt="user "
+                src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-64.png"
+              />
+            </Figure>
+          </Link>
+          <Button variant="outline-info btn-tog btn-bdnone m-0">
+              <i className="fa fa-sign-out fa-2x" aria-hidden="true" />
+            <span className="align-middle">
+              
+            Sign Out
+            </span>
+
+          </Button>
         </Nav>
-        <Nav>
-          <Nav.Link href="#deets">More deets</Nav.Link>
-          <Nav.Link eventKey={3} href="#memes">
-            Dank memes
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AuthServise from "../../../servises/authServise";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
-import { Container, Form, Jumbotron } from "react-bootstrap";
+import { Form, Jumbotron } from "react-bootstrap";
 
 export default class LoginPage extends Component {
   state: any = {
@@ -38,12 +38,10 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Jumbotron className="d-flex align-items-center justify-content-center">
+        <Jumbotron className="d-flex align-items-center justify-content-center" style={{maxHeight: '80vh'}}>
           <Form onSubmit={this.login} style={{ minWidth: "25%" }}>
             <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-              <h1>
-                book <strong>STORE</strong>
+              <h1>book <strong>STORE</strong>
               </h1>
             </div>
             {this.state.pageName === 'register' && <UserName handleName={this.handleChange} />}
@@ -57,7 +55,6 @@ export default class LoginPage extends Component {
             />
           </Form>
         </Jumbotron>
-      </Container>
     );
   }
 }

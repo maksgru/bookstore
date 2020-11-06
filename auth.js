@@ -15,11 +15,11 @@ const updateTokens = async (userId) => {
   try {
     await authHelper.updateDbRefreshToken(refreshToken.id, userId);
   } catch (error) {
-    console.log('token has not been updated', error.message)
+    console.log("token has not been updated", error.message);
   }
   return {
     accessToken,
-    refreshTokentoken: refreshToken.token
+    refreshTokentoken: refreshToken.token,
   };
 };
 
@@ -29,16 +29,16 @@ const signIn = async (req, res) => {
   try {
     user = await User.findOne({ where: { email: email } });
   } catch (error) {
-    res.status(401).json({message: error.message})
+    return res.status(401).json({ message: error.message });
   }
-  if (!user) res.status(401).json({ message: "user not found" });
+  if (!user) return res.status(401).json({ message: "user not found" });
 
   // bcrypt compare IS NEEDED
   let tokens;
   try {
     tokens = await updateTokens(user.id);
   } catch (error) {
-    res.status(401).json({message: error.message})
+    return res.status(401).json({ message: error.message });
   }
   res.json(tokens);
 };
@@ -48,23 +48,23 @@ const refreshTokens = async (req, res) => {
   let payload;
   try {
     payload = jwt.verify(refreshToken, jwtSecret);
-    if (payload.type !== "refresh")
-      res.staus(400).json({ message: "Invalid token" });
-    return;
+    if (payload.type !== "refresh") {
+      return res.staus(400).json({ message: "Invalid token" });
+    }
+    const token = await Token.findOne({ where: { tokenId: payload.id } });
+
+    if (!token) throw new Error("Invalid token");
+
+    const tokens = await updateTokens(token.userId)
+    return res.json(tokens);
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError) {
-      res.status(400).json({ message: "Token expired" });
-      return;
+      return res.status(400).json({ message: "Token expired" });
     } else if (err instanceof jwt.JsonWebTokenError) {
-      res.status(400).json({ message: "Invalid token" });
-      return;
+      return res.status(400).json({ message: "Invalid token" });
     }
+    return res.status(400).json({ message: err.message })
   }
-  const token = await Token.findOne({ where: { tokenId: payload.id } });
-  if (token === null) throw new Error("Invalid token");
-  return updateTokens(token.userId)
-    .then((tokens) => res.json(tokens))
-    .catch((err) => res.status(400).json({ message: err.message }));
 };
 
 module.exports = {

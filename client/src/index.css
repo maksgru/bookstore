@@ -26,8 +26,12 @@ body {
 }
 .btn-bdnone:hover {
   background: none !important;
-  color: rgb(1, 58, 247) !important;
+  color: rgb(12, 132, 148) !important;
 }
+.bk-card {
+  color: black;
+}
+
 .gen-item {
   color: black;
 }

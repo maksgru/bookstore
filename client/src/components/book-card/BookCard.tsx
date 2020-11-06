@@ -1,17 +1,19 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
-
+import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 const BookCard = () => {
   return (
     <Card style={{ minWidth: "14rem", maxWidth: "16rem", marginBottom: "20px" }}>
-      <Card.Img
-        variant="top"
-        src="https://www.transparentpng.com/thumb/book/dvATkC-download-book.png"
-      />
-      <Card.Body>
-        <Card.Title>Book name which can be larger than card wide</Card.Title>
-        <Card.Text>Author name</Card.Text>
-      </Card.Body>
+      <Link to="/book" style={{ textDecoration: 'none' }}>
+        <Card.Img
+          variant="top"
+          src="https://www.transparentpng.com/thumb/book/dvATkC-download-book.png"
+        />
+        <Card.Body className="bk-card">
+          <Card.Title>Book name which can be larger than card wide</Card.Title>
+          <Card.Text>Author name</Card.Text>
+        </Card.Body>
+      </Link>
       <Card.Footer className="p-1">
         <div className="mt-2 ml-2 float-left">
           {Array.from(Array(5).keys()).map((item) => (
@@ -20,12 +22,16 @@ const BookCard = () => {
             </div>
           ))}
         </div>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add to cart</Tooltip>}>
         <Button variant="outline-info float-right btn-tog btn-bdnone m-0">
           <i className="fa fa-shopping-bag" aria-hidden="true" />
         </Button>
+        </OverlayTrigger>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Add to favorites</Tooltip>}>
         <Button variant="outline-danger float-right btn-tog btn-bdnone m-0">
           <i className="fa fa-heart-o" aria-hidden="true" />
         </Button>
+        </OverlayTrigger>
       </Card.Footer>
     </Card>
   );

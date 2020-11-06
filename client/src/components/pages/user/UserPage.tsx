@@ -1,49 +1,49 @@
 import React from "react";
-import { Container, Col, Image, Nav, Card, CardGroup } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Image,
+  Nav,
+  Card,
+  CardGroup,
+} from "react-bootstrap";
+import AddBookTab from "./profile-tabs/AddBookTab";
 
 const UserPage = () => {
   return (
     <Container>
-      <CardGroup>
-          <Card style={{ maxWidth: "15rem" }}>
-            <Col xs={6} md={4}>
-              <Image
-                src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-128.png"
-                roundedCircle
-              />
-            </Col>
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Header>
-              <Nav variant="tabs" defaultActiveKey="#first">
-                <Nav.Item>
-                  <Nav.Link href="#first">Active</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link href="#link">Link</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link href="#disabled" disabled>
-                    Disabled
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </Card.Header>
-            <Card.Body>
-              <Card.Title>Special title treatment</Card.Title>
-              <Card.Text>
-                With supporting text below as a natural lead-in to additional
-                content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
+      <CardGroup className="mt-4">
+        <Card style={{ maxWidth: "15rem" }}>
+          <Card.Header style={{ height: "3.4rem" }}>My profile</Card.Header>
+          <Col className="mt-2 text-center">
+            <Image
+              src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-128.png"
+              roundedCircle
+            />
+          </Col>
+          <Card.Body>
+            <Card.Title>John Doe</Card.Title>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Header>
+            <Nav variant="tabs" defaultActiveKey="#first">
+              <Nav.Item>
+                <Nav.Link href="#first">Add book</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#second">Favorite books</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#link">Cart</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>Add Book</Card.Title>
+            <AddBookTab />
+          </Card.Body>
+        </Card>
       </CardGroup>
     </Container>
   );
