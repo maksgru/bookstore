@@ -1,4 +1,7 @@
 export const actionTypes = {
   BOOKS_LOAD_SUCCESS: 'BOOKS_LOAD_SUCCESS',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_OUT: 'SIGN_OUT',
+  UPDATE: 'UPDATE'
 
 };

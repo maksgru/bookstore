@@ -1,33 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import AuthModal from "../pages/auth/AuthModal";
-import Main from "../main/Main";
-import UserPage from "../pages/user/UserPage";
-import BookPage from "../pages/book-page/BookPage";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "../navbar/NavBar";
-import { Button } from 'react-bootstrap';
-function App() {
+import AuthServise from "../../servises/authServise";
+import { connect } from "react-redux";
+import { update } from "../../actions";
+import Routes from "./Routes";
 
-  const [modalShow, setModalShow] = React.useState(false);
+const authServise = new AuthServise();
 
+function App(props: any) {
+  const getUser = async () => {
+    let tokens = getTokens();
+    let user;
+    if (tokens) {
+      user = await authServise.getAccess(tokens.accessToken);
+      if (user.message === 'Token expired') {
+        const data = await authServise.refreshTokens(tokens.refreshToken);
+        console.log('refr', data.refreshToken)
+        localStorage.clear()
+        // this check should be more precise 
+        if (data.accessToken) {
+          localStorage.setItem('token', data.accessToken);
+          localStorage.setItem('refreshToken', data.refreshToken);
+          tokens = getTokens();
+          user = await authServise.getAccess(data.accessToken);
+        }
+      }
+      if (user.userName) props.update(user);
+    }
+  }
+  useEffect(() => {
+    getUser();
+  })
   return (
     <Router>
-      <NavBar />
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-         Launch vertically centered modal
-       </Button>
-
-       <AuthModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-      <Route path="/" exact component={Main} />
-      <Route path="/book" component={BookPage} />
-      <Route path="/profile" component={UserPage} />
-      {/* {<LognPage />} */}
+        <NavBar />   
+        <Routes isAuth={props.isAuth} />
     </Router>
   );
 }
 
-export default App;
+
+const getTokens = () => {
+  const accessToken = localStorage.getItem('token');
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (accessToken && refreshToken) return { accessToken, refreshToken };
+  return null;
+  
+}
+
+const mdtp = (dispatch: any) => ({
+  update: (user: any) => dispatch(update(user))
+});
+
+const mstp = (state: any) => ({
+  isAuth: state.auth.isLoggedIn
+});
+
+export default connect(mstp, mdtp)(App);

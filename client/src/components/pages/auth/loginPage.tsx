@@ -2,29 +2,59 @@ import React, { Component } from "react";
 import AuthServise from "../../../servises/authServise";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
 import { Form, Jumbotron } from "react-bootstrap";
+import { connect } from "react-redux";
+import { signIn, signOut } from "../../../actions";
 
-export default class LoginPage extends Component {
-  state: any = {
-    name: "",
-    email: "qw@qw.we",
-    password: "",
-    submitBtn: "LogIn",
-    toggleBtn: "Register",
-    pageName: "login"
-  };
 
-  authServise = new AuthServise();
+
+interface Lprops {
+signIn: any;
+signOut: any;
+};
+
+interface Lstate {
+      name: string;
+      email: string;
+      password: string;
+      submitBtn: string;
+      toggleBtn: string;
+      pageName: string;
+};
+
+class LoginPage extends Component<Lprops, Lstate> {
+  constructor(props:any) {
+    super(props)
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      submitBtn: "LogIn",
+      toggleBtn: "Register",
+      pageName: "login"
+    };
+  }
+
+  authService = new AuthServise();
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const name = e.target.name;
-    this.setState({ [name]: value });
+    const key = e.target.name;
+    this.setState({ [key]: value } as any);
   };
 
   login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await this.authServise.login(this.state);
-    console.log(data);
+    let user: any;
+    if (this.state.pageName === 'login') {
+      user = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      this.setState({name: '', email: '', password: ''});
+    }
+    const data = await this.authService.login(user);
+    if (!data.user) this.props.signOut();
+    if (data.user)this.props.signIn(data);
   };
 
   togglePage = () => {
@@ -58,3 +88,10 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+const mdtp = (dispatch: any) => ({
+  signIn: (user: any) => dispatch(signIn(user)),
+  signOut: (user: any) => dispatch(signOut())
+});
+
+export default connect(null, mdtp)(LoginPage);
