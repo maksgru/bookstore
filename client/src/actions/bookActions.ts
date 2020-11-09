@@ -8,7 +8,7 @@ export interface book {
   owner: string
 }
 
-export const booksLoaded = (books: book[]) => ({
+export const booksLoaded = (books: any) => ({
   type: actionTypes.BOOKS_LOAD_SUCCESS,
   payload: books
 });

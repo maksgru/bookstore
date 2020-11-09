@@ -9,7 +9,7 @@ const BookCard = ({ book }: any) => {
       <Link to="/book" style={{ textDecoration: 'none' }}>
         <Card.Img
           variant="top"
-          src={book.imgUrls[0]}
+          src=''
         />
         <Card.Body className="bk-card">
   <Card.Title>{book.name}</Card.Title>
