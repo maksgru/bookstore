@@ -38,4 +38,18 @@ export default class AuthServise {
         const data = await res.json();
         return data;
     }
+    register = async (user: object) => {
+        const options: object = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(user)
+        };
+        const url: string = '/auth/signup';
+        const res = await fetch(url, options);
+        if (res.status === 200) return true;
+        return false;
+        
+    }
 }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { signOut } from "../../actions";
+import { signOut } from "../../actions/authActions";
 import UserIcon from "./UserIcon";
 import AuthModal from "../pages/auth/AuthModal";
 

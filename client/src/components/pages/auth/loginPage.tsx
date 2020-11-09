@@ -3,7 +3,7 @@ import AuthServise from "../../../servises/authServise";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
 import { Form, Jumbotron } from "react-bootstrap";
 import { connect } from "react-redux";
-import { signIn, signOut } from "../../../actions";
+import { signIn, signOut } from "../../../actions/authActions";
 
 
 
@@ -13,7 +13,7 @@ signOut: any;
 };
 
 interface Lstate {
-      name: string;
+      userName: string;
       email: string;
       password: string;
       submitBtn: string;
@@ -25,7 +25,7 @@ class LoginPage extends Component<Lprops, Lstate> {
   constructor(props:any) {
     super(props)
     this.state = {
-      name: "",
+      userName: "",
       email: "",
       password: "",
       submitBtn: "LogIn",
@@ -42,7 +42,7 @@ class LoginPage extends Component<Lprops, Lstate> {
     this.setState({ [key]: value } as any);
   };
 
-  login = async (e: React.FormEvent<HTMLFormElement>) => {
+  auth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let user: any;
     if (this.state.pageName === 'login') {
@@ -50,11 +50,35 @@ class LoginPage extends Component<Lprops, Lstate> {
         email: this.state.email,
         password: this.state.password
       };
-      this.setState({name: '', email: '', password: ''});
+      this.setState({userName: '', email: '', password: ''});
+      const data = await this.authService.login(user);
+      if (data.userData) {
+        this.props.signIn(data);
+        return;
+      }
+      this.props.signOut();
     }
-    const data = await this.authService.login(user);
-    if (!data.user) this.props.signOut();
-    if (data.user)this.props.signIn(data);
+    if (this.state.pageName === 'register') {
+      user = {
+        name: this.state.userName,
+        email: this.state.email,
+        password: this.state.password
+      }
+      const status = await this.authService.register(user);
+      if (status) {
+        user = {
+          email: this.state.email,
+          password: this.state.password
+        };
+        this.setState({userName: '', email: '', password: ''});
+        const data = await this.authService.login(user);
+        if (data.userData) {
+          this.props.signIn(data);
+          return;
+        }
+        this.props.signOut();
+      }
+    }
   };
 
   togglePage = () => {
@@ -69,7 +93,7 @@ class LoginPage extends Component<Lprops, Lstate> {
   render() {
     return (
         <Jumbotron className="d-flex align-items-center justify-content-center" style={{maxHeight: '80vh'}}>
-          <Form onSubmit={this.login} style={{ minWidth: "25%" }}>
+          <Form onSubmit={this.auth} style={{ minWidth: "25%" }}>
             <div style={{ textAlign: "center", marginBottom: "2rem" }}>
               <h1>book <strong>STORE</strong>
               </h1>

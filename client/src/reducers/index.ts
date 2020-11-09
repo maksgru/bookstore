@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import books from './book';
+import bookList from './bookList';
 import auth from './auth';
 
 export const reducer = combineReducers({
-  books,
+  bookList,
   auth
 });

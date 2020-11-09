@@ -12,8 +12,8 @@ const UserIcon = ({ iconUrl }: userIconType) => (
     <Figure className="m-0">
       <Figure.Image
         className="m-0 rounded-circle"
-        width={40}
-        height={40}
+        width={60}
+        height={60}
         alt=""
         src={iconUrl}
       />

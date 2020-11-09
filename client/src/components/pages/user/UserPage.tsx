@@ -1,28 +1,29 @@
 import React from "react";
-import {
-  Container,
-  Col,
-  Image,
-  Nav,
-  Card,
-  CardGroup,
-} from "react-bootstrap";
+import { Container, Nav, Card, CardGroup, Figure } from "react-bootstrap";
+import { connect } from "react-redux";
 import AddBookTab from "./profile-tabs/AddBookTab";
+interface UserPageProps {
+  iconUrl: string;
+  userName: string;
+}
 
-const UserPage = () => {
+const UserPage = (props: UserPageProps) => {
   return (
     <Container>
       <CardGroup className="mt-4">
         <Card style={{ maxWidth: "15rem" }}>
           <Card.Header style={{ height: "3.4rem" }}>My profile</Card.Header>
-          <Col className="mt-2 text-center">
-            <Image
-              src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-128.png"
+          <Figure className="text-center mt-3">
+            <Figure.Image
+              width={200}
+              height={200}
+              alt="171x180"
+              src={props.iconUrl}
               roundedCircle
             />
-          </Col>
+          </Figure>
           <Card.Body>
-            <Card.Title>John Doe</Card.Title>
+            <Card.Title>{props.userName}</Card.Title>
           </Card.Body>
         </Card>
         <Card>
@@ -49,4 +50,9 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+const mstp = (state: any) => ({
+  iconUrl: state.auth.userImg,
+  userName: state.auth.name,
+});
+
+export default connect(mstp)(UserPage);

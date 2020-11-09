@@ -1,6 +1,13 @@
 import { actionTypes } from '../actions/action-types';
 
-const initialState = {
+
+export interface authState {
+  name: string,
+  userImg: string,
+  isLoggedIn: boolean
+}
+
+const initialState: authState = {
   name: '',
   userImg: '',
   isLoggedIn: false

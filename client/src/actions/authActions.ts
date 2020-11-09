@@ -1,20 +1,7 @@
 import { actionTypes } from './action-types'
 
-export interface book {
-  id: number,
-  imgUrl: string,
-  author: string,
-  title: string,
-  owner: string
-}
-
-export const booksLoaded = (books: book[]) => ({
-  type: actionTypes.BOOKS_LOAD_SUCCESS,
-  books
-});
-
-interface userData {
-  user: {
+interface data {
+  userData: {
     userName: string,
     iconUrl: string
   },
@@ -24,7 +11,7 @@ interface userData {
   }
 }
 
-export const signIn = (userData: userData) => ({
+export const signIn = (userData: data) => ({
   type: actionTypes.SIGN_IN,
   payload: handleUserData(userData)
 });
@@ -36,13 +23,13 @@ export const update = (user: any) => ({
 
 export const signOut = () => {
   dropUserData();
-  return {type: actionTypes.SIGN_OUT};
+  return { type: actionTypes.SIGN_OUT };
 };
 
-const handleUserData = (data: userData) => {
+const handleUserData = (data: data) => {
   localStorage.setItem('token', data.tokens.accessToken);
   localStorage.setItem('refreshToken', data.tokens.refreshToken);
-  return data.user;;
+  return data.userData;
 };
 
 const dropUserData = () => {

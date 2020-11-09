@@ -28,11 +28,13 @@ const generateRefreshToken = () => {
 const updateDbRefreshToken = async (tokenId, userId) => {
   let token;
   try {
-    token = await models.Token.findOne({ where: { userId: userId } });
-    if (!token) return await models.Token.create({ userId: userId, tokenId: tokenId });
+    token = await models.Token.findOne({ where: { userId } });
+    if (!token) return await models.Token.create({ userId, tokenId });
     return await token.update({ userId, tokenId });
   } catch (error) {
     console.log(error.message);
+    throw error;
+    return null;
   }
 };
 

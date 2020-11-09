@@ -1,17 +1,19 @@
 import React from "react";
 import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-const BookCard = () => {
+
+
+const BookCard = ({ book }: any) => {
   return (
     <Card style={{ minWidth: "14rem", maxWidth: "16rem", marginBottom: "20px" }}>
       <Link to="/book" style={{ textDecoration: 'none' }}>
         <Card.Img
           variant="top"
-          src="https://www.transparentpng.com/thumb/book/dvATkC-download-book.png"
+          src={book.imgUrls[0]}
         />
         <Card.Body className="bk-card">
-          <Card.Title>Book name which can be larger than card wide</Card.Title>
-          <Card.Text>Author name</Card.Text>
+  <Card.Title>{book.name}</Card.Title>
+  <Card.Text>{book.author}</Card.Text>
         </Card.Body>
       </Link>
       <Card.Footer className="p-1">
