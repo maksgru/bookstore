@@ -19,10 +19,12 @@ module.exports = (sequelize, DataTypes) => {
   };
   Image.init({
     url: DataTypes.STRING,
-    bookId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Image',
   });
   return Image;
 };
+
+// https://images-na.ssl-images-amazon.com/images/I/41JOmGowq-L._SX408_BO1,204,203,200_.jpg
+// https://images-na.ssl-images-amazon.com/images/I/51cUVaBWZzL._SX380_BO1,204,203,200_.jpg

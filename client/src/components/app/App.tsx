@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "../navbar/NavBar";
-import AuthServise from "../../servises/authServise";
+import AuthServise from "../../api/authServise";
 import { connect } from "react-redux";
 import { update } from "../../actions/authActions";
 import Routes from "./Routes";

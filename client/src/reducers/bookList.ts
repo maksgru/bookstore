@@ -1,15 +1,15 @@
 import { actionTypes } from '../actions/action-types';
 import { book } from '../actions/bookActions';
 
-// interface action {
-//   type: string,
-//   payload: book[]
-// };
+interface action {
+  type: string,
+  payload: book[]
+};
 
 const initialState = {
   books: [{
     id: 0,
-  imgUrls: [''],
+  bookIcon: 'https://www.transparentpng.com/thumb/book/dvATkC-download-book.png',
   author: '',
   name: '',
   owner: ''
@@ -17,9 +17,9 @@ const initialState = {
 loading: true
 };
 
-const bookList = (state=initialState, action: any) => {
+const bookList = (state=initialState, action: action) => {
   switch (action.type) {
-    case actionTypes.BOOKS_LOAD_SUCCESS:
+    case actionTypes.BOOKS_LIST_SUCCESS:
       return {
         books:action.payload,
         loading: false

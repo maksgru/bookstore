@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'owner'
       });
       Book.hasMany(models.Image, {
-        foreignKey: 'userId',
+        foreignKey: 'bookId',
         as: 'images',
         onDelete: 'CASCADE'
       });
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
+    bookIcon: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Book',

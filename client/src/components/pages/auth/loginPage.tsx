@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import AuthServise from "../../../servises/authServise";
+import AuthServise from "../../../api/authServise";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
 import { Form, Jumbotron } from "react-bootstrap";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../../../actions/authActions";
-
-
-
+import { login } from '../../../api/authServise'
 interface Lprops {
 signIn: any;
 signOut: any;
@@ -51,8 +49,8 @@ class LoginPage extends Component<Lprops, Lstate> {
         password: this.state.password
       };
       this.setState({userName: '', email: '', password: ''});
-      const data = await this.authService.login(user);
-      if (data.userData) {
+      const data = await login(user);
+      if (data) {
         this.props.signIn(data);
         return;
       }

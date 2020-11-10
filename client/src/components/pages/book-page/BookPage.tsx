@@ -1,7 +1,12 @@
 import * as React from "react";
 import { Container, Card, Row, Col, Image, Figure } from "react-bootstrap";
+import { useSelector } from 'react-redux';
 
 const BookPage = () => {
+  const { book, bookImages } = useSelector((state: any) => ({
+    book: state.bookPage.book,
+    bookImages: state.bookPage.bookImages
+  }))
   return (
     <Container>
       <Card>
@@ -10,19 +15,19 @@ const BookPage = () => {
           <Row>
             <Col>
               <Image
-                src="https://images-na.ssl-images-amazon.com/images/I/41-+g1a2Y1L._SX375_BO1,204,203,200_.jpg"
+                src={book.bookIcon}
                 rounded
               />
             </Col>
             <Col>
               <Row>
-                {Array.from(Array(4).keys()).map((item) => (
-                  <Figure key={item + "d"} className="mx-2">
+                {bookImages.map((image: any) => (
+                  <Figure key={image.id} className="mx-2">
                     <Figure.Image
                       width={171}
                       height={180}
                       alt="171x180"
-                      src="https://images-na.ssl-images-amazon.com/images/I/41-+g1a2Y1L._SX375_BO1,204,203,200_.jpg"
+                      src={image.url}
                     />
                   </Figure>
                 ))}
