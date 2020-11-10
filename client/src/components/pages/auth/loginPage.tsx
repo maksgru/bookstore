@@ -48,8 +48,8 @@ class LoginPage extends Component<Lprops, Lstate> {
         email: this.state.email,
         password: this.state.password
       };
-      this.setState({userName: '', email: '', password: ''});
       const data = await login(user);
+      this.setState({userName: '', email: '', password: ''});
       if (data) {
         this.props.signIn(data);
         return;
@@ -69,8 +69,8 @@ class LoginPage extends Component<Lprops, Lstate> {
           password: this.state.password
         };
         this.setState({userName: '', email: '', password: ''});
-        const data = await this.authService.login(user);
-        if (data.userData) {
+        const data = await login(user);
+        if (data) {
           this.props.signIn(data);
           return;
         }
@@ -81,9 +81,9 @@ class LoginPage extends Component<Lprops, Lstate> {
 
   togglePage = () => {
     this.setState((state: any) => {
-      const pageName: string = state.pageName === 'login' ? 'register' : 'login';
-      const submitBtn: string = state.toggleBtn;
-      const toggleBtn: string = state.submitBtn;
+      const pageName = state.pageName === 'login' ? 'register' : 'login';
+      const submitBtn = state.toggleBtn;
+      const toggleBtn = state.submitBtn;
       return {submitBtn, toggleBtn, pageName};
     })
   };

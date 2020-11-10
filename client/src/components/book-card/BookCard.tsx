@@ -4,9 +4,12 @@ import { Card } from "react-bootstrap";
 import CardFooter from './CardFooter';
 import { Link } from "react-router-dom";
 import { getBook } from "../../api/bookApi";
-import { bookPage, bookPageLoaded } from "../../actions/bookActions";
+import { book, bookPageLoaded } from "../../actions/bookActions";
 
-const BookCard = ({ book }: any) => {
+interface Bprops {
+  book: book
+}
+const BookCard = ({ book }: Bprops) => {
   const dispatch = useDispatch();
   const loadBookPage = async () => {
     const data = await getBook(book.id);
