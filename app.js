@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/auth", authRoutes);
+// app.use('/books', booksRoutes);
 
 app.get("/api/books", async (req, res) => {
   let books;
