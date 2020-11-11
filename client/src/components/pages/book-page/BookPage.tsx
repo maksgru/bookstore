@@ -1,23 +1,31 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { Container, Card, Row, Col, Image, Figure } from "react-bootstrap";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+import { getBook } from "../../../api/bookApi";
+import { bookPageLoaded } from "../../../actions/bookActions";
 
 const BookPage = () => {
+  const dispatch = useDispatch();
   const { book, bookImages } = useSelector((state: any) => ({
     book: state.bookPage.book,
-    bookImages: state.bookPage.bookImages
-  }))
+    bookImages: state.bookPage.bookImages,
+  }));
+  useEffect(() => {
+    const bookId = +localStorage.getItem("bookId")!;
+    const getData = async () => {
+      const data = await getBook(bookId);
+      dispatch(bookPageLoaded(data));
+    };
+    getData();
+  }, [dispatch]);
   return (
     <Container>
       <Card>
-        <Card.Header as="h5">Robert Martin</Card.Header>
+        <Card.Header as="h5">{book.author}</Card.Header>
         <Container className="mt-2">
           <Row>
             <Col>
-              <Image
-                src={book.bookIcon}
-                rounded
-              />
+              <Image src={book.bookIcon} rounded />
             </Col>
             <Col>
               <Row>
@@ -36,11 +44,8 @@ const BookPage = () => {
           </Row>
         </Container>
         <Card.Body>
-          <Card.Title>Clean Code</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional
-            content.
-          </Card.Text>
+          <Card.Title>{book.name}</Card.Title>
+          <Card.Text>{book.description}</Card.Text>
         </Card.Body>
       </Card>
     </Container>

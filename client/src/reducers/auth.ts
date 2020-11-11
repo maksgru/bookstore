@@ -33,5 +33,4 @@ const auth = (state = initialState, action: action) => {
   }
 };
 
-
 export default auth;

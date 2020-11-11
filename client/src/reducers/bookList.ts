@@ -1,9 +1,9 @@
 import { actionTypes } from '../actions/action-types';
-import { book } from '../actions/bookActions';
+import { bookType } from '../actions/bookActions';
 
 interface action {
   type: string,
-  payload: book[]
+  payload: bookType[]
 };
 
 const initialState = {
@@ -14,11 +14,13 @@ const initialState = {
   name: '',
   owner: ''
 }],
-loading: true
+loading: true,
 };
 
 const bookList = (state=initialState, action: action) => {
   switch (action.type) {
+    case actionTypes.BOOKS_LIST_REQUEST:
+      return state;
     case actionTypes.BOOKS_LIST_SUCCESS:
       return {
         books:action.payload,

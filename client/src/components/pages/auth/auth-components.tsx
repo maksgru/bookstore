@@ -89,7 +89,7 @@ export const FormButtons = ({
       <Button onClick={togglePage} className="btn-tog float-right" variant="link" size="sm">
         {toggleBtnText}
       </Button>
-      <Button variant="primary" type="submit" block>
+      <Button variant="primary" type="submit" block disabled={false}>
         {submitBtnText}
       </Button>
     </>

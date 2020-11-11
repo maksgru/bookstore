@@ -5,6 +5,7 @@ import { Form, Jumbotron } from "react-bootstrap";
 import { connect } from "react-redux";
 import { signIn, signOut } from "../../../actions/authActions";
 import { login } from '../../../api/authServise'
+
 interface Lprops {
 signIn: any;
 signOut: any;
@@ -20,7 +21,7 @@ interface Lstate {
 };
 
 class LoginPage extends Component<Lprops, Lstate> {
-  constructor(props:any) {
+  constructor(props: Lprops) {
     super(props)
     this.state = {
       userName: "",
@@ -80,7 +81,7 @@ class LoginPage extends Component<Lprops, Lstate> {
   };
 
   togglePage = () => {
-    this.setState((state: any) => {
+    this.setState((state: Lstate) => {
       const pageName = state.pageName === 'login' ? 'register' : 'login';
       const submitBtn = state.toggleBtn;
       const toggleBtn = state.submitBtn;
@@ -113,7 +114,7 @@ class LoginPage extends Component<Lprops, Lstate> {
 
 const mdtp = (dispatch: any) => ({
   signIn: (user: any) => dispatch(signIn(user)),
-  signOut: (user: any) => dispatch(signOut())
+  signOut: () => dispatch(signOut())
 });
 
 export default connect(null, mdtp)(LoginPage);

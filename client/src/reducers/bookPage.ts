@@ -16,7 +16,7 @@ const initialState = {
 }
 const bookPage = (state = initialState, action: any) => {
   switch (action.type) {
-    case actionTypes.BOOK_PAGE_SUCCESS:
+    case actionTypes.BOOK_DETAILS_SUCCESS:
       return action.payload;
     default:
       return state;

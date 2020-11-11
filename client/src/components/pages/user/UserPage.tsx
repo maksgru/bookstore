@@ -1,13 +1,42 @@
-import React from "react";
-import { Container, Nav, Card, CardGroup, Figure } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Container,
+  Nav,
+  Card,
+  CardGroup,
+  Figure,
+  Form,
+  Button,
+} from "react-bootstrap";
 import { connect } from "react-redux";
 import AddBookTab from "./profile-tabs/AddBookTab";
+import axios from "axios";
 interface UserPageProps {
   iconUrl: string;
   userName: string;
 }
 
 const UserPage = (props: UserPageProps) => {
+  const [file, setFile] = useState("");
+  const formData = new FormData();
+  const submitUserImg = (e: any) => {
+    e.preventDefault();
+    formData.append("filedata", file);
+    axios("/upload", {
+      method: "post",
+      data: formData,
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+  };
+
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setFile(file);
+  };
+
   return (
     <Container>
       <CardGroup className="mt-4">
@@ -19,11 +48,28 @@ const UserPage = (props: UserPageProps) => {
               height={200}
               alt="171x180"
               src={props.iconUrl}
-              roundedCircle
+              // roundedCircle
             />
           </Figure>
           <Card.Body>
             <Card.Title>{props.userName}</Card.Title>
+            <Form>
+              <Form.Group>
+                <Form.File
+                  onChange={handleChange}
+                  id="exampleFormControlFile1"
+                  label="Example file input"
+                />
+                <Button
+                  className="mt-2"
+                  as="input"
+                  onClick={submitUserImg}
+                  type="button"
+                  value="Load"
+                  size="sm"
+                />
+              </Form.Group>
+            </Form>
           </Card.Body>
         </Card>
         <Card>

@@ -22,7 +22,7 @@ const signIn = async (req, res) => {
       iconUrl: user.userImg,
     };
     res.json({ userData, tokens });
-  } catch {
+  } catch (err) {
     res.status(500).json({ message: "server error, please try again" });
   }
 };

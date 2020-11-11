@@ -11,9 +11,6 @@ function AuthModal(props: any) {
       centered
     >
       <Modal.Header closeButton>
-        {/* <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title> */}
       </Modal.Header>
         <LoginPage />
     </Modal>

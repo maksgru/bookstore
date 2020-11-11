@@ -38,3 +38,8 @@ body {
 .gen-item:hover {
   font-weight: bold;
 }
+
+.userImg {
+  width: 200px;
+  height: 200px;
+}

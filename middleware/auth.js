@@ -16,19 +16,17 @@ module.exports = (req, res, next) => {
   try {
     const payload = jwt.verify(token, jwtSecret);
     if (payload.type !== 'access') {
-      res.status(401).json({message: 'Invalid token'});
-      return;
+      return res.status(401).json({message: 'Invalid token'});
     }
+    req.userId = payload.userId;
+    next();
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError) {
-      res.status(401).json({message: 'Token expired'});
-      return;
+      return res.status(401).json({message: 'Token expired'});
     }
     if (err instanceof jwt.JsonWebTokenError) {
-      res.status(401).json({message: 'Invalid token.'});
-      return;
+      return res.status(401).json({message: 'Invalid token.'});
     }
+    return res.status(500).json({message: err.message});
   }
-
-  next();
 };

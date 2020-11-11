@@ -1,19 +1,15 @@
 import React from "react";
-import { useDispatch } from 'react-redux';
 import { Card } from "react-bootstrap";
 import CardFooter from './CardFooter';
 import { Link } from "react-router-dom";
-import { getBook } from "../../api/bookApi";
-import { book, bookPageLoaded } from "../../actions/bookActions";
+import { bookType } from "../../actions/bookActions";
 
 interface Bprops {
-  book: book
+  book: bookType
 }
 const BookCard = ({ book }: Bprops) => {
-  const dispatch = useDispatch();
-  const loadBookPage = async () => {
-    const data = await getBook(book.id);
-    dispatch(bookPageLoaded(data))
+  const loadBookPage = () => {
+    localStorage.setItem('bookId', book.id.toString())
   }
   return (
     <Card
