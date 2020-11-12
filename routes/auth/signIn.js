@@ -6,7 +6,7 @@ const User = models.User;
 
 const signIn = async (req, res) => {
   try {
-    const { email, password } = req.body.user;
+    const { email, password } = req.body;
     if (!email) return res.status(400).json({ message: "invalid login data" });
 
     const user = await User.findOne({ where: { email: email } });

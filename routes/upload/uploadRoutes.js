@@ -10,7 +10,7 @@ const storageConfig = multer.diskStorage({
   },
 });
 
-router.post("/upload", isAuth, multer({ storage: storageConfig }).single("filedata"), async (req, res, next) => {
+router.post("/userimg", isAuth, multer({ storage: storageConfig }).single("filedata"), async (req, res, next) => {
     const profileImg = "/uploads/" + req.file.filename;
     let filedata = req.file;
     if (!filedata) {
@@ -26,12 +26,30 @@ router.post("/upload", isAuth, multer({ storage: storageConfig }).single("fileda
         return res.status(404).json({ message: "user not found" });
       }
 
-      await user.update({ userImg: profileImg }, { where: { id: userId } });
+      await user.update({ userImg: profileImg });
       return res.json({ profileImg });
     } catch (error) {
       return res.status(401).json({ message: error.message });
     }
   }
+);
+
+router.post("/book", isAuth, multer({ storage: storageConfig }).single("bookImg"), async (req, res, next) => {
+  const bookIcon = "/uploads/" + req.file.filename;
+  let filedata = req.file;
+  const { name, author, description } = req.body;
+  if (!filedata) {
+    res.status(400).json("File is missing");
+    return;
+  }
+  const userId = req.userId;
+  try {
+    await models.Book.create({author, name, bookIcon, userId, description});
+    res.json('book created')
+  } catch (error) {
+    return res.status(401).json({ message: error.message });
+  }
+}
 );
 
 module.exports = router;

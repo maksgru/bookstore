@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth/authRoutes");
 const bookRoutes = require("./routes/book/bookRoutes");
-
+const uploadRoutes = require("./routes/upload/uploadRoutes")
 const app = express();
 
 app.use(bodyParser.json());

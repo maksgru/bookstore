@@ -21,7 +21,7 @@ const NavBar = ({ userName, userIcon, isLoggedIn, logOut }: NavBarProps) => {
   };
   if (isLoggedIn) modal = false;
   return (
-    <Navbar expand="md" bg="dark" variant="dark">
+    <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
       {modal && <AuthModal show={modalShow} onHide={() => setModalShow(false)} />}
       <Container>
         <Navbar.Brand href="/">bookSTORE</Navbar.Brand>

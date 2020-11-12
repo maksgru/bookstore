@@ -4,11 +4,13 @@ const axiosInstance = axios.create({
   baseURL: '',
 });
 
+const token = localStorage.getItem('token');
+
 axiosInstance.interceptors.request.use((request) => {
   if (!request.headers) {
     request.headers = {};
   }
-  request.headers.Authorization = `Bearer ${'token'}`;
+  request.headers.Authorization = `Bearer ${token}`;
   return request;
 });
 

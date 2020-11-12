@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import AddBookTab from "./profile-tabs/AddBookTab";
-import axios from "axios";
+import axios from "../../../api/axios";
 interface UserPageProps {
   iconUrl: string;
   userName: string;
@@ -20,9 +20,9 @@ const UserPage = (props: UserPageProps) => {
   const [file, setFile] = useState("");
   const formData = new FormData();
   const submitUserImg = (e: any) => {
-    e.preventDefault();
+    // e.preventDefault();
     formData.append("filedata", file);
-    axios("/upload", {
+    axios("/upload/userimg", {
       method: "post",
       data: formData,
       headers: {
@@ -64,7 +64,7 @@ const UserPage = (props: UserPageProps) => {
                   className="mt-2"
                   as="input"
                   onClick={submitUserImg}
-                  type="button"
+                  type="submit"
                   value="Load"
                   size="sm"
                 />

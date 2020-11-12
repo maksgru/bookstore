@@ -3,6 +3,7 @@ import { Container, Card, Row, Col, Image, Figure } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getBook } from "../../../api/bookApi";
 import { bookPageLoaded } from "../../../actions/bookActions";
+import DescriptionForm from "./DescriptionForm";
 
 const BookPage = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const BookPage = () => {
         </Container>
         <Card.Body>
           <Card.Title>{book.name}</Card.Title>
-          <Card.Text>{book.description}</Card.Text>
+          <DescriptionForm description={book.description} bookId={book.id} />       
         </Card.Body>
       </Card>
     </Container>
