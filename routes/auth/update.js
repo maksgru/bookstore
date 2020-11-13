@@ -2,7 +2,6 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const models = require("../../database/models");
 
-const User = models.User;
 const jwtSecret = process.env.JWT_SECRET;
 
 const updateUserData = async (req, res) => {
@@ -25,10 +24,10 @@ const updateUserData = async (req, res) => {
   const userId = +payload.userId;
   let user;
   try {
-    user = await User.findOne({ where: { id: userId } });
+    user = await models.User.findOne({ where: { id: userId } });
     if (!user) return res.status(404).json({ message: "user not found" });
   } catch (error) {
-    return res.status(401).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
   user = {
     userName: user.name,

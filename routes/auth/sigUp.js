@@ -1,14 +1,12 @@
 const bcrypt = require("bcryptjs");
 const models = require("../../database/models");
 
-const User = models.User;
-
 const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     console.log("user", name, email, password);
 
-    const candidate = await User.findOne({ where: { email: email } });
+    const candidate = await models.User.findOne({ where: { email: email } });
     console.log(candidate);
     if (candidate) {
       res.status(400).json({ message: "Email already used" });

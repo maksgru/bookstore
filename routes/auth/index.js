@@ -8,11 +8,8 @@ const signUp = require('./sigUp');
 const router = express.Router();
 
 router.post('/signin', signIn);
-
 router.post('/signup', signUp);
-
 router.post('/refresh-tokens', refreshTokens);
-
-router.get('/update', authMiddleware, updateUserData);
+router.post('/update', authMiddleware, updateUserData);
 
 module.exports = router;

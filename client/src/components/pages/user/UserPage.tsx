@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import AddBookTab from "./profile-tabs/AddBookTab";
-import axios from "../../../api/axios";
+import { addUserAvatar } from "../../../api/uploadApi";
 interface UserPageProps {
   iconUrl: string;
   userName: string;
@@ -22,13 +22,7 @@ const UserPage = (props: UserPageProps) => {
   const submitUserImg = (e: any) => {
     // e.preventDefault();
     formData.append("filedata", file);
-    axios("/upload/userimg", {
-      method: "post",
-      data: formData,
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+    addUserAvatar(formData);
   };
 
   const handleChange = (e: any) => {

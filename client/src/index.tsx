@@ -8,10 +8,9 @@ import { createStore, applyMiddleware } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { reducer } from './reducers';
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from 'redux-thunk';
-const store = createStore(
+export const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware())
   // other store enhancers if any
 );
 

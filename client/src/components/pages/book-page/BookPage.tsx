@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
-import { Container, Card, Row, Col, Image, Figure } from "react-bootstrap";
+import { Container, Card, Row, Col, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getBook } from "../../../api/bookApi";
 import { bookPageLoaded } from "../../../actions/bookActions";
 import DescriptionForm from "./DescriptionForm";
+import BookImages from "./BookImages";
+import AddImageForm from "./AddImageForm";
 
 const BookPage = () => {
   const dispatch = useDispatch();
-  const { book, bookImages } = useSelector((state: any) => ({
+  const { book, bookImages, isAuth } = useSelector((state: any) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
+    isAuth: state.auth.isLoggedIn
   }));
   useEffect(() => {
     const bookId = +localStorage.getItem("bookId")!;
@@ -19,34 +22,26 @@ const BookPage = () => {
     };
     getData();
   }, [dispatch]);
+  const images = [book.bookIcon, ...bookImages.map((image: any) => image.url)];
   return (
     <Container>
       <Card>
-        <Card.Header as="h5">{book.author}</Card.Header>
-        <Container className="mt-2">
-          <Row>
-            <Col>
-              <Image src={book.bookIcon} rounded />
-            </Col>
-            <Col>
+        <Card.Header as="h5">{book.author}
+       {isAuth && <AddImageForm />}
+        </Card.Header>
+        <Container fluid className="mt-2">
+          <Row className="justify-content-center">
+            <Col md="6" sm="8" lg="4">
               <Row>
-                {bookImages.map((image: any) => (
-                  <Figure key={image.id} className="mx-2">
-                    <Figure.Image
-                      width={171}
-                      height={180}
-                      alt="171x180"
-                      src={image.url}
-                    />
-                  </Figure>
-                ))}
+                <Image src={book.bookIcon} rounded />
               </Row>
+              <BookImages images={images} />
             </Col>
           </Row>
         </Container>
         <Card.Body>
           <Card.Title>{book.name}</Card.Title>
-          <DescriptionForm description={book.description} bookId={book.id} />       
+          <DescriptionForm description={book.description} bookId={book.id} />
         </Card.Body>
       </Card>
     </Container>

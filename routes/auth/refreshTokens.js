@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const models = require("../../database/models");
 const updateTokens = require('./authHelper');
 
-const Token = models.Token;
 const jwtSecret = process.env.JWT_SECRET;
 
 const refreshTokens = async (req, res) => {
@@ -15,7 +14,7 @@ const refreshTokens = async (req, res) => {
     if (payload.type !== "refresh") {
       return res.staus(400).json({ message: "Invalid token" });
     }
-    const token = await Token.findOne({ where: { tokenId: payload.id } });
+    const token = await models.Token.findOne({ where: { tokenId: payload.id } });
 
     if (!token) return res.status(400).json({ message: err.message })
   
@@ -27,7 +26,7 @@ const refreshTokens = async (req, res) => {
     } else if (err instanceof jwt.JsonWebTokenError) {
       return res.status(400).json({ message: "Invalid token" });
     }
-    return res.status(400).json({ message: err.message })
+    return res.status(400).json({ message: 'we got here' })
   }
 };
 
