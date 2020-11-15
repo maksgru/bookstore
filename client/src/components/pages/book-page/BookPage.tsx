@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Card, Row, Col, Image } from "react-bootstrap";
+import { Container, Card, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getBook } from "../../../api/bookApi";
 import { bookPageLoaded } from "../../../actions/bookActions";
@@ -12,7 +12,7 @@ const BookPage = () => {
   const { book, bookImages, isAuth } = useSelector((state: any) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
-    isAuth: state.auth.isLoggedIn
+    isAuth: state.auth.isLoggedIn,
   }));
   useEffect(() => {
     const bookId = +localStorage.getItem("bookId")!;
@@ -26,8 +26,9 @@ const BookPage = () => {
   return (
     <Container>
       <Card>
-        <Card.Header as="h5">{book.author}
-       {isAuth && <AddImageForm />}
+        <Card.Header as="h5">
+          {book.author}
+          {isAuth && <AddImageForm />}
         </Card.Header>
         <Container fluid className="mt-2">
           <Row className="justify-content-center">
@@ -40,7 +41,18 @@ const BookPage = () => {
           </Row>
         </Container>
         <Card.Body>
-          <Card.Title>{book.name}</Card.Title>
+          <Card.Title>
+            {book.name}
+            <Button className="float-right" variant="outline-warning" size="sm">
+              <strong className="text-danger">
+                $ 200
+                <i
+                  className="fa fa-shopping-cart fa-lg ml-2"
+                  aria-hidden="true"
+                />
+              </strong>
+            </Button>
+          </Card.Title>
           <DescriptionForm description={book.description} bookId={book.id} />
         </Card.Body>
       </Card>

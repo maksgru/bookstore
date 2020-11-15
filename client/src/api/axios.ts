@@ -7,12 +7,12 @@ const axiosInstance = axios.create({
   baseURL: '',
 });
 
-const token = localStorage.getItem('token');
 
 axiosInstance.interceptors.request.use((request) => {
-  if (!request.headers) {
-    request.headers = {};
-  }
+  const token = localStorage.getItem('token');
+  // if (!request.headers) {
+  //   request.headers = {};
+  // }
   request.headers.Authorization = `Bearer ${token}`;
   return request;
 });
@@ -29,17 +29,24 @@ axiosInstance.interceptors.response.use(
     if (!refreshToken) {
       store.dispatch(signOut());
       throw err
-    } 
+    }
     if (status === 401 && originalRequest.url !== refreshUrl) {
-      axios.post(refreshUrl, { refreshToken })
+      return axios.post(refreshUrl, { refreshToken })
         .then((res) => {
-          console.log(res)
           const tokens = {
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken
           }
           setTokens(tokens);
-          updateUserData()
+          originalRequest.headers.Authorization = `Bearer ${res.data.accessToken}`
+          return axios(originalRequest)
+            .then(({ data }) => data)
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            store.dispatch(signOut());
+            return;
+          }
         });
     }
     store.dispatch(error());
@@ -56,12 +63,19 @@ interface Tokens {
 const setTokens = (tokens: Tokens) => {
   localStorage.setItem('token', tokens.accessToken);
   localStorage.setItem('refreshToken', tokens.refreshToken);
-} 
+}
 
 export const updateUserData = async () => {
+  const token = localStorage.getItem('token');
   if (token) {
-    const data = await axiosInstance.post(`/auth/update`);
-    store.dispatch(update(data))
+    try {
+      const response = await axiosInstance.post(`/auth/update`);
+      if (response) {
+        store.dispatch(update(response))
+      }
+    } catch (err) {
+      throw err
+    }
   }
 };
 updateUserData()

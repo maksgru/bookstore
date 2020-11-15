@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Button, DropdownButton } from "react-bootstrap";
 
 const AddImageForm = () => {
   const [isFormShow, setFormShow] = useState(false);
@@ -11,21 +11,43 @@ const AddImageForm = () => {
   };
   let handleForm = isFormShow ? submitForm : toggleForm;
   return (
-  
-        <Form inline className="float-right">
-        {isFormShow &&  <Form.Group><Form.File className="h-50" id="custom-file" label="Custom file input" custom /></Form.Group>  }
-        <Button
-          onClick={handleForm}
-          variant="outline-info"
-          size="sm"
-        >
-          <span>
-            Upload new image
-            <i className="fa fa-picture-o fa-lg ml-2" aria-hidden="true" />
-          </span>
-        </Button>
-        </Form>
-      
+    <DropdownButton
+      className="float-right"
+      menuAlign="right"
+      title={
+        <span>
+          Upload new image
+          <i className="fa fa-picture-o fa-lg ml-2" aria-hidden="true" />
+        </span>
+      }
+      id="dropdown-menu-align-right"
+      variant="outline-info"
+      size="sm"
+    >
+      <div className="input-group m-1 border border-info rounded" style={{ minWidth: "400px" }}>
+        <div className="custom-file">
+          <input
+            type="file"
+            className="custom-file-input"
+            id="inputGroupFile04"
+            aria-describedby="inputGroupFileAddon04"
+          />
+          <label className="custom-file-label" htmlFor="inputGroupFile04">
+            Choose file
+          </label>
+        </div>
+        <div className="input-group-append">
+          <Button
+            className="float-right"
+            onClick={handleForm}
+            variant="outline-info"
+            size="sm"
+          >
+            Upload
+          </Button>
+        </div>
+      </div>
+    </DropdownButton>
   );
 };
 export default AddImageForm;

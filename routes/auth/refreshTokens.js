@@ -22,11 +22,11 @@ const refreshTokens = async (req, res) => {
     return res.json(tokens);
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError) {
-      return res.status(400).json({ message: "Token expired" });
+      return res.status(401).json({ message: "Token expired" });
     } else if (err instanceof jwt.JsonWebTokenError) {
       return res.status(400).json({ message: "Invalid token" });
     }
-    return res.status(400).json({ message: 'we got here' })
+    return res.status(400).json({ message: err.message })
   }
 };
 
