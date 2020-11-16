@@ -34,7 +34,6 @@ const BookList = () => {
           ))
         )}
       </CardGroup>
-
       <Row className="justify-content-center">
         <PaginationForm />
       </Row>

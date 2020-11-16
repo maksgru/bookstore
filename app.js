@@ -16,12 +16,12 @@ app.use("/books", bookRoutes);
 app.use("/upload", isAuth, uploadRoutes);
 
 
-const addBookGener = async () => {
-  const book = await models.Book.findOne({where: {id: 15}});
-  const gener = await models.Gener.findOne({where: {id: 1}})
-  book.addGener(gener);
-}
+// const addBookGener = async () => {
+//   const book = await models.Book.findOne({where: {id: 15}});
+//   const gener = await models.Gener.findOne({where: {id: 1}})
+//   book.addGener(gener);
+// }
 
-addBookGener()
+// addBookGener()
 
 app.listen(4000, () => console.log("server started"));

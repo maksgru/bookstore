@@ -15,10 +15,11 @@ const FilterPanel = () => {
     <Col md={4} xs={6} lg={3}>
       <Geners />
       <RatingForm />
-      <Form className="mb-3">
+      <Form className="mb-2">
         <strong>Authors</strong>
         {authors.map((author: string) => (
           <Form.Check
+          className="ml-1"
             key={author}
             type="checkbox"
             id="authorNme"
@@ -26,27 +27,19 @@ const FilterPanel = () => {
           />
         ))}
       </Form>
-      <Form>
-        <strong>Range</strong>
-        <Form.Group controlId="formBasicRange">
-          <Form.Label>
-            <Form.Control type="range" style={{width: "13rem"}} />
-          </Form.Label>
-        </Form.Group>
+      <Form style={{maxWidth: '100px'}}>
+        <strong>Price</strong>
 
-        <Form.Row>
-          <Col md="6">
-            <Form.Group controlId="rangeMin">
+            <Form.Group controlId="rangeMin" className="ml-1 mt-1">
               <Form.Control type="number" size="sm" placeholder="min" />
             </Form.Group>
-          </Col>
+  
 
-          <Col md="6">
-            <Form.Group controlId="rangeMax">
+ 
+            <Form.Group controlId="rangeMax" className="ml-1">
               <Form.Control type="number" size="sm" placeholder="max" />
             </Form.Group>
-          </Col>
-        </Form.Row>
+ 
       </Form>
     </Col>
   );

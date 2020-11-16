@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Nav } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { genersLoaded } from '../../actions/generActions';
 import { getGeners } from '../../api/bookApi';
@@ -16,14 +17,14 @@ const Geners = () => {
     getData()
   }, [dispatch]);
   return (
-    <div className="mb-3">
+    <div className="mb-2">
         <strong>Genres</strong>
         <div>
           {geners.map((item: string) => {
             return (
-                <div key={item} className="ml-4 gen-item">
+                <Nav.Link key={item} className="ml-1 p-0 gen-item">
                   {item}
-                </div>
+                </Nav.Link>
             );
           })}
         </div>

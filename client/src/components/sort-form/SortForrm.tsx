@@ -35,7 +35,7 @@ const SortForm = () => {
     setLoading(false);
   };
   return (
-    <Row className="justify-content-end mr-1">
+    <Row className="justify-content-end mr-3 pb-2">
       <ButtonGroup>
         <Button
           onClick={handleDirection}

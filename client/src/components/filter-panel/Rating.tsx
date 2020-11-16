@@ -3,14 +3,14 @@ import { Button, Row } from 'react-bootstrap';
 const RatingForm = () => {
   const stars = Array.from(Array(5).keys());
   return (
-    <div className="mb-1">
+    <div>
       <strong>Rating</strong>
-    <Row className="m-auto justify-content-center">
+    <Row className="mt-1 ml-1">
     {
       stars.map(item => (
         <div key={item}>
-          <Button variant="outline-warning btn-tog btn-bdnone star-rat" size="sm">
-            <i className="fa fa-star-o fa-2x" aria-hidden="true" />
+          <Button variant="outline-warning btn-tog btn-bdnone star-rat mb-2" size="sm">
+            <i className="fa fa-star-o fa-lg" aria-hidden="true" />
           </Button>
         </div>
       ))
