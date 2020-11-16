@@ -1,15 +1,22 @@
 import * as React from "react";
 import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 
-const CardFooter = () => {
+interface CardFooterProps {
+  rating: number;
+}
+
+const CardFooter = ({ rating }: CardFooterProps) => {
   return (
     <Card.Footer className="p-1">
       <div className="mt-2 ml-2 float-left">
-        {Array.from(Array(5).keys()).map((item) => (
+        {Array.from(Array(5).keys()).map((item) => {
+          const idx = +item < rating ? '' : '-o';
+          return (
           <div key={item + "a"} className="text-warning float-left mx-1">
-            <i className="fa fa-star" aria-hidden="true" />
-          </div>
-        ))}
+            <i className={`fa fa-star${idx}`} aria-hidden="true" />
+          </div>)
+          }
+        )}
       </div>
       <OverlayTrigger
         overlay={<Tooltip id="tooltip-disabled">Add to cart</Tooltip>}

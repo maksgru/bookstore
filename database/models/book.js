@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'images',
         onDelete: 'CASCADE'
       });
+      Book.belongsToMany(models.Gener, {
+        through: models.BookGeners,
+        as: 'geners',
+        foreignKey: 'bookId'
+      });
     }
   };
   Book.init({

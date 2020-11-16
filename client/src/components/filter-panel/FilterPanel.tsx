@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import { Form, Col } from "react-bootstrap";
+import Geners from "./Geners";
 import RatingForm from "./Rating";
 
 const FilterPanel = () => {
@@ -13,20 +13,7 @@ const FilterPanel = () => {
   ];
   return (
     <Col md={4} xs={6} lg={3}>
-      <div className="mb-3">
-        <strong>Genres</strong>
-        <div>
-          {Array.from(Array(5).keys()).map((item) => {
-            return (
-              <Link to='/' key={item + "s"} style={{ textDecoration: 'none' }}>
-                <div className="ml-4 gen-item">
-                  literature genre
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+      <Geners />
       <RatingForm />
       <Form className="mb-3">
         <strong>Authors</strong>

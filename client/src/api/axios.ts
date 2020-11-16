@@ -78,6 +78,6 @@ export const updateUserData = async () => {
     }
   }
 };
-updateUserData()
+updateUserData();
 
 export default axiosInstance;

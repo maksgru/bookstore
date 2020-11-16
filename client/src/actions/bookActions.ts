@@ -7,6 +7,7 @@ export interface bookType {
   name: string,
   description: string,
   rating: number,
+  price: number,
   userId: number
 }
 

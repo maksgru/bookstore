@@ -1,26 +1,71 @@
-import React from "react";
-import { Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Button,
+  ButtonGroup,
+  Dropdown,
+  DropdownButton,
+  Row,
+} from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { booksLoaded, bookType } from "../../actions/bookActions";
+import { getAll } from "../../api/bookApi";
 
 const SortForm = () => {
+  const [title, setTitle] = useState("Name");
+  const [type, setType] = useState("asc");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleSort = async (e: any) => {
+    const value = e.target.innerText;
+    setTitle(value);
+    sort(value, type);
+  };
+  const handleDirection = async () => {
+    type === "asc" ? setType("desc") : setType("asc");
+    const direction = type === "desc" ? "asc" : "desc";
+    sort(title, direction);
+  };
+  const sort = async (title: string, type: string) => {
+    setLoading(true);
+    const sortTarget = title.toLowerCase();
+    const direction = type.toUpperCase();
+    const books: bookType[] = await getAll(sortTarget, direction);
+    dispatch(booksLoaded(books));
+    setLoading(false);
+  };
   return (
     <Row className="justify-content-end mr-1">
-      <Form inline>
-        <Form.Label className="my-1 mr-2" htmlFor="sortBy">
-          Sort by
-        </Form.Label>
-        <Form.Control
+      <ButtonGroup>
+        <Button
+          onClick={handleDirection}
+          variant="outline-info"
           size="sm"
-          as="select"
-          className="my-1 mr-sm-2"
-          id="sortBy"
-          custom
+          disabled={loading}
         >
-          <option value="0">Name</option>
-          <option value="1">Rating</option>
-          <option value="2">Price</option>
-        </Form.Control>
-      </Form>
-      </Row>
+          <i className={`fa fa-sort-amount-${type}`} aria-hidden="true" />
+        </Button>
+
+        <DropdownButton
+          disabled={loading}
+          variant="outline-info"
+          as={ButtonGroup}
+          title={title}
+          id="bg-nested-dropdown"
+          size="sm"
+        >
+          <Dropdown.Item onClick={handleSort} eventKey="1">
+            Name
+          </Dropdown.Item>
+          <Dropdown.Item onClick={handleSort} eventKey="2">
+            Price
+          </Dropdown.Item>
+          <Dropdown.Item onClick={handleSort} eventKey="2">
+            Rating
+          </Dropdown.Item>
+        </DropdownButton>
+      </ButtonGroup>
+    </Row>
   );
 };
 

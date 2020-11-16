@@ -25,10 +25,13 @@ const BookCard = ({ book }: Bprops) => {
       >
         <Card.Img variant="top" className="p-3" src={book.bookIcon} />
         <Card.Body className="bk-card pt-0">
-          <Card.Text>{book.author}</Card.Text>
+          <Card.Text>
+            {book.author}
+            <strong className="float-right text-info">{`$ ${(book.price / 100).toFixed(2)}`}</strong>
+          </Card.Text>
         </Card.Body>
       </Link>
-      <CardFooter />
+      <CardFooter rating={book.rating} />
     </Card>
   );
 };

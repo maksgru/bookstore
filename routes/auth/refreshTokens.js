@@ -7,7 +7,6 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const refreshTokens = async (req, res) => {
   const { refreshToken } = req.body;
-  console.log(refreshToken)
   let payload;
   try {
     payload = jwt.verify(refreshToken, jwtSecret);

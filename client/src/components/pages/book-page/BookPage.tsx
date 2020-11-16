@@ -45,7 +45,7 @@ const BookPage = () => {
             {book.name}
             <Button className="float-right" variant="outline-warning" size="sm">
               <strong className="text-danger">
-                $ 200
+                {`$ ${(book.price / 100).toFixed(2)}`}
                 <i
                   className="fa fa-shopping-cart fa-lg ml-2"
                   aria-hidden="true"
