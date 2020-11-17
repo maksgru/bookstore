@@ -26,6 +26,11 @@ export const signOut = () => {
   return { type: actionTypes.SIGN_OUT };
 };
 
+export const changeUserImg = (img: any) => ({
+  type: actionTypes.CHANGE_USER_IMG,
+  payload: img
+})
+
 const handleUserData = (data: data) => {
   localStorage.setItem('token', data.tokens.accessToken);
   localStorage.setItem('refreshToken', data.tokens.refreshToken);

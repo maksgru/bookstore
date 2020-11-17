@@ -6,6 +6,8 @@ import { addNewBook } from "../../../../api/bookApi";
 interface Astate {
   name: string;
   author: string;
+  gener: string;
+  price: string;
   description: string;
   bookImage: any;
 }
@@ -19,6 +21,8 @@ class AddBookTab extends Component<Aprops, Astate> {
     this.state = {
       name: "",
       author: "",
+      gener: "",
+      price: "",
       description: "",
       bookImage: null,
     };
@@ -28,16 +32,20 @@ class AddBookTab extends Component<Aprops, Astate> {
     const value = e.target.value;
     const key = e.target.name;
     this.setState({ [key]: value } as any);
+    console.log(this.state)
   };
   handleFile = (e: any) => {
     e.preventDefault();
     this.setState({ bookImage: e.target.files[0] });
   };
-  createBook = async () => {
+  createBook = async (e: any) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("bookImg", this.state.bookImage);
     formData.append("name", this.state.name);
     formData.append("author", this.state.author);
+    formData.append("gener", this.state.gener);
+    formData.append("price", this.state.price);
     formData.append("description", this.state.description);
     await addNewBook(formData);
   };
@@ -63,11 +71,19 @@ class AddBookTab extends Component<Aprops, Astate> {
         </Form.Group>
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Book gener</Form.Label>
-          <Form.Control as="select">
+          <Form.Control as="select" name="gener" onChange={this.handleChange}>
             {
-              this.props.geners.map((item: string) => (<option>{item}</option>))
+              this.props.geners.map((item: string) => (<option key={item}>{item}</option>))
             }
           </Form.Control>
+        </Form.Group>
+        <Form.Group>
+        <Form.Label>Book price</Form.Label>
+          <Form.Control
+            name="price"
+            onChange={this.handleChange}
+            placeholder="Book price"
+          />
         </Form.Group>
         <Form.Group>
           <Form.File

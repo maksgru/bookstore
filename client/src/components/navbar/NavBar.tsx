@@ -26,8 +26,7 @@ const NavBar = ({ userName, userIcon, isLoggedIn, logOut }: NavBarProps) => {
       <Container>
         <Navbar.Brand href="/">bookSTORE</Navbar.Brand>
         <span className="navbar-text">
-          <span className="mr-4">{userName}</span>
-          {isLoggedIn && <UserIcon iconUrl={userIcon} />}
+          {isLoggedIn && <UserIcon iconUrl={userIcon} userName={userName} />}
           <Button
             onClick={authAction}
             variant="outline-info btn-tog btn-bdnone m-0"

@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'owner'
       });
+      Book.belongsTo(models.Author, {
+        foreignKey: 'authorId',
+        as: 'writer'
+      });
       Book.hasMany(models.Image, {
         foreignKey: 'bookId',
         as: 'images',
@@ -29,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Book.init({
     name: DataTypes.STRING,
-    author: DataTypes.STRING,
+    // author: DataTypes.STRING,
     description: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     price: DataTypes.INTEGER,

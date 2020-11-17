@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 
 interface userIconType {
   iconUrl: string;
+  userName: string;
 }
 
-const UserIcon = ({ iconUrl }: userIconType) => (
-  <Link to="/profile" className="p-0 mr-4">
+const UserIcon = ({ iconUrl, userName }: userIconType) => (
+  <Link to="/profile" className="p-0 mr-4 btn-bdnone" style={{textDecoration: "none"}}>
+    <span className="mr-4" >{userName}</span>
     <Figure className="m-0">
       <Figure.Image
         className="m-0 rounded-circle"

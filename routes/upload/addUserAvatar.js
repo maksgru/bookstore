@@ -1,6 +1,6 @@
 const multer = require("multer");
 const models = require('../../database/models');
-
+const fs = require('fs')
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads");
@@ -24,11 +24,19 @@ const addUserAvatar = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
+    try {
+      if (user.userImg) {
 
+        fs.unlinkSync(`.${user.userImg}`)
+      }
+      //file removed
+    } catch(err) {
+      return res.status(500).json({ message: error.message });
+    }
     await user.update({ userImg: profileImg });
-    return res.json({ profileImg });
+    return res.json(profileImg);
   } catch (error) {
-    return res.status(401).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 

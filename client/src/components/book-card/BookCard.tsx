@@ -15,7 +15,7 @@ const BookCard = ({ book }: Bprops) => {
     <Card
       style={{ minWidth: "14rem", maxWidth: "16rem", marginBottom: "20px" }}
     >
-      <Card.Header>
+      <Card.Header className="clip">
         <strong>{book.name}</strong>
       </Card.Header>
       <Link
@@ -23,7 +23,7 @@ const BookCard = ({ book }: Bprops) => {
         onClick={loadBookPage}
         style={{ textDecoration: "none" }}
       >
-        <Card.Img variant="top" className="p-3" src={book.bookIcon} />
+        <Card.Img variant="top" className="p-3 mx-auto d-block" src={book.bookIcon} style={{maxHeight: '15rem', width: 'auto'}} />
         <Card.Body className="bk-card pt-0">
           <Card.Text>
             {book.author}

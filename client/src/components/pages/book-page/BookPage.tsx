@@ -34,7 +34,7 @@ const BookPage = () => {
           <Row className="justify-content-center">
             <Col md="6" sm="8" lg="4">
               <Row>
-                <Image src={book.bookIcon} rounded />
+                <Image style={{maxHeight: '30rem', width: 'auto'}} src={book.bookIcon} rounded />
               </Row>
               <BookImages images={images} />
             </Col>

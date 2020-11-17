@@ -28,6 +28,8 @@ const auth = (state = initialState, action: action) => {
       };
     case actionTypes.SIGN_OUT:
       return initialState;
+    case actionTypes.CHANGE_USER_IMG:
+      return {...state, userImg: action.payload};
     default:
       return state;
   }

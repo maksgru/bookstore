@@ -17,7 +17,7 @@ const BookList = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await getAll();
-      setTimeout(() => dispatch(booksLoaded(data)), 1000); // timeout for showing spinner
+      dispatch(booksLoaded(data)); 
     };
     getData();
   }, [dispatch]);

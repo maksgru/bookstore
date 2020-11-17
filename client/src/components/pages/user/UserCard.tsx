@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Form, Button, Figure } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUserImg } from '../../../actions/authActions';
 import { addUserAvatar } from "../../../api/uploadApi";
 
 
 const UserCard = () => {
+  const dispatch = useDispatch();
   const { userName, iconUrl } = useSelector((state: any) => ({
     userName: state.auth.name,
     iconUrl: state.auth.userImg
@@ -12,10 +14,11 @@ const UserCard = () => {
   const [file, setFile] = useState("");
   const formData = new FormData();
   
-  const submitUserImg = (e: any) => {
+  const submitUserImg = async (e: any) => {
     e.preventDefault();
     formData.append("filedata", file);
-    addUserAvatar(formData);
+    const img = await addUserAvatar(formData);
+    dispatch(changeUserImg(img));
   };
 
   const handleChange = (e: any) => {

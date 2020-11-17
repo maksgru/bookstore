@@ -1,5 +1,8 @@
+import { authorsLoaded } from '../actions/authorActions';
 import { bookDetailsType } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
+import { genersLoaded } from '../actions/generActions';
+import { store } from '../index';
 
 import axios from './axios';
 
@@ -19,7 +22,7 @@ export const setBookDescription = async (id: number, description: string) => {
 };
 
 export const addNewBook = async (formData: any) => {
-  const res = await axios("/upload/book", {
+  const res = await axios("/books", {
     method: "post",
     data: formData,
     headers: {
@@ -29,7 +32,10 @@ export const addNewBook = async (formData: any) => {
   return res;
 };
 
-export const getGeners = async () => {
-  const geners: string[] = await axios.get('/books/geners');
-  return geners;
+export const getData = async () => {
+  const data: any = await axios.get('/data');
+  store.dispatch(authorsLoaded(data.authorNames));
+  store.dispatch(genersLoaded(data.generNames));
 };
+getData();
+      

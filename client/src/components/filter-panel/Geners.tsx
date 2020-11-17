@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { genersLoaded } from '../../actions/generActions';
-import { getGeners } from '../../api/bookApi';
+import { useSelector } from 'react-redux';
+
 
 const Geners = () => {
-  const dispatch = useDispatch();
   const { geners } = useSelector((state: any) => ({
     geners: state.geners
   }));
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getGeners();
-      dispatch(genersLoaded(data));
-    };
-    getData()
-  }, [dispatch]);
+
   return (
     <div className="mb-2">
         <strong>Genres</strong>
