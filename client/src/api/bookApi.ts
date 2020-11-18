@@ -1,13 +1,14 @@
 import { authorsLoaded } from '../actions/authorActions';
-import { bookDetailsType } from '../actions/bookActions';
+import { bookDetailsType, booksLoaded } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
 import { genersLoaded } from '../actions/generActions';
 import { store } from '../index';
 
 import axios from './axios';
 
-export const getAll = async (sortTarget='name', direction='ASC') => {
-const books: bookType[] = await axios.get('/books', { params: { sortTarget, direction } });
+export const getAll = async (data: any={}) => {
+const books: bookType[] = await axios.get('/books', { params: {...data}  });
+store.dispatch(booksLoaded(books))
 return books;
 };
 

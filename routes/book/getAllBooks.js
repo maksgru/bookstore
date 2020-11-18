@@ -6,6 +6,7 @@ const getGenerId = async (generName) => {
   return gener.id;
 }
 const getAllBooks = async (req, res) => {
+  console.log(req.query)
   let books;
   const { sortTarget = "name", direction = "ASC" } = req.query;
   let where = {};
@@ -21,8 +22,14 @@ const getAllBooks = async (req, res) => {
       }
     );
   }
-  if (req.query.author) {
-    where.author = req.query.author;
+  if (req.query.authors) {
+    include.push(
+      {
+        model: models.Author,
+        as: "writer",
+        where: {name: req.query.authors}
+      }
+    );
   }
   if (req.query.price) {
     const [start, end] = req.query.price.split(",");

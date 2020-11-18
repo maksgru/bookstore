@@ -13,6 +13,7 @@ interface Astate {
 }
 interface Aprops {
   geners: string[];
+  authors: string[];
 }
 
 class AddBookTab extends Component<Aprops, Astate> {
@@ -66,14 +67,18 @@ class AddBookTab extends Component<Aprops, Astate> {
           <Form.Control
             name="author"
             onChange={this.handleChange}
-            placeholder="Book Author"
-          />
+            as="select"
+          >
+            {
+              this.props.authors.map((author: string) => (<option key={author}>{author}</option>))
+            }
+          </Form.Control>
         </Form.Group>
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Book gener</Form.Label>
           <Form.Control as="select" name="gener" onChange={this.handleChange}>
             {
-              this.props.geners.map((item: string) => (<option key={item}>{item}</option>))
+              this.props.geners.map((gener: string) => (<option key={gener}>{gener}</option>))
             }
           </Form.Control>
         </Form.Group>
@@ -117,7 +122,8 @@ class AddBookTab extends Component<Aprops, Astate> {
   }
 }
 const mstp = (state: any) => ({
-  geners: state.geners
+  geners: state.geners,
+  authors: state.authors
 });
 
 export default connect(mstp)(AddBookTab);

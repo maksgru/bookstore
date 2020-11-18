@@ -5,6 +5,7 @@ import geners from './geners';
 import authors from './authors';
 import auth from './auth';
 import error from './error';
+import filter from './filter';
 
 export const reducer = combineReducers({
   bookList,
@@ -12,5 +13,6 @@ export const reducer = combineReducers({
   geners,
   authors,
   auth,
+  filter,
   error
 });

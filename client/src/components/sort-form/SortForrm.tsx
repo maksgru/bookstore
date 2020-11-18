@@ -6,15 +6,11 @@ import {
   DropdownButton,
   Row,
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { booksLoaded, bookType } from "../../actions/bookActions";
 import { getAll } from "../../api/bookApi";
 
 const SortForm = () => {
   const [title, setTitle] = useState("Name");
   const [type, setType] = useState("asc");
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
 
   const handleSort = async (e: any) => {
     const value = e.target.innerText;
@@ -26,13 +22,10 @@ const SortForm = () => {
     const direction = type === "desc" ? "asc" : "desc";
     sort(title, direction);
   };
-  const sort = async (title: string, type: string) => {
-    setLoading(true);
+  const sort = (title: string, type: string) => {
     const sortTarget = title.toLowerCase();
     const direction = type.toUpperCase();
-    const books: bookType[] = await getAll(sortTarget, direction);
-    dispatch(booksLoaded(books));
-    setLoading(false);
+    getAll({sortTarget, direction});
   };
   return (
     <Row className="justify-content-end mr-3 pb-2">
@@ -41,13 +34,11 @@ const SortForm = () => {
           onClick={handleDirection}
           variant="outline-info"
           size="sm"
-          disabled={loading}
         >
           <i className={`fa fa-sort-amount-${type}`} aria-hidden="true" />
         </Button>
 
         <DropdownButton
-          disabled={loading}
           variant="outline-info"
           as={ButtonGroup}
           title={title}

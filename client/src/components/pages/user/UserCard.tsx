@@ -6,6 +6,7 @@ import { addUserAvatar } from "../../../api/uploadApi";
 
 
 const UserCard = () => {
+  const [isFormEmpty, setForm] = useState(true);
   const dispatch = useDispatch();
   const { userName, iconUrl } = useSelector((state: any) => ({
     userName: state.auth.name,
@@ -24,6 +25,11 @@ const UserCard = () => {
   const handleChange = (e: any) => {
     const file = e.target.files[0];
     setFile(file);
+    if (file) {
+      setForm(false)
+    } else {
+      setForm(true)
+    };
   };
   return (
     <Card style={{ maxWidth: "15rem" }}>
@@ -47,12 +53,14 @@ const UserCard = () => {
                   label="Example file input"
                 />
                 <Button
+                  variant="outline-primary"
                   className="mt-2"
                   as="input"
                   onClick={submitUserImg}
                   type="submit"
                   value="Load"
                   size="sm"
+                  disabled={isFormEmpty}
                 />
               </Form.Group>
             </Form>
