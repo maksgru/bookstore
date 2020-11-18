@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'nouislider/distribute/nouislider.css';
 import { reducer } from './reducers';
 import { composeWithDevTools } from "redux-devtools-extension";
 export const store = createStore(

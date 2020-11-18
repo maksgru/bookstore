@@ -6,7 +6,6 @@ const getGenerId = async (generName) => {
   return gener.id;
 }
 const getAllBooks = async (req, res) => {
-  console.log(req.query)
   let books;
   const { sortTarget = "name", direction = "ASC" } = req.query;
   let where = {};
@@ -35,7 +34,9 @@ const getAllBooks = async (req, res) => {
     const [start, end] = req.query.price.split(",");
     where.price = { [Op.between]: [start, end] };
   }
-  if (req.query.author) {
+  if (req.query.rating) {
+    const rating = +req.query.rating;
+    where.rating = { [Op.gte]: rating }
   }
   try {
     books = await models.Book.findAll({
