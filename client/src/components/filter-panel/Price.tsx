@@ -1,57 +1,52 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Row, Col, Badge, Container } from "react-bootstrap";
 import Nouislider from "nouislider-react";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePrice } from "../../actions/filterActions";
 
 const Price = () => {
   const dispatch = useDispatch();
-  const { price } = useSelector((state: any) => ({
+
+  const { price, priceRange } = useSelector((state: any) => ({
     price: state.filter.price,
+    priceRange: state.price,
   }));
+
+  const [min, max] = priceRange;
   const [minPrice = "", maxPrice = ""] = price.split(",");
-  const handleChangeMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = +e.target.value;
-    if (value >= 0) {
-      const minValue = value === 0 ? "" : value;
-      dispatch(handlePrice(`${minValue},${maxPrice}`));
-    }
-  };
-  const handleChangeMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = +e.target.value;
-    if (value >= 0) {
-      const maxValue = value === 0 ? "" : value;
-      dispatch(handlePrice(`${minPrice},${maxValue}`));
-    }
+  
+  const handleSlider = (...args: any) => {
+    const [ value ] = args;
+    const [ min, max ] = value;
+    const minPrice = Math.floor(min);
+    const maxPrice = Math.floor(max);
+    dispatch(handlePrice(`${minPrice},${maxPrice}`));
   };
 
   return (
-    <Form style={{ maxWidth: "100px" }}>
+    <Container className="pl-0 ml-2" style={{maxWidth: '200px'}}>
       <strong>Price</strong>
-      <Form.Group controlId="minPrice" className="ml-1 mt-1">
-        <Form.Label>Min Price</Form.Label>
-        <Form.Control
-          onChange={handleChangeMin}
-          type="number"
-          size="sm"
-          placeholder="min"
-          value={minPrice}
-        />
-      </Form.Group>
-      <Form.Label>Max Price</Form.Label>
-      <Form.Group controlId="maxPrice" className="ml-1">
-        <Form.Control
-          onChange={handleChangeMax}
-          type="number"
-          size="sm"
-          placeholder="max"
-          value={maxPrice}
-        />
-      </Form.Group>
-      <Nouislider className='my-4 ml-0' range={{ min: 0, max: 100 }} start={[20, 80]} connect />
-    </Form>
+      <Nouislider
+        className="my-3 mx-0"
+        range={{ min: min, max: max }}
+        start={[min, max]}
+        onUpdate={handleSlider}
+        connect
+      />
+      <Row>
+        <Col>
+        <Badge variant="light border border-info py-2 px-3">
+          {Math.floor(minPrice / 100)}
+        </Badge>
+        </Col>
+        <Col>
+        <Badge variant="light border border-info py-2 px-3">
+          {Math.ceil(maxPrice / 100)}
+        </Badge>
+        </Col>
+      </Row>
+    </Container>
   );
 };
-
 
 export default Price;

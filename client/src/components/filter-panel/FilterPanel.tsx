@@ -20,7 +20,7 @@ const FilterPanel = () => {
       <RatingForm />
       <Authors />
       <Price />
-      <Button onClick={handleFilter} variant="outline-info" size="sm">
+      <Button onClick={handleFilter} variant="outline-info mt-4" size="sm">
         <span>show books</span>
         <i className="fa fa-filter ml-2" aria-hidden="true" />
       </Button>

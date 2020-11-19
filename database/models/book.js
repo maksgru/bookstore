@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'geners',
         foreignKey: 'bookId'
       });
+      Book.belongsToMany(models.User, {
+        through: models.UserFavorites,
+        as: 'user',
+        foreignKey: 'bookId'
+      });
     }
   };
   Book.init({

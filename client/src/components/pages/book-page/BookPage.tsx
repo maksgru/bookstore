@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getBook } from "../../../api/bookApi";
@@ -9,20 +9,30 @@ import AddImageForm from "./AddImageForm";
 
 const BookPage = () => {
   const dispatch = useDispatch();
+  const [bookIcon, setBookIcon] = useState('');
+
   const { book, bookImages, isAuth } = useSelector((state: any) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
     isAuth: state.auth.isLoggedIn,
   }));
+
   useEffect(() => {
     const bookId = +localStorage.getItem("bookId")!;
     const getData = async () => {
       const data = await getBook(bookId);
       dispatch(bookPageLoaded(data));
+      setBookIcon(data.book.bookIcon);
     };
     getData();
   }, [dispatch]);
+  
   const images = [book.bookIcon, ...bookImages.map((image: any) => image.url)];
+  
+  const handleImage = (image: string) => {
+    setBookIcon(image);
+  };
+
   return (
     <Container>
       <Card>
@@ -34,9 +44,9 @@ const BookPage = () => {
           <Row className="justify-content-center">
             <Col md="6" sm="8" lg="4">
               <Row>
-                <Image style={{maxHeight: '30rem', width: 'auto'}} src={book.bookIcon} rounded />
+                <Image style={{maxHeight: '30rem', width: 'auto'}} src={bookIcon} rounded />
               </Row>
-              <BookImages images={images} />
+              <BookImages images={images} toggleImage={handleImage} />
             </Col>
           </Row>
         </Container>

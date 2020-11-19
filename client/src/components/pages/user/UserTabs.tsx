@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Nav } from 'react-bootstrap';
 import AddBookTab from "./profile-tabs/AddBookTab";
-import CartTab from './profile-tabs/CartTab';
 import FavoreteBooksTab from './profile-tabs/FavoriteBooksTab';
 
 const UserTabs  = () => {
@@ -20,16 +19,12 @@ const UserTabs  = () => {
         <Nav.Item>
           <Nav.Link onClick={handleTab}>Favorite books</Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link onClick={handleTab}>Cart</Nav.Link>
-        </Nav.Item>
       </Nav>
     </Card.Header>
     <Card.Body>
-      <Card.Title>Add Book</Card.Title>
+      <Card.Title>{link}</Card.Title>
       {link === 'Add book' && <AddBookTab />}
       {link === 'Favorite books' && <FavoreteBooksTab />}
-      {link === 'Cart' && <CartTab />}
     </Card.Body>
   </Card>
   );

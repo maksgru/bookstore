@@ -1,7 +1,9 @@
 import { authorsLoaded } from '../actions/authorActions';
 import { bookDetailsType, booksLoaded } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
+import { favoritesLoaded } from '../actions/favoritesActions';
 import { genersLoaded } from '../actions/generActions';
+import { priceLoaded } from '../actions/priceActions';
 import { store } from '../index';
 
 import axios from './axios';
@@ -33,10 +35,26 @@ export const addNewBook = async (formData: any) => {
   return res;
 };
 
+export const handleFavorites = async (bookId: number, type: string) => {
+  if (type === 'add') {
+    axios.post('/favorites', { bookId, type })
+  }
+  if (type === 'del') {
+    const books: bookType[] = await axios.delete('/favorites', { params: { bookId, type } })
+    return books;
+  }
+};
+
+export const getFavorites = async () => {
+  const favoriteBooks: bookType[] = await axios.get('/favorites');
+  store.dispatch(favoritesLoaded(favoriteBooks));
+};
+
 export const getData = async () => {
   const data: any = await axios.get('/data');
   store.dispatch(authorsLoaded(data.authorNames));
   store.dispatch(genersLoaded(data.generNames));
+  store.dispatch(priceLoaded(data.priceRange))
 };
 getData();
       

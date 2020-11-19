@@ -1,11 +1,18 @@
 import * as React from "react";
 import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import { handleFavorites } from "../../api/bookApi";
 
 interface CardFooterProps {
   rating: number;
+  id: number;
+  isFav: boolean;
 }
 
-const CardFooter = ({ rating }: CardFooterProps) => {
+const CardFooter = ({ rating, id, isFav }: CardFooterProps) => {
+  const heart = isFav ? '' : '-o';
+  const addFavorites = () => {
+    handleFavorites(id, 'add');
+  };
   return (
     <Card.Footer className="p-1">
       <div className="mt-2 ml-2 float-left">
@@ -28,8 +35,8 @@ const CardFooter = ({ rating }: CardFooterProps) => {
       <OverlayTrigger
         overlay={<Tooltip id="tooltip-disabled">Add to favorites</Tooltip>}
       >
-        <Button variant="outline-danger float-right btn-tog btn-bdnone m-0">
-          <i className="fa fa-heart-o" aria-hidden="true" />
+        <Button onClick={addFavorites} variant="outline-danger float-right btn-tog btn-bdnone m-0">
+          <i className={`fa fa-heart${heart}`} aria-hidden="true" />
         </Button>
       </OverlayTrigger>
     </Card.Footer>

@@ -26,7 +26,6 @@ const addUserAvatar = async (req, res, next) => {
     }
     try {
       if (user.userImg) {
-
         fs.unlinkSync(`.${user.userImg}`)
       }
       //file removed

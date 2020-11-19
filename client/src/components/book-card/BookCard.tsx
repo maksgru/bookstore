@@ -11,6 +11,12 @@ const BookCard = ({ book }: Bprops) => {
   const loadBookPage = () => {
     localStorage.setItem('bookId', book.id.toString())
   }
+  let fav = false;
+  if (book.user[0]) {
+    const user = book.user[0];
+    fav = user.id === book.userId ? true : false;
+    
+  }
   return (
     <Card
       style={{ minWidth: "14rem", maxWidth: "16rem", marginBottom: "20px" }}
@@ -26,12 +32,12 @@ const BookCard = ({ book }: Bprops) => {
         <Card.Img variant="top" className="p-3 mx-auto d-block" src={book.bookIcon} style={{maxHeight: '15rem', width: 'auto'}} />
         <Card.Body className="bk-card pt-0">
           <Card.Text>
-            {book.author}
+            {book.writer.name}
             <strong className="float-right text-info">{`$ ${(book.price / 100).toFixed(2)}`}</strong>
           </Card.Text>
         </Card.Body>
       </Link>
-      <CardFooter rating={book.rating} />
+      <CardFooter rating={book.rating} id={book.id} isFav={fav} />
     </Card>
   );
 };
