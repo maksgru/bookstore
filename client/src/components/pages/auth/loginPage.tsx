@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AuthServise from "../../../api/authServise";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
 import { Form, Jumbotron } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -33,8 +32,6 @@ class LoginPage extends Component<Lprops, Lstate> {
     };
   }
 
-  authService = new AuthServise();
-
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const key = e.target.name;
@@ -63,20 +60,20 @@ class LoginPage extends Component<Lprops, Lstate> {
         email: this.state.email,
         password: this.state.password
       }
-      const status = await this.authService.register(user);
-      if (status) {
-        user = {
-          email: this.state.email,
-          password: this.state.password
-        };
-        this.setState({userName: '', email: '', password: ''});
-        const data = await login(user);
-        if (data) {
-          this.props.signIn(data);
-          return;
-        }
-        this.props.signOut();
-      }
+      // const status = await this.authService.register(user);
+      // if (status) {
+      //   user = {
+      //     email: this.state.email,
+      //     password: this.state.password
+      //   };
+      //   this.setState({userName: '', email: '', password: ''});
+      //   const data = await login(user);
+      //   if (data) {
+      //     this.props.signIn(data);
+      //     return;
+      //   }
+      //   this.props.signOut();
+      // }
     }
   };
 

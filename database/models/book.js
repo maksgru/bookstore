@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'images',
         onDelete: 'CASCADE'
       });
+      Book.hasMany(models.Review, {
+        foreignKey: 'bookId',
+        as: 'reviews',
+        onDelete: 'CASCADE'
+      });
       Book.belongsToMany(models.Gener, {
         through: models.BookGeners,
         as: 'geners',

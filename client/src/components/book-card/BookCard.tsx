@@ -8,14 +8,9 @@ interface Bprops {
   book: bookType
 }
 const BookCard = ({ book }: Bprops) => {
+
   const loadBookPage = () => {
     localStorage.setItem('bookId', book.id.toString())
-  }
-  let fav = false;
-  if (book.user[0]) {
-    const user = book.user[0];
-    fav = user.id === book.userId ? true : false;
-    
   }
   return (
     <Card
@@ -37,7 +32,7 @@ const BookCard = ({ book }: Bprops) => {
           </Card.Text>
         </Card.Body>
       </Link>
-      <CardFooter rating={book.rating} id={book.id} isFav={fav} />
+      <CardFooter rating={book.rating} id={book.id}  />
     </Card>
   );
 };

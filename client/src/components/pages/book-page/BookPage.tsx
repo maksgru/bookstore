@@ -6,15 +6,18 @@ import { bookPageLoaded } from "../../../actions/bookActions";
 import DescriptionForm from "./DescriptionForm";
 import BookImages from "./BookImages";
 import AddImageForm from "./AddImageForm";
+import Comment from "./Comment";
+import { getReviews } from "../../../api/reviewApi";
 
 const BookPage = () => {
   const dispatch = useDispatch();
   const [bookIcon, setBookIcon] = useState('');
 
-  const { book, bookImages, isAuth } = useSelector((state: any) => ({
+  const { book, bookImages, userId } = useSelector((state: any) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
     isAuth: state.auth.isLoggedIn,
+    userId: state.auth.id
   }));
 
   useEffect(() => {
@@ -25,6 +28,7 @@ const BookPage = () => {
       setBookIcon(data.book.bookIcon);
     };
     getData();
+    getReviews(bookId)
   }, [dispatch]);
   
   const images = [book.bookIcon, ...bookImages.map((image: any) => image.url)];
@@ -32,13 +36,13 @@ const BookPage = () => {
   const handleImage = (image: string) => {
     setBookIcon(image);
   };
-
+  const isBookUsers = userId === book.userId;
   return (
     <Container>
       <Card>
         <Card.Header as="h5">
-          {book.author}
-          {isAuth && <AddImageForm />}
+          {book.writer.name}
+          {isBookUsers && <AddImageForm />}
         </Card.Header>
         <Container fluid className="mt-2">
           <Row className="justify-content-center">
@@ -63,7 +67,8 @@ const BookPage = () => {
               </strong>
             </Button>
           </Card.Title>
-          <DescriptionForm description={book.description} bookId={book.id} />
+          <DescriptionForm description={book.description} bookId={book.id} isShow={isBookUsers} />
+      <Comment />
         </Card.Body>
       </Card>
     </Container>

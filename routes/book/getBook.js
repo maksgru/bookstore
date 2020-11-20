@@ -3,7 +3,14 @@ const models = require('../../database/models');
 const getBook = async (req, res) => {
   const id = req.query.id;
   try {
-    const book = await models.Book.findOne({ where: { id: id } });
+    const book = await models.Book.findOne({ 
+      where: { id: id },
+      include: {
+        model: models.Author,
+        as: "writer",
+        attributes: ["name"],
+      }
+    });
     if (!book) {
       res.status(404).json({ message: "book not found" });
       return;

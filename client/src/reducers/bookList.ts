@@ -10,9 +10,10 @@ const initialState = {
   books: [{
     id: 0,
   bookIcon: 'https://www.transparentpng.com/thumb/book/dvATkC-download-book.png',
-  author: '',
+  writer: {name: ''},
   name: '',
-  owner: ''
+  userId: 0,
+  user: []
 }],
 loading: true,
 };

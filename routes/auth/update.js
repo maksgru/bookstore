@@ -30,6 +30,7 @@ const updateUserData = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
   user = {
+    id: user.id,
     userName: user.name,
     iconUrl: user.userImg,
   };

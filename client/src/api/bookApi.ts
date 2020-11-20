@@ -37,11 +37,12 @@ export const addNewBook = async (formData: any) => {
 
 export const handleFavorites = async (bookId: number, type: string) => {
   if (type === 'add') {
-    axios.post('/favorites', { bookId, type })
+    const books: bookType[] = await axios.post('/favorites', { bookId, type });
+    store.dispatch(favoritesLoaded(books));
   }
   if (type === 'del') {
     const books: bookType[] = await axios.delete('/favorites', { params: { bookId, type } })
-    return books;
+    store.dispatch(favoritesLoaded(books));
   }
 };
 

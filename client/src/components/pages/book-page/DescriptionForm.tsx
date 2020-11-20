@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { setBookDescription } from "../../../api/bookApi";
 interface Dprops {
   bookId: number
   description: string;
+  isShow: boolean;
 }
-const DescriptionForm = ({bookId, description }: Dprops) => {
+const DescriptionForm = ({bookId, description, isShow }: Dprops) => {
   const [isFormShow, setFormShow] = useState(false);
   const [descriptionText, setDescriptionText] = useState('');
   useEffect(() => {
     setDescriptionText(description)
   },[description]);
-  const { isAuth } = useSelector((state: any) => ({
-    isAuth: state.auth.isLoggedIn,
-  }));
+
   const textAreaHandleChange = (e: any) => {
     setDescriptionText(e.target.value);
   };
@@ -23,7 +21,6 @@ const DescriptionForm = ({bookId, description }: Dprops) => {
   };
   const submitForm = async () => {
     const data = await setBookDescription(bookId, descriptionText);
-    console.log(data)
     setDescriptionText(data);
     setFormShow(false);
   };
@@ -54,7 +51,7 @@ const DescriptionForm = ({bookId, description }: Dprops) => {
       ) : (
         <Card.Text>{descriptionText}</Card.Text>
       )}
-      {isAuth && (
+      {isShow && (
         <Button onClick={handleForm} variant="outline-info" size="sm">
           <span>
             Edit description

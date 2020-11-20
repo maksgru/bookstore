@@ -17,7 +17,8 @@ const signIn = async (req, res) => {
       return res.status(400).json({ message: "incorrect password" });
 
     const tokens = await updateTokens(user.id);
-    userData = {
+    const userData = {
+      id: user.id,
       userName: user.name,
       iconUrl: user.userImg,
     };

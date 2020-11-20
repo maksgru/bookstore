@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'books',
         onDelete: 'CASCADE'
       });
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+        as: 'reviews',
+        onDelete: 'CASCADE'
+      });
       User.belongsToMany(models.Book, {
         through: models.UserFavorites,
         as: 'favorites',

@@ -6,7 +6,7 @@ const favoriteRoutes = require("./routes/favorites");
 const uploadRoutes = require("./routes/upload")
 const isAuth = require("./middleware/auth");
 const getData = require('./routes/book/getData');
-
+const reviewRoutes = require('./routes/review');
 const app = express();
 
 
@@ -18,7 +18,8 @@ app.use("/", isAuth);
 app.use("/auth", authRoutes);
 app.use("/books", bookRoutes);
 app.use("/upload", uploadRoutes);
-app.use('/favorites', favoriteRoutes)
+app.use('/favorites', favoriteRoutes);
+app.use('/review', reviewRoutes);
 
 app.get('/data', getData);
 

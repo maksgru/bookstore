@@ -1,13 +1,16 @@
 import { actionTypes } from './action-types'
 
-interface data {
-  userData: {
-    userName: string,
-    iconUrl: string
-  },
+export interface userData {
+  id: number;
+  userName: string;
+  iconUrl: string;
+}
+
+export interface data {
+  userData: userData;
   tokens: {
-    accessToken: string,
-    refreshToken: string
+    accessToken: string;
+    refreshToken: string;
   }
 }
 

@@ -8,6 +8,7 @@ import price from './price';
 import error from './error';
 import filter from './filter';
 import favorites from './favorites';
+import reviewReducer from './reviews';
 
 export const reducer = combineReducers({
   bookList,
@@ -18,5 +19,6 @@ export const reducer = combineReducers({
   filter,
   price,
   favorites,
+  reviews: reviewReducer,
   error
 });

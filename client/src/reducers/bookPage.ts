@@ -3,7 +3,7 @@ const initialState = {
   book: {
     id: 0,
   bookIcon: '',
-  author: '',
+  writer: {name:''},
   name: '',
   rating: 0,
   userId: 0},

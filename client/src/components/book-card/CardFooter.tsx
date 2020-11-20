@@ -1,18 +1,39 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { handleFavorites } from "../../api/bookApi";
+import { useSelector } from "react-redux";
 
 interface CardFooterProps {
   rating: number;
   id: number;
-  isFav: boolean;
+
 }
 
-const CardFooter = ({ rating, id, isFav }: CardFooterProps) => {
-  const heart = isFav ? '' : '-o';
-  const addFavorites = () => {
-    handleFavorites(id, 'add');
+const CardFooter = ({ rating, id }: CardFooterProps) => {
+
+  const { isAuth, favorites } = useSelector((state: any) => ({
+    isAuth: state.auth.isLoggedIn,
+    favorites: state.favorites
+  }));
+
+  const [fav, setFav] = useState(false);
+  
+  const addFavorites = async () => {
+    if (fav) {
+      await handleFavorites(id, 'del');
+      setFav(false);
+    }
+    if (!fav) {
+      await handleFavorites(id, 'add');
+      setFav(true);
+    } 
   };
+
+  useEffect(() => {
+    const fav = !favorites.every((item: any) => item.id !== id);
+    setFav(fav);
+  },[fav, favorites, id]);
+
   return (
     <Card.Footer className="p-1">
       <div className="mt-2 ml-2 float-left">
@@ -32,13 +53,13 @@ const CardFooter = ({ rating, id, isFav }: CardFooterProps) => {
           <i className="fa fa-shopping-bag" aria-hidden="true" />
         </Button>
       </OverlayTrigger>
-      <OverlayTrigger
+     {isAuth && <OverlayTrigger
         overlay={<Tooltip id="tooltip-disabled">Add to favorites</Tooltip>}
       >
         <Button onClick={addFavorites} variant="outline-danger float-right btn-tog btn-bdnone m-0">
-          <i className={`fa fa-heart${heart}`} aria-hidden="true" />
+          <i className={`fa fa-heart${fav ? '' : '-o'}`} aria-hidden="true" />
         </Button>
-      </OverlayTrigger>
+      </OverlayTrigger>}
     </Card.Footer>
   );
 };

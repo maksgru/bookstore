@@ -5,16 +5,19 @@ import PaginationForm from "./PaginationForm";
 import BookCard from "./BookCard";
 import { getAll } from "../../api/bookApi";
 import Spinner from "../spinner/Spinner";
+import { getFavorites } from "../../api/bookApi";
 
 const BookList = () => {
-  const { books, loading } = useSelector((state: any) => ({
+  const { books, loading, isAuth } = useSelector((state: any) => ({
     books: state.bookList.books,
     loading: state.bookList.loading,
+    isAuth: state.auth.isLoggedIn
   }));
 
   useEffect(() => {
     getAll();
-  },[]);
+    if (isAuth) getFavorites();
+  },[isAuth]);
   return (
     <Col>
       <CardGroup>

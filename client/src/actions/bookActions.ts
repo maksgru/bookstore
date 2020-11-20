@@ -9,7 +9,7 @@ export interface bookType {
   rating: number;
   price: number;
   userId: number;
-  user: any;
+  user: [{id: number}];
 }
 
 export interface bookImageType {
