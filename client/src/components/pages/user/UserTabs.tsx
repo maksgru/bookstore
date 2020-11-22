@@ -5,8 +5,8 @@ import FavoreteBooksTab from './profile-tabs/FavoriteBooksTab';
 
 const UserTabs  = () => {
   const [link, setLink] = useState('Add book');
-  const handleTab = (e: any) => {
-    const currentLink = e.target.innerText
+  const handleTab = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const currentLink = e.currentTarget.innerText;
     setLink(currentLink);
   };
   return (

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import { addNewBook } from "../../../../api/bookApi";
+import { RootState } from "../../../../reducers";
 
 interface Astate {
   name: string;
@@ -39,7 +40,7 @@ class AddBookTab extends Component<Aprops, Astate> {
     e.preventDefault();
     this.setState({ bookImage: e.target.files[0] });
   };
-  createBook = async (e: any) => {
+  createBook = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("bookImg", this.state.bookImage);
@@ -121,7 +122,7 @@ class AddBookTab extends Component<Aprops, Astate> {
     );
   }
 }
-const mstp = (state: any) => ({
+const mstp = (state: RootState) => ({
   geners: state.geners,
   authors: state.authors
 });

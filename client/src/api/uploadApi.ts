@@ -1,12 +1,12 @@
+import { store } from '..';
+import { changeUserImg, userType } from '../actions/authActions';
 import axios from './axios';
 
 export const addUserAvatar = async (formData: any) => {
-  const userAvatar = await axios("/upload/userimg", {
-    method: "post",
-    data: formData,
+  const user: userType = await axios.post("/upload/userimg", formData, {
     headers: {
       "content-type": "multipart/form-data",
     },
   });
-  return userAvatar;
+  store.dispatch(changeUserImg(user))
 };

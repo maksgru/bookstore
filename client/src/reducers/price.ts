@@ -5,7 +5,7 @@ interface priceActionType {
   payload: number[];
 }
 
-const price = (state=[2000,10000], action: priceActionType) => {
+const priceReducer = (state=[2000,10000], action: priceActionType): number[] => {
   switch (action.type) {
     case actionTypes.PRICE_RANGE_LOADED:
       return action.payload;
@@ -13,4 +13,4 @@ const price = (state=[2000,10000], action: priceActionType) => {
       return state;
   }
 };
-export default price;
+export default priceReducer;

@@ -2,10 +2,11 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAuthors } from "../../actions/filterActions";
+import { RootState } from "../../reducers";
 
 const Authors = () => {
   const dispatch = useDispatch();
-  const { authors, selectedAuthors } = useSelector((state: any) => ({
+  const { authors, selectedAuthors } = useSelector((state: RootState) => ({
     authors: state.authors,
     selectedAuthors: state.filter.authors
   }));

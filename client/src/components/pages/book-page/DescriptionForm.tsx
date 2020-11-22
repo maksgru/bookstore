@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { setBookDescription } from "../../../api/bookApi";
+
 interface Dprops {
   bookId: number
   description: string;
@@ -13,7 +14,7 @@ const DescriptionForm = ({bookId, description, isShow }: Dprops) => {
     setDescriptionText(description)
   },[description]);
 
-  const textAreaHandleChange = (e: any) => {
+  const textAreaHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescriptionText(e.target.value);
   };
   const toggleForm = () => {

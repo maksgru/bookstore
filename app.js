@@ -7,8 +7,30 @@ const uploadRoutes = require("./routes/upload")
 const isAuth = require("./middleware/auth");
 const getData = require('./routes/book/getData');
 const reviewRoutes = require('./routes/review');
+
 const app = express();
 
+const http = require("http");
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
+
+io.on("connection", socket => {
+   console.log("New client connected" + socket.id);
+    socket.on("clickBookButton", () => {
+        io.sockets.emit("bookButtonClicked");
+    });
+  // disconnect is fired when a client leaves the server
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,4 +46,4 @@ app.use('/review', reviewRoutes);
 app.get('/data', getData);
 
 
-app.listen(4000, () => console.log("server started"));
+server.listen(4000, () => console.log("server started"));

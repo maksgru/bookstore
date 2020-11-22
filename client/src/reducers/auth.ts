@@ -1,26 +1,26 @@
 import { actionTypes } from '../actions/action-types';
-import { userData } from '../actions/authActions';
+import { userType } from '../actions/authActions';
 
-export interface authState {
+export interface authType {
   id: number;
   name: string;
   userImg: string;
   isLoggedIn: boolean;
 }
 
-const initialState: authState = {
+const initialState: authType = {
   id: 0,
   name: '',
   userImg: '',
   isLoggedIn: false
 };
 
-interface action {
+interface authActionType {
   type: string;
-  payload: userData;
+  payload: userType;
 };
 
-const auth = (state = initialState, action: action) => {
+const authReducer = (state = initialState, action: authActionType): authType => {
   switch (action.type) {
     case actionTypes.SIGN_IN:
     return {
@@ -38,4 +38,4 @@ const auth = (state = initialState, action: action) => {
   }
 };
 
-export default auth;
+export default authReducer;

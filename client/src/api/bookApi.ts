@@ -8,7 +8,16 @@ import { store } from '../index';
 
 import axios from './axios';
 
-export const getAll = async (data: any={}) => {
+interface getAllType {
+  sortTarget?: string;
+  direction?: string;
+  gener?: string;
+  authors?: string[];
+  price?: string;
+  rating?: number;
+};
+
+export const getAll = async (data?: getAllType) => {
 const books: bookType[] = await axios.get('/books', { params: {...data}  });
 store.dispatch(booksLoaded(books))
 return books;
@@ -20,7 +29,7 @@ export const getBook = async (id: number) => {
 };
 
 export const setBookDescription = async (id: number, description: string) => {
-  const data: string = await axios.patch('/books/id', { params: { id }, description });
+  const data: string = await axios.patch('/books/id', { id , description });
   return data;
 };
 
@@ -51,8 +60,14 @@ export const getFavorites = async () => {
   store.dispatch(favoritesLoaded(favoriteBooks));
 };
 
+interface dataType {
+  authorNames: string[];
+  generNames: string[];
+  priceRange: number[];
+}
+
 export const getData = async () => {
-  const data: any = await axios.get('/data');
+  const data: dataType = await axios.get('/data');
   store.dispatch(authorsLoaded(data.authorNames));
   store.dispatch(genersLoaded(data.generNames));
   store.dispatch(priceLoaded(data.priceRange))

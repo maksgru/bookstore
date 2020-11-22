@@ -1,10 +1,10 @@
 import { actionTypes } from "../actions/action-types";
 
-interface Action {
+interface actionType {
   type: string,
 }
 
-const error = (state=false, action: Action) => {
+const errorReducer = (state=false, action: actionType): boolean => {
   switch (action.type) {
     case actionTypes.REQUEST_SUCCESS:
       return false;
@@ -14,4 +14,4 @@ const error = (state=false, action: Action) => {
       return state;
   }
 };
-export default error;
+export default errorReducer;

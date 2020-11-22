@@ -1,20 +1,40 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row } from "react-bootstrap";
+import { setReview, SetReviewType } from "../../../api/reviewApi";
+import { RootState } from "../../../reducers";
+import { useSelector } from 'react-redux';
 
 const CommentForm = () => {
+  const { userId, bookId } = useSelector((state: RootState) => ({
+    userId: state.auth.id,
+    bookId: state.bookPage.book.id
+  }))
   const [isFormShow, setFormShow] = useState(false);
   const [comment, setComment] = useState("");
+  const [grade, setGrade] = useState(0);
+  const stars = Array.from(Array(5).keys());
 
   const textAreaHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setComment(value);
   };
 
+  const handleClick = (e: React.FocusEvent<HTMLElement>) => {
+    const value = e.target.id;
+    setGrade(+value+1);
+  };
+
   const toggleForm = () => {
     setFormShow(true);
   };
   const submitForm = async () => {
-    
+    const review: SetReviewType = {
+      userId,
+      bookId,
+      grade,
+      comment
+    };
+    setReview(review);
     setFormShow(false);
   };
   let handleForm = isFormShow ? submitForm : toggleForm;
@@ -30,11 +50,30 @@ const CommentForm = () => {
               rows={3}
             />
           </Form.Group>
+          <div>
+      <strong>Rating</strong>
+      <Row className="mt-1 ml-1">
+        {stars.map((item) => {
+          const starType = item >= grade ? '-o' : '';
+          return (
+            <div key={item + "q"}>
+              <Button
+                onFocus={handleClick}
+                id={item.toString()}
+                variant="outline-warning btn-tog btn-bdnone star-rat mb-2"
+                size="sm"
+              >
+                <i className={`fa fa-star${starType} fa-lg`} aria-hidden="true" />
+              </Button>
+            </div>
+          );
+        })}
+      </Row>
+    </div>
           <Button
             onClick={() => setFormShow(false)}
-            variant="outline-danger"
+            variant="outline-danger float-right ml-3"
             size="sm"
-            className="float-right"
           >
             <span>
               Cancel
@@ -43,7 +82,7 @@ const CommentForm = () => {
           </Button>
         </Form>
       )}
-      <Button onClick={handleForm} variant="outline-info mb-3" size="sm">
+      <Button onClick={handleForm} variant="outline-info mb-3 float-right" size="sm">
         <span>
           Add feedback
           <i className="fa fa-pencil-square-o fa-lg ml-2" aria-hidden="true" />

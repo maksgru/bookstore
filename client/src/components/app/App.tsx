@@ -5,9 +5,10 @@ import NavBar from "../navbar/NavBar";
 import Routes from "./Routes";
 import { useSelector } from "react-redux";
 import ErrorNotice from "../error-notice/ErrorNotice";
+import { RootState } from "../../reducers";
 
 const App = () => {
-  const { error } = useSelector((state: any) => ({
+  const { error } = useSelector((state: RootState) => ({
     error: state.error
   }))
 

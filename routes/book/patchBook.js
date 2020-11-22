@@ -2,10 +2,9 @@ const models = require('../../database/models');
 
 
 const patchBook = async (req, res) => {
-  const bookId = req.body.params.id;
-  const { description } = req.body;
+  const { id, description } = req.body;
   try {
-    const book = await models.Book.findOne({ where: { id: bookId } });
+    const book = await models.Book.findOne({ where: { id } });
     if (!book) {
       res.status(404).json({ message: "book not found" });
       return;

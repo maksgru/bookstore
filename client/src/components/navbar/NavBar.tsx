@@ -1,24 +1,27 @@
-import * as React from "react";
+import React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../actions/authActions";
 import UserIcon from "./UserIcon";
 import AuthModal from "../pages/auth/AuthModal";
+import { RootState } from "../../reducers";
 
-interface NavBarProps {
-  userName: string;
-  userIcon: string;
-  isLoggedIn: boolean;
-  logOut: any;
-}
-const NavBar = ({ userName, userIcon, isLoggedIn, logOut }: NavBarProps) => {
+const NavBar = () => {
+  const dispatch = useDispatch();
+  const { userName, userIcon, isLoggedIn } = useSelector((state: RootState) => ({
+    userName: state.auth.name,
+    userIcon: state.auth.userImg, 
+    isLoggedIn: state.auth.isLoggedIn
+  }));
   const [modalShow, setModalShow] = React.useState(false);
   let modal = true;
   const faType: string = isLoggedIn ? "in" : "out";
   const faText: string = isLoggedIn ? "Out" : "In";
+
   const authAction = () => {
-    return isLoggedIn ? logOut() : setModalShow(true);
+    return isLoggedIn ? dispatch(signOut()) : setModalShow(true);
   };
+
   if (isLoggedIn) modal = false;
   return (
     <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
@@ -40,14 +43,5 @@ const NavBar = ({ userName, userIcon, isLoggedIn, logOut }: NavBarProps) => {
   );
 };
 
-const mstp = (state: any) => ({
-  userName: state.auth.name,
-  userIcon: state.auth.userImg,
-  isLoggedIn: state.auth.isLoggedIn,
-});
 
-const mdpt = (dispatch: any) => ({
-  logOut: () => dispatch(signOut()),
-});
-
-export default connect(mstp, mdpt)(NavBar);
+export default NavBar;

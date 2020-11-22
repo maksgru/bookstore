@@ -33,7 +33,12 @@ const addUserAvatar = async (req, res, next) => {
       return res.status(500).json({ message: error.message });
     }
     await user.update({ userImg: profileImg });
-    return res.json(profileImg);
+    const userData = {
+      id: user.id,
+      userName: user.name,
+      iconUrl: profileImg
+    }
+    return res.json(userData);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

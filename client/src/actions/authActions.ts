@@ -1,25 +1,26 @@
 import { actionTypes } from './action-types'
 
-export interface userData {
+export interface userType {
   id: number;
   userName: string;
   iconUrl: string;
 }
 
 export interface data {
-  userData: userData;
+  userData: userType;
   tokens: {
     accessToken: string;
     refreshToken: string;
   }
-}
+};
+
 
 export const signIn = (userData: data) => ({
   type: actionTypes.SIGN_IN,
   payload: handleUserData(userData)
 });
 
-export const update = (user: any) => ({
+export const update = (user: userType) => ({
   type: actionTypes.SIGN_IN,
   payload: user
 });
@@ -29,9 +30,9 @@ export const signOut = () => {
   return { type: actionTypes.SIGN_OUT };
 };
 
-export const changeUserImg = (img: any) => ({
+export const changeUserImg = (user: userType) => ({
   type: actionTypes.CHANGE_USER_IMG,
-  payload: img
+  payload: user
 })
 
 const handleUserData = (data: data) => {
@@ -41,5 +42,6 @@ const handleUserData = (data: data) => {
 };
 
 const dropUserData = () => {
-  localStorage.clear();
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
 };

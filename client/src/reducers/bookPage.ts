@@ -1,20 +1,30 @@
 import { actionTypes } from '../actions/action-types';
-const initialState = {
+import { bookDetailsType } from '../actions/bookActions';
+const initialState: bookDetailsType = {
   book: {
     id: 0,
-  bookIcon: '',
-  writer: {name:''},
-  name: '',
-  rating: 0,
-  userId: 0},
-  bookImages: [
-    {
+    bookIcon: '',
+    writer: {name: ''},
+    name: '',
+    description: '',
+    rating: 0,
+    price: 0,
+    userId: 0,
+    user: [{id: 0}]
+  },
+  bookImages: [{
     id: 0,
     url: '',
     bookId: 0
   }]
+}; 
+
+interface bookPageAction {
+  type: string;
+  payload: bookDetailsType;
 }
-const bookPage = (state = initialState, action: any) => {
+
+const bookPageReducer = (state = initialState, action: bookPageAction): bookDetailsType => {
   switch (action.type) {
     case actionTypes.BOOK_DETAILS_SUCCESS:
       return action.payload;
@@ -22,4 +32,4 @@ const bookPage = (state = initialState, action: any) => {
       return state;
   }
 }
-export default bookPage;
+export default bookPageReducer;

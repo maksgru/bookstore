@@ -1,8 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { Modal } from 'react-bootstrap'
 import LoginPage from './loginPage';
 
-function AuthModal(props: any) {
+type AuthModalType = {
+  show: boolean;
+  onHide: VoidFunction;
+}
+
+function AuthModal(props: AuthModalType) {
   return (
     <Modal
       {...props}

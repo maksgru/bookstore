@@ -1,12 +1,16 @@
 import { actionTypes } from "../actions/action-types";
+interface filterType {
+  authors: string[];
+  price: string;
+  rating: number;
+};
 
-const filterState = {
-  authors: Array(0),
-  price: "",
+const filterState: filterType = {
+  authors: [''],
+  price: '',
   rating: 3
-}
-
-const filter = (state=filterState, action: any) => {
+};
+const filterReducer = (state=filterState, action: any): filterType => {
   switch (action.type) {
     case actionTypes.SET_AUTHORS:
       return {...state, authors: action.payload};
@@ -18,4 +22,4 @@ const filter = (state=filterState, action: any) => {
       return state;
   }
 };
-export default filter;
+export default filterReducer;

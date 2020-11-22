@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { handleFavorites } from "../../api/bookApi";
 import { useSelector } from "react-redux";
+import { RootState } from "../../reducers";
+import { bookType } from "../../actions/bookActions";
 
 interface CardFooterProps {
   rating: number;
   id: number;
-
 }
 
 const CardFooter = ({ rating, id }: CardFooterProps) => {
 
-  const { isAuth, favorites } = useSelector((state: any) => ({
+  const { isAuth, favorites } = useSelector((state: RootState) => ({
     isAuth: state.auth.isLoggedIn,
     favorites: state.favorites
   }));
@@ -30,8 +31,8 @@ const CardFooter = ({ rating, id }: CardFooterProps) => {
   };
 
   useEffect(() => {
-    const fav = !favorites.every((item: any) => item.id !== id);
-    setFav(fav);
+      const fav = !favorites.every((book: bookType) => book.id !== id);
+      setFav(fav);
   },[fav, favorites, id]);
 
   return (

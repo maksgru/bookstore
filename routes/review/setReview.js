@@ -1,12 +1,10 @@
 const models = require('../../database/models');
 
 module.exports = async (req, res) => {
-
-  const bookId = req.query.bookId;
-
+  await models.Review.create({ ...req.body});
   try {
     const reviews = await models.Review.findAll({
-       where: { bookId },
+       where: { bookId: req.body.bookId },
        include: [{
          model: models.User,
          as: 'reviewer',

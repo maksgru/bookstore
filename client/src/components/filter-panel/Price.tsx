@@ -3,11 +3,12 @@ import { Row, Col, Badge, Container } from "react-bootstrap";
 import Nouislider from "nouislider-react";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePrice } from "../../actions/filterActions";
+import { RootState } from "../../reducers";
 
 const Price = () => {
   const dispatch = useDispatch();
 
-  const { price, priceRange } = useSelector((state: any) => ({
+  const { price, priceRange } = useSelector((state: RootState) => ({
     price: state.filter.price,
     priceRange: state.price,
   }));
@@ -36,12 +37,12 @@ const Price = () => {
       <Row>
         <Col>
         <Badge variant="light border border-info py-2 px-3">
-          {Math.floor(minPrice / 100)}
+          {Math.floor(+minPrice / 100)}
         </Badge>
         </Col>
         <Col>
         <Badge variant="light border border-info py-2 px-3">
-          {Math.ceil(maxPrice / 100)}
+          {Math.ceil(+maxPrice / 100)}
         </Badge>
         </Col>
       </Row>

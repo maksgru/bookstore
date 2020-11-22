@@ -5,7 +5,7 @@ interface authorAction {
   payload: string[];
 }
 
-const authors = (state=[], action: authorAction) => {
+const authorsReducer = (state=[''], action: authorAction): string[] => {
   switch (action.type) {
     case actionTypes.AUTHOR_LIST_LOADED:
       return action.payload;
@@ -13,4 +13,4 @@ const authors = (state=[], action: authorAction) => {
       return state;
   }
 };
-export default authors;
+export default authorsReducer;

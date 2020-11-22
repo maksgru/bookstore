@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { Card, Form, Button, Figure } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeUserImg } from '../../../actions/authActions';
+import { useSelector } from 'react-redux';
 import { addUserAvatar } from "../../../api/uploadApi";
+import { RootState } from '../../../reducers';
 
 
 const UserCard = () => {
   const [isFormEmpty, setForm] = useState(true);
-  const dispatch = useDispatch();
-  const { userName, iconUrl } = useSelector((state: any) => ({
+  const { userName, iconUrl } = useSelector((state: RootState) => ({
     userName: state.auth.name,
     iconUrl: state.auth.userImg
   }));
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState<any>('');
   const formData = new FormData();
   
-  const submitUserImg = async (e: any) => {
+  const submitUserImg = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     formData.append("filedata", file);
-    const img = await addUserAvatar(formData);
-    dispatch(changeUserImg(img));
+    addUserAvatar(formData);
   };
 
-  const handleChange = (e: any) => {
-    const file = e.target.files[0];
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files![0];
     setFile(file);
+    console.log(typeof file)
     if (file) {
       setForm(false)
     } else {

@@ -5,7 +5,7 @@ interface generAction {
   payload: string[];
 }
 
-const geners = (state=[], action: generAction) => {
+const genersReducer = (state=[''], action: generAction): string[] => {
   switch (action.type) {
     case actionTypes.GENER_LIST_LOADED:
       return action.payload;
@@ -13,4 +13,4 @@ const geners = (state=[], action: generAction) => {
       return state;
   }
 };
-export default geners;
+export default genersReducer;

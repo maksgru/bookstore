@@ -22,17 +22,10 @@ export interface bookDetailsType {
   book: bookType,
   bookImages: bookImageType[]
 }
-export const booksRequested = () => ({
-  type: actionTypes.BOOKS_LIST_REQUEST
-});
 
 export const booksLoaded = (books: bookType[]) => ({
   type: actionTypes.BOOKS_LIST_SUCCESS,
   payload: books
-});
-export const booksLoadError = (error: any) => ({
-  type: actionTypes.BOOKS_LIST_FAILURE,
-  payload: error
 });
 
 export const bookPageLoaded = (bookDedails: bookDetailsType) => ({

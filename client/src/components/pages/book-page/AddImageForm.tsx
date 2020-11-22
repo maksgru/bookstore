@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DropdownButton } from "react-bootstrap";
+import { Button, DropdownButton, Dropdown } from "react-bootstrap";
 
 const AddImageForm = () => {
   const [isFormShow, setFormShow] = useState(false);
@@ -24,6 +24,8 @@ const AddImageForm = () => {
       variant="outline-info"
       size="sm"
     >
+      <Dropdown.ItemText>
+
       <div className="input-group m-1 border border-info rounded" style={{ minWidth: "400px" }}>
         <div className="custom-file">
           <input
@@ -42,11 +44,12 @@ const AddImageForm = () => {
             onClick={handleForm}
             variant="outline-info"
             size="sm"
-          >
+            >
             Upload
           </Button>
         </div>
       </div>
+            </Dropdown.ItemText>
     </DropdownButton>
   );
 };

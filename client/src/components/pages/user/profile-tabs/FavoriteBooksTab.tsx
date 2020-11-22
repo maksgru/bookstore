@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { bookType } from '../../../../actions/bookActions';
 import { getFavorites, handleFavorites } from "../../../../api/bookApi";
+import { RootState } from "../../../../reducers";
 
 const FavoreteBooksTab = () => {
-  const { books } = useSelector((state: any) => ({
+  const { books } = useSelector((state: RootState) => ({
     books: state.favorites,
   }));
 

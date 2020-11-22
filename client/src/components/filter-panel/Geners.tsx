@@ -2,9 +2,10 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { getAll } from '../../api/bookApi';
+import { RootState } from "../../reducers";
 
 const Geners = () => {
-  const { geners } = useSelector((state: any) => ({
+  const { geners } = useSelector((state: RootState) => ({
     geners: state.geners,
   }));
   const handleClick = (e: React.FocusEvent<HTMLAnchorElement>) => {

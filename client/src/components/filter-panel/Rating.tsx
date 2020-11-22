@@ -2,12 +2,16 @@ import React from "react";
 import { Button, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRating } from '../../actions/filterActions';
+import { RootState } from "../../reducers";
+
 const RatingForm = () => {
   const dispatch = useDispatch();
-  const { rating } = useSelector((state: any) => ({
+  const { rating } = useSelector((state: RootState) => ({
     rating: state.filter.rating
   }))
+
   const stars = Array.from(Array(5).keys());
+  
   const handleClick = (e: React.FocusEvent<HTMLElement>) => {
     const value = e.target.id;
     dispatch(handleRating(+value+1));

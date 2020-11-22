@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { signOut, update } from '../actions/authActions';
+import { signOut, update, userType } from '../actions/authActions';
 import { error } from '../actions/errorActions';
 import { store } from '../index';
 
@@ -54,13 +54,13 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-interface Tokens {
+interface tokensType {
   accessToken: string;
   refreshToken: string;
 }
 
 
-const setTokens = (tokens: Tokens) => {
+const setTokens = (tokens: tokensType) => {
   localStorage.setItem('token', tokens.accessToken);
   localStorage.setItem('refreshToken', tokens.refreshToken);
 }
@@ -69,9 +69,9 @@ export const updateUserData = async () => {
   const token = localStorage.getItem('token');
   if (token) {
     try {
-      const response = await axiosInstance.post(`/auth/update`);
-      if (response) {
-        store.dispatch(update(response))
+      const user: userType = await axiosInstance.post(`/auth/update`);
+      if (user) {
+        store.dispatch(update(user))
       }
     } catch (err) {
       throw err
