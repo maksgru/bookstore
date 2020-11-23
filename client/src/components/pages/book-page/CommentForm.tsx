@@ -34,7 +34,7 @@ const CommentForm = () => {
       grade,
       comment
     };
-    await setReview(review);
+    setReview(review);
     setComment('');
     setGrade(0);
     setFormShow(false);

@@ -4,12 +4,12 @@ module.exports = async (req, res) => {
 
   const bookId = req.query.bookId;
   let reviewer;
-  let reviewerId;
+  let reviewerId=0;
   try {
     if (req.userId) {
       const userId = req.userId;
       reviewer = await models.Review.findAll({ where: { bookId, userId } });
-      if (reviewer) reviewerId = userId;
+      if (reviewer.length) reviewerId = userId;
     }
     const bookReviews = await models.Review.findAll({
        where: { bookId },

@@ -28,7 +28,6 @@ const ReplyForm = () => {
             rows={3}
           />
         </Form.Group>
-        <div></div>
         <Button
           onClick={() => toggleForm(false)}
           variant="outline-danger float-right ml-3"

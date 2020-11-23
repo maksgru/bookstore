@@ -10,7 +10,7 @@ interface actionType extends filterType {
 }
 
 const filterState: filterType = {
-  authors: [],
+  authors: [''],
   price: '',
   rating: 3
 };

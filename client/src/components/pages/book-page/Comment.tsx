@@ -26,7 +26,8 @@ const Comment = () => {
             <ListGroup.Item key={review.comment + review.grade}>
               <div className="float-left">{review.comment}</div>
               <div className="float-right">
-                <Badge>{review.reviewer.name}</Badge>
+                {!isReviewPossible && <ChangeComment />}
+                <Badge className='align-top'>{review.reviewer.name}</Badge>
               </div>
               <span className="mx-4 float-right">
                 {Array.from(Array(5).keys()).map((item) => {
@@ -40,7 +41,6 @@ const Comment = () => {
                   );
                 })}
               </span>
-              {!isReviewPossible && <ChangeComment />}
               {isAuth && <ReplyForm/>}
             </ListGroup.Item>
           );
