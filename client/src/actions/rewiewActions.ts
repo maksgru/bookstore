@@ -10,7 +10,12 @@ export interface reviewType {
   };
 };
 
-export const reviewsLoaded = (reviews: reviewType[]) => ({
+export interface BookReviewsType {
+  bookReviews: reviewType[];
+  reviewerId: number | null;
+}
+
+export const reviewsLoaded = (bookReviews: BookReviewsType) => ({
   type: actionTypes.REVIEWS_LOADED,
-  reviews
+  bookReviews
 });

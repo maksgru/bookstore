@@ -1,24 +1,28 @@
 import { actionTypes } from "../actions/action-types";
-import { reviewType } from "../actions/rewiewActions";
+import { BookReviewsType } from "../actions/rewiewActions";
 
 export interface reviewActionType {
   type: string;
-  reviews: reviewType[];
+  bookReviews: BookReviewsType;
 }
 
-const reviewState: reviewType[] = [
-  {
-    comment: '',
-    grade: 0,
-    id:0,
-    reviewer: {name: '', id: 0}
-  }
-];
+const reviewState: BookReviewsType = {
+  bookReviews: [
+    {
+      comment: '',
+      grade: 0,
+      id:0,
+      reviewer: {name: '', id: 0}
+    }
+  ],
+  reviewerId: 0
 
-const reviewReducer = (state=reviewState, action: reviewActionType) => {
+}
+
+const reviewReducer = (state=reviewState, action: reviewActionType): BookReviewsType => {
   switch (action.type) {
     case actionTypes.REVIEWS_LOADED:
-      return action.reviews;
+      return action.bookReviews;
     default:
       return state;
     }

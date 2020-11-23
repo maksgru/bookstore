@@ -10,16 +10,11 @@ import Comment from "./Comment";
 import { getReviews } from "../../../api/reviewApi";
 import { RootState } from "../../../reducers";
 
-import {io} from 'socket.io-client';
-const socket = io('http://localhost:4000/');
-const emitData = () => {
-  socket.emit('clickBookButton');
-};
+
 
 const BookPage = () => {
   const dispatch = useDispatch();
   const [bookIcon, setBookIcon] = useState("");
-  let [ inc, setInc ] = useState(0)
   const { book, bookImages, userId } = useSelector((state: RootState) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
@@ -27,21 +22,16 @@ const BookPage = () => {
     userId: state.auth.id,
   }));
 
-  const message = () => {
-    setInc(inc++)
-    console.log('hello from socket io')
-  }
-
   useEffect(() => {
-    socket.on('bookButtonClicked', message)
+    
     const bookId = +localStorage.getItem("bookId")!;
     const getData = async () => {
+      await getReviews(bookId);
       const data = await getBook(bookId);
       dispatch(bookPageLoaded(data));
       setBookIcon(data.book.bookIcon);
     };
     getData();
-    getReviews(bookId);
   }, [dispatch]);
 
   const images = [
@@ -77,9 +67,9 @@ const BookPage = () => {
         <Card.Body>
           <Card.Title>
             {book.name}
-            <Button onClick={emitData} className="float-right" variant="outline-warning" size="sm">
+            <Button className="float-right" variant="outline-warning" size="sm">
               <strong className="text-danger">
-                {`$ ${(book.price / 100).toFixed(2)} ${inc}`}
+                {`$ ${(book.price / 100).toFixed(2)}`}
                 <i
                   className="fa fa-shopping-cart fa-lg ml-2"
                   aria-hidden="true"

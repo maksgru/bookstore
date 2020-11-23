@@ -20,11 +20,12 @@ const io = require("socket.io")(server, {
     credentials: true
   }
 });
+module.exports = io;
 
 io.on("connection", socket => {
    console.log("New client connected" + socket.id);
-    socket.on("clickBookButton", () => {
-        io.sockets.emit("bookButtonClicked");
+    socket.on("bookCreated", () => {
+        io.sockets.emit("newBook");
     });
   // disconnect is fired when a client leaves the server
     socket.on("disconnect", () => {

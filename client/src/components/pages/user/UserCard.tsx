@@ -11,7 +11,7 @@ const UserCard = () => {
     userName: state.auth.name,
     iconUrl: state.auth.userImg
   }));
-  const [file, setFile] = useState<any>('');
+  const [file, setFile] = useState<string | Blob>('');
   const formData = new FormData();
   
   const submitUserImg = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {

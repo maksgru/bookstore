@@ -1,35 +1,32 @@
-import React, { useState } from "react";
-import { ListGroup, Badge, Nav } from "react-bootstrap";
+import React from "react";
+import { ListGroup, Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { reviewType } from "../../../actions/rewiewActions";
 import { RootState } from "../../../reducers";
+import ChangeComment from "./ChangeComment";
 import CommentForm from "./CommentForm";
 import ReplyForm from "./ReplyForm";
 
 const Comment = () => {
-  const [ isReplyFormShow, setReplyFormShow ] = useState(false);
-  const { reviews, isAuth } = useSelector((state: RootState) => ({
-    reviews: state.reviews,
+  const { reviews, isAuth, userId, reviewUserId } = useSelector((state: RootState) => ({
+    reviews: state.reviews.bookReviews,
+    reviewUserId: state.reviews.reviewerId,
     isAuth: state.auth.isLoggedIn,
+    userId: state.auth.id
   }));
 
-  const toggleReplyForm = (isShow: boolean) => {
-    setReplyFormShow(isShow);
-  }
+  const isReviewPossible = (userId !== reviewUserId) && isAuth;
 
   return (
     <>
       <ListGroup>
-        {isAuth && <CommentForm />}
+        {isReviewPossible && <CommentForm />}
         {reviews.map((review: reviewType) => {
           return (
             <ListGroup.Item key={review.comment + review.grade}>
               <div className="float-left">{review.comment}</div>
               <div className="float-right">
                 <Badge>{review.reviewer.name}</Badge>
-                <Nav.Link className="p-0">
-                  <Badge onClick={() => toggleReplyForm(true)} className="float-right">Reply</Badge>
-                </Nav.Link>
               </div>
               <span className="mx-4 float-right">
                 {Array.from(Array(5).keys()).map((item) => {
@@ -43,7 +40,8 @@ const Comment = () => {
                   );
                 })}
               </span>
-              {isReplyFormShow && <ReplyForm toggleForm={toggleReplyForm} />}
+              {!isReviewPossible && <ChangeComment />}
+              {isAuth && <ReplyForm/>}
             </ListGroup.Item>
           );
         })}

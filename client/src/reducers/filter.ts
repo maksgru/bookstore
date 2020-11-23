@@ -5,19 +5,23 @@ interface filterType {
   rating: number;
 };
 
+interface actionType extends filterType {
+  type: string;
+}
+
 const filterState: filterType = {
-  authors: [''],
+  authors: [],
   price: '',
   rating: 3
 };
-const filterReducer = (state=filterState, action: any): filterType => {
+const filterReducer = (state=filterState, action: actionType): filterType => {
   switch (action.type) {
     case actionTypes.SET_AUTHORS:
-      return {...state, authors: action.payload};
+      return {...state, authors: action.authors};
     case actionTypes.SET_PRICE:
-      return {...state, price: action.payload};
+      return {...state, price: action.price};
     case actionTypes.SET_RATING:
-      return {...state, rating: action.payload};
+      return {...state, rating: action.rating};
     default:
       return state;
   }

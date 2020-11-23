@@ -8,7 +8,12 @@ const getGenerId = async (generName) => {
 
 const getAllBooks = async (req, res) => {
   let books;
-  const { sortTarget = "name", direction = "ASC" } = req.query;
+  const {
+    sortTarget = "name",
+    direction = "ASC",
+    limit = 10  ,
+    page = 1
+  } = req.query;
   let where = {};
   let include = [
     {
@@ -18,14 +23,12 @@ const getAllBooks = async (req, res) => {
     },
   ];
   if (req.userId) {
-    include.push(
-      {
-        model: models.User,
-        as: "user",
-        through: { where: { userId: req.userId } },
-        // required: true,
-      }
-    )
+    include.push({
+      model: models.User,
+      as: "user",
+      through: { where: { userId: req.userId } },
+      // required: true,
+    });
   }
   if (req.query.gener) {
     const id = await getGenerId(req.query.gener);
@@ -56,6 +59,8 @@ const getAllBooks = async (req, res) => {
       where,
       include,
       order: [[sortTarget, direction]],
+      offset: limit * (page - 1),
+      limit,
     });
     res.json(books);
   } catch (err) {

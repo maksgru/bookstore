@@ -34,7 +34,9 @@ const CommentForm = () => {
       grade,
       comment
     };
-    setReview(review);
+    await setReview(review);
+    setComment('');
+    setGrade(0);
     setFormShow(false);
   };
   let handleForm = isFormShow ? submitForm : toggleForm;

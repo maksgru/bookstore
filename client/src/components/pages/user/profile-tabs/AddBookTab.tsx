@@ -10,7 +10,7 @@ interface Astate {
   gener: string;
   price: string;
   description: string;
-  bookImage: any;
+  bookImage: string | Blob;
 }
 interface Aprops {
   geners: string[];
@@ -26,7 +26,7 @@ class AddBookTab extends Component<Aprops, Astate> {
       gener: "",
       price: "",
       description: "",
-      bookImage: null,
+      bookImage: '',
     };
   }
 
@@ -36,9 +36,9 @@ class AddBookTab extends Component<Aprops, Astate> {
     this.setState({ [key]: value } as any);
     console.log(this.state)
   };
-  handleFile = (e: any) => {
+  handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    this.setState({ bookImage: e.target.files[0] });
+    this.setState({ bookImage: e.target.files![0] });
   };
   createBook = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();

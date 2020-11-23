@@ -47,13 +47,13 @@ const CardFooter = ({ rating, id }: CardFooterProps) => {
           }
         )}
       </div>
-      <OverlayTrigger
+      {/* <OverlayTrigger
         overlay={<Tooltip id="tooltip-disabled">Add to cart</Tooltip>}
       >
         <Button variant="outline-info float-right btn-tog btn-bdnone m-0">
           <i className="fa fa-shopping-bag" aria-hidden="true" />
         </Button>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
      {isAuth && <OverlayTrigger
         overlay={<Tooltip id="tooltip-disabled">Add to favorites</Tooltip>}
       >

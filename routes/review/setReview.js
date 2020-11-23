@@ -1,7 +1,7 @@
 const models = require('../../database/models');
 
 module.exports = async (req, res) => {
-  await models.Review.create({ ...req.body});
+  await models.Review.create({ ...req.body });
   try {
     const reviews = await models.Review.findAll({
        where: { bookId: req.body.bookId },

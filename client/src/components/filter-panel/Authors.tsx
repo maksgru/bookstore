@@ -13,9 +13,9 @@ const Authors = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.id;
     const checked = e.target.checked;
-    if (checked) {
+    if (checked && selectedAuthors) {
         dispatch(handleAuthors([...selectedAuthors, value]))
-    } else {
+    } else if (selectedAuthors){
         dispatch(handleAuthors(selectedAuthors.filter((author: string) => author !== value)))
     }
   };

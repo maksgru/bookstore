@@ -4,6 +4,7 @@ import { bookType } from '../actions/bookActions';
 import { favoritesLoaded } from '../actions/favoritesActions';
 import { genersLoaded } from '../actions/generActions';
 import { priceLoaded } from '../actions/priceActions';
+import { socket } from '../components/navbar/UserIcon';
 import { store } from '../index';
 
 import axios from './axios';
@@ -48,6 +49,7 @@ export const handleFavorites = async (bookId: number, type: string) => {
   if (type === 'add') {
     const books: bookType[] = await axios.post('/favorites', { bookId, type });
     store.dispatch(favoritesLoaded(books));
+    socket.emit('bookCreated'); // replace to addNewBook function
   }
   if (type === 'del') {
     const books: bookType[] = await axios.delete('/favorites', { params: { bookId, type } })
