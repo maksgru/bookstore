@@ -3,7 +3,7 @@ const refreshTokens = require('./refreshTokens');
 const signIn = require('./signIn')
 const authMiddleware = require('../../middleware/auth');
 const updateUserData = require('./update');
-const signUp = require('./sigUp');
+const signUp = require('./signUp');
 
 const router = express.Router();
 

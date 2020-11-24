@@ -8,6 +8,7 @@ const signUp = async (req, res) => {
 
     if (candidate) {
       res.status(400).json({ message: "Email already used" });
+      return;
     }
     const passwordHash = bcrypt.hashSync(password, 10);
    

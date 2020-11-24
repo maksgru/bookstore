@@ -5,11 +5,12 @@ interface TextFormType {
 submitForm: Function;
 toggleForm: Function;
 initialValue: string;
+initialGrade: number;
 };
 
-const TextForm = ({ submitForm, toggleForm, initialValue }: TextFormType) => {
+const TextForm = ({ submitForm, toggleForm, initialValue, initialGrade }: TextFormType) => {
 
-  const [grade, setGrade] = useState(0);
+  const [grade, setGrade] = useState(initialGrade);
 
   const handleClick = (e: React.FocusEvent<HTMLElement>) => {
     const value = e.target.id;

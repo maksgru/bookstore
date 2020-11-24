@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge } from "react-bootstrap";
+import { Badge, Nav } from "react-bootstrap";
 
 interface ChangeCommentType {
   handleChange: VoidFunction;
@@ -9,15 +9,19 @@ interface ChangeCommentType {
 const ChangeComment = ({ handleChange, handleDelete }: ChangeCommentType) => {
   return (
     <>
-      <Badge
-      onClick={handleDelete}
+        <Badge
+        onClick={handleDelete}
         variant="danger float-right mx-1"
-      >
-        <i className="fa fa-trash-o" aria-hidden="true" />
-      </Badge>
-      <Badge onClick={handleChange} variant="info float-right">
-        <i className="fa fa-pencil-square-o" aria-hidden="true" />
-      </Badge>
+        >
+        <Nav.Link className="p-1 text-light">
+          <i className="fa fa-trash-o" aria-hidden="true" />
+      </Nav.Link>
+        </Badge>
+        <Badge onClick={handleChange} variant="info float-right mx-1">
+      <Nav.Link className="p-1 text-light">
+          <i className="fa fa-pencil-square-o" aria-hidden="true" />
+      </Nav.Link>
+        </Badge>
     </>
   );
 };

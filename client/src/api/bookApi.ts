@@ -1,12 +1,8 @@
-import { authorsLoaded } from '../actions/authorActions';
 import { bookDetailsType, bookPageLoaded, booksLoaded } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
 import { favoritesLoaded } from '../actions/favoritesActions';
-import { genersLoaded } from '../actions/generActions';
-import { priceLoaded } from '../actions/priceActions';
 import { socket } from '../components/navbar/UserIcon';
 import { store } from '../index';
-
 import axios from './axios';
 
 interface getAllType {
@@ -64,16 +60,24 @@ export const getFavorites = async () => {
 };
 
 interface dataType {
-  authorNames: string[];
-  generNames: string[];
+  authors: [{name: string}];
+  geners: [{name: string}];
   priceRange: number[];
 }
 
-export const getData = async () => {
-  const data: dataType = await axios.get('/data');
-  store.dispatch(authorsLoaded(data.authorNames));
-  store.dispatch(genersLoaded(data.generNames));
-  store.dispatch(priceLoaded(data.priceRange))
+interface GetDataType {
+  authors?: boolean;
+  geners?: boolean;
+  price?: boolean;
 };
-getData();
-      
+
+/** 
+  * @param {boolean} params.authors - optional
+  * @param {boolean} params.geners - optional
+  * @param {boolean} params.price - optional
+  * @returns {object} {[authorNames], [generNames], [priceRange]} 
+  */
+export const getData = async (params: GetDataType) => {
+  const data: dataType = await axios.get('/data', { params: {...params} });
+  return data;
+};
