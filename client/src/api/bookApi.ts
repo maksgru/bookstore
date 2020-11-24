@@ -1,5 +1,5 @@
 import { authorsLoaded } from '../actions/authorActions';
-import { bookDetailsType, booksLoaded } from '../actions/bookActions';
+import { bookDetailsType, bookPageLoaded, booksLoaded } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
 import { favoritesLoaded } from '../actions/favoritesActions';
 import { genersLoaded } from '../actions/generActions';
@@ -16,6 +16,7 @@ interface getAllType {
   authors?: string[];
   price?: string;
   rating?: number;
+  page?: number;
 };
 
 export const getAll = async (data?: getAllType) => {
@@ -26,7 +27,7 @@ return books;
 
 export const getBook = async (id: number) => {
   const bookDetails: bookDetailsType = await axios.get(`/books/id`, { params: { id } });
-  return bookDetails;
+  store.dispatch(bookPageLoaded(bookDetails))
 };
 
 export const setBookDescription = async (id: number, description: string) => {
@@ -34,7 +35,7 @@ export const setBookDescription = async (id: number, description: string) => {
   return data;
 };
 
-export const addNewBook = async (formData: any) => {
+export const addNewBook = async (formData: FormData) => {
   const res = await axios("/books", {
     method: "post",
     data: formData,

@@ -11,7 +11,7 @@ const getAllBooks = async (req, res) => {
   const {
     sortTarget = "name",
     direction = "ASC",
-    limit = 10  ,
+    limit = 2  ,
     page = 1
   } = req.query;
   let where = {};

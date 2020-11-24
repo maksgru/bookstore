@@ -53,7 +53,7 @@ const DescriptionForm = ({bookId, description, isShow }: Dprops) => {
         <Card.Text>{descriptionText}</Card.Text>
       )}
       {isShow && (
-        <Button onClick={handleForm} variant="outline-info" size="sm">
+        <Button onClick={handleForm} variant="outline-info mb-4" size="sm">
           <span>
             Edit description
             <i

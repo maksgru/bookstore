@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Row, Col, Image, Button } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getBook } from "../../../api/bookApi";
-import { bookImageType, bookPageLoaded } from "../../../actions/bookActions";
+import { bookImageType } from "../../../actions/bookActions";
 import DescriptionForm from "./DescriptionForm";
 import BookImages from "./BookImages";
 import AddImageForm from "./AddImageForm";
@@ -13,31 +13,20 @@ import { RootState } from "../../../reducers";
 
 
 const BookPage = () => {
-  const dispatch = useDispatch();
-  const [bookIcon, setBookIcon] = useState("");
   const { book, bookImages, userId } = useSelector((state: RootState) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
     isAuth: state.auth.isLoggedIn,
     userId: state.auth.id,
   }));
-
+  
+  const [bookIcon, setBookIcon] = useState('');
   useEffect(() => {
-    
     const bookId = +localStorage.getItem("bookId")!;
-    const getData = async () => {
-      await getReviews(bookId);
-      const data = await getBook(bookId);
-      dispatch(bookPageLoaded(data));
-      setBookIcon(data.book.bookIcon);
-    };
-    getData();
-  }, [dispatch]);
-
-  const images = [
-    book.bookIcon,
-    ...bookImages.map((image: bookImageType) => image.url),
-  ];
+      getReviews(bookId);
+      getBook(bookId);
+      setBookIcon(book.bookIcon);
+  }, [book.bookIcon]);
 
   const handleImage = (image: string) => {
     setBookIcon(image);
@@ -48,7 +37,7 @@ const BookPage = () => {
       <Card>
         <Card.Header as="h5">
           {book.writer.name}
-          {isBookUsers && <AddImageForm />}
+          {isBookUsers && <AddImageForm bookId={book.id} />}
         </Card.Header>
         <Container fluid className="mt-2">
           <Row className="justify-content-center">
@@ -60,7 +49,7 @@ const BookPage = () => {
                   rounded
                 />
               </Row>
-              <BookImages images={images} toggleImage={handleImage} />
+              <BookImages images={[book.bookIcon, ...bookImages.map((img: bookImageType) => img.url)]} toggleImage={handleImage} />
             </Col>
           </Row>
         </Container>

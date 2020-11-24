@@ -1,10 +1,11 @@
 const models = require('../../database/models');
 
 module.exports = async (req, res) => {
+  const { userId, bookId } = req.query;
   try {
-    await models.Review.create({ ...req.body });
+    await models.Review.destroy({ where: { userId, bookId }, force: true });
     const bookReviews = await models.Review.findAll({
-       where: { bookId: req.body.bookId },
+       where: { bookId: req.query.bookId },
        order: [['updatedAt', 'DESC']],
        include: [{
          model: models.User,
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
          attributes: ['name', 'id']
        }]
       });
-      const reviewerId = req.body.userId;
+      const reviewerId = req.query.userId;
     res.json({bookReviews, reviewerId});
   } catch (error) {
     res.status(500).json({message: error.message});

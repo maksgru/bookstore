@@ -32,3 +32,8 @@ export const bookPageLoaded = (bookDedails: bookDetailsType) => ({
   type: actionTypes.BOOK_DETAILS_SUCCESS,
   payload: bookDedails
 });
+
+export const bookImagesLoaded = (bookImages: bookImageType[]) => ({
+  type: actionTypes.BOOK_IMAGES_LOADED,
+  payload: bookImages
+});

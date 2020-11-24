@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { Button, DropdownButton, Dropdown } from "react-bootstrap";
+import { addBookImage } from '../../../api/uploadApi';
 
-const AddImageForm = () => {
-  const [isFormShow, setFormShow] = useState(false);
-  const toggleForm = () => {
-    setFormShow(true);
+const AddImageForm = ({ bookId }: {bookId: number}) => {
+
+  const formData = new FormData();
+
+  const [ file, setFile ] = useState<string | Blob>('');
+  const [ label, setLabel ] = useState('Choose file...');
+  const fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files![0];
+    setFile(file);
+    setLabel(file.name);
   };
   const submitForm = async () => {
-    setFormShow(false);
+    if (file) {
+      formData.append("bookImage", file);
+      formData.append('bookId', bookId.toString())
+      addBookImage(formData);
+      setFile('');
+    }
   };
-  let handleForm = isFormShow ? submitForm : toggleForm;
   return (
     <DropdownButton
       className="float-right"
@@ -25,31 +36,34 @@ const AddImageForm = () => {
       size="sm"
     >
       <Dropdown.ItemText>
-
-      <div className="input-group m-1 border border-info rounded" style={{ minWidth: "400px" }}>
-        <div className="custom-file">
-          <input
-            type="file"
-            className="custom-file-input"
-            id="inputGroupFile04"
-            aria-describedby="inputGroupFileAddon04"
-          />
-          <label className="custom-file-label" htmlFor="inputGroupFile04">
-            Choose file
-          </label>
-        </div>
-        <div className="input-group-append">
-          <Button
-            className="float-right"
-            onClick={handleForm}
-            variant="outline-info"
-            size="sm"
+        <div
+          className="input-group m-1 border border-info rounded"
+          style={{ minWidth: "400px" }}
+        >
+          <div className="custom-file">
+            <input
+              type="file"
+              onChange={fileChange}
+              className="custom-file-input"
+              id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04"
+            />
+            <label className="custom-file-label" htmlFor="inputGroupFile04">
+              {label}
+            </label>
+          </div>
+          <div className="input-group-append">
+            <Button
+              className="float-right"
+              onClick={submitForm}
+              variant="outline-info"
+              size="sm"
             >
-            Upload
-          </Button>
+              Upload
+            </Button>
+          </div>
         </div>
-      </div>
-            </Dropdown.ItemText>
+      </Dropdown.ItemText>
     </DropdownButton>
   );
 };

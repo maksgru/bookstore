@@ -2,7 +2,8 @@ const models = require('../../database/models');
 const getData = async (req, res) => {
   try {
     const geners = await models.Gener.findAll({attributes: ['name']});
-    const authors = await models.Author.findAll({attributes: ['name']});
+    const authors = await models.Author.findAll(/* {attributes: ['name']} */);
+    console.log(authors);
     const minPrice = await models.Book.min('price');
     const maxPrice = await models.Book.max('price');
     const authorNames = authors.map(author => author.name)

@@ -18,3 +18,13 @@ export const setReview = async (review: SetReviewType) => {
   const reviews: BookReviewsType = await axios.post('/review', { ...review });
   store.dispatch(reviewsLoaded(reviews));
 };
+
+export const patchReview = async (review: SetReviewType) => {
+  const reviews: BookReviewsType = await axios.patch('/review', { ...review });
+  store.dispatch(reviewsLoaded(reviews))
+};
+
+export const deleteReview = async (review: {userId: number; bookId: number}) => {
+  const reviews: BookReviewsType = await axios.delete('/review', { params:{ ...review }});
+  store.dispatch(reviewsLoaded(reviews))
+}

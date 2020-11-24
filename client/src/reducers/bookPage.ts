@@ -21,13 +21,15 @@ const initialState: bookDetailsType = {
 
 interface bookPageAction {
   type: string;
-  payload: bookDetailsType;
+  payload: bookDetailsType
 }
 
 const bookPageReducer = (state = initialState, action: bookPageAction): bookDetailsType => {
   switch (action.type) {
     case actionTypes.BOOK_DETAILS_SUCCESS:
       return action.payload;
+    case actionTypes.BOOK_IMAGES_LOADED:
+      return {...state, bookImages: action.payload.bookImages}
     default:
       return state;
   }

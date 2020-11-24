@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pagination } from "react-bootstrap";
+import { getAll } from "../../api/bookApi";
 
 const PaginationForm = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleFocus = (e: React.FocusEvent<HTMLElement>) => {
+    const page = +e.target.innerText;
+    getAll({ page });
+    setCurrentPage(page)
+  };
   return (
     <Pagination size="sm">
-      <Pagination.First />
       <Pagination.Prev />
-      <Pagination.Item>{1}</Pagination.Item>
-      <Pagination.Ellipsis />
-
-      <Pagination.Item>{10}</Pagination.Item>
-      <Pagination.Item>{11}</Pagination.Item>
-      <Pagination.Item active>{12}</Pagination.Item>
-      <Pagination.Item>{13}</Pagination.Item>
-      <Pagination.Item disabled>{14}</Pagination.Item>
-
-      <Pagination.Ellipsis />
-      <Pagination.Item>{20}</Pagination.Item>
+      {Array.from(Array(5).keys()).map((item: number) => (
+        <Pagination.Item
+          key={item + "t"}
+          active={item+1 === currentPage}
+          onFocus={handleFocus}
+        >
+          {item + 1}
+        </Pagination.Item>
+      ))}
       <Pagination.Next />
-      <Pagination.Last />
     </Pagination>
   );
 };

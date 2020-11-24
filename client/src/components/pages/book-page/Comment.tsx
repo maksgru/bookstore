@@ -1,22 +1,23 @@
 import React from "react";
-import { ListGroup, Badge } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { reviewType } from "../../../actions/rewiewActions";
 import { RootState } from "../../../reducers";
-import ChangeComment from "./ChangeComment";
 import CommentForm from "./CommentForm";
-import ReplyForm from "./ReplyForm";
+import CommentItem from "./CommentItem";
+// import ReplyForm from "./ReplyForm";
 
 const Comment = () => {
+
   const { reviews, isAuth, userId, reviewUserId } = useSelector((state: RootState) => ({
     reviews: state.reviews.bookReviews,
     reviewUserId: state.reviews.reviewerId,
     isAuth: state.auth.isLoggedIn,
     userId: state.auth.id
   }));
+// todo: useEffect if userId recall review route
 
   const isReviewPossible = (userId !== reviewUserId) && isAuth;
-
   return (
     <>
       <ListGroup>
@@ -24,24 +25,8 @@ const Comment = () => {
         {reviews.map((review: reviewType) => {
           return (
             <ListGroup.Item key={review.comment + review.grade}>
-              <div className="float-left">{review.comment}</div>
-              <div className="float-right">
-                {!isReviewPossible && <ChangeComment />}
-                <Badge className='align-top'>{review.reviewer.name}</Badge>
-              </div>
-              <span className="mx-4 float-right">
-                {Array.from(Array(5).keys()).map((item) => {
-                  const idx = +item < review.grade ? "" : "-o";
-                  return (
-                    <i
-                      key={item + "y"}
-                      className={`fa fa-star${idx} text-warning`}
-                      aria-hidden="true"
-                    />
-                  );
-                })}
-              </span>
-              {isAuth && <ReplyForm/>}
+             <CommentItem review={review} />
+              {/* {isAuth && <ReplyForm/>} */}
             </ListGroup.Item>
           );
         })}

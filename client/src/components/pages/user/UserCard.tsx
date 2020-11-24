@@ -23,7 +23,6 @@ const UserCard = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files![0];
     setFile(file);
-    console.log(typeof file)
     if (file) {
       setForm(false)
     } else {

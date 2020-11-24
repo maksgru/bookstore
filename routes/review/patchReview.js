@@ -1,8 +1,10 @@
 const models = require('../../database/models');
 
 module.exports = async (req, res) => {
+  const { userId, bookId } = req.body;
   try {
-    await models.Review.create({ ...req.body });
+    const review = await models.Review.findOne({ where: { userId, bookId } });
+    await review.update({ ...req.body })
     const bookReviews = await models.Review.findAll({
        where: { bookId: req.body.bookId },
        order: [['updatedAt', 'DESC']],

@@ -14,7 +14,7 @@ const BookImages = ({ images, toggleImage }: bookImagesType) => {
         <ListGroup.Item key={"p" + i++} style={{ border: "none" }}>
           <Nav.Link onClick={() => toggleImage(image)}>
             <Figure>
-              <Figure.Image width={70} height={100} alt="171x180" src={image} />
+              <Figure.Image style={{maxWidth:'50px', height: 'auto'}} alt="171x180" src={image} />
             </Figure>
           </Nav.Link>
         </ListGroup.Item>
