@@ -9,6 +9,8 @@ import filterReducer from './filter';
 import favoritesReducer from './favorites';
 import reviewReducer from './reviews';
 import bookListReducer from './bookList';
+import sidebarReducer from './sidebar';
+import locationReducer from './location';
 
 export const reducer = combineReducers({
   bookList: bookListReducer,
@@ -20,7 +22,9 @@ export const reducer = combineReducers({
   price: priceReducer,
   favorites: favoritesReducer,
   reviews: reviewReducer,
-  error: errorReducer
+  error: errorReducer,
+  sidebar: sidebarReducer,
+  location: locationReducer
 });
 
 export type RootState = ReturnType<typeof reducer>;

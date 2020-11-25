@@ -10,8 +10,7 @@ import { RootState } from "../../reducers";
 const App = () => {
   const { error } = useSelector((state: RootState) => ({
     error: state.error
-  }))
-
+  }));
   return (
     <Router>
       <NavBar />

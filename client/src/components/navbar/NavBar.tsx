@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../actions/authActions";
 import UserIcon from "./UserIcon";
 import AuthModal from "../pages/auth/AuthModal";
 import { RootState } from "../../reducers";
+import { hideSidebar, showSidebar } from "../../actions/sidebarActions";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const { userName, userIcon, isLoggedIn } = useSelector((state: RootState) => ({
+  const { userName, userIcon, isLoggedIn, sidebarState } = useSelector((state: RootState) => ({
     userName: state.auth.name,
     userIcon: state.auth.userImg, 
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: state.auth.isLoggedIn,
+    sidebarState: state.sidebar
   }));
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   let modal = true;
   const faType: string = isLoggedIn ? "in" : "out";
   const faText: string = isLoggedIn ? "Out" : "In";
@@ -22,11 +24,16 @@ const NavBar = () => {
     return isLoggedIn ? dispatch(signOut()) : setModalShow(true);
   };
 
+  const toggleSidebar = () => {
+    sidebarState ? dispatch(hideSidebar) : dispatch(showSidebar);
+  };
+
   if (isLoggedIn) modal = false;
   return (
     <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
       {modal && <AuthModal show={modalShow} onHide={() => setModalShow(false)} />}
       <Container>
+        <Button variant='dark' onClick={toggleSidebar}>| | |</Button>
         <Navbar.Brand href="/">bookSTORE</Navbar.Brand>
         <span className="navbar-text">
           {isLoggedIn && <UserIcon iconUrl={userIcon} userName={userName} />}
