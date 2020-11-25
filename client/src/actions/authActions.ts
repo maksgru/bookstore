@@ -6,7 +6,7 @@ export interface userType {
   iconUrl: string;
 }
 
-export interface data {
+export interface UserDataType {
   userData: userType;
   tokens: {
     accessToken: string;
@@ -15,7 +15,7 @@ export interface data {
 };
 
 
-export const signIn = (userData: data) => ({
+export const signIn = (userData: UserDataType) => ({
   type: actionTypes.SIGN_IN,
   payload: handleUserData(userData)
 });
@@ -35,7 +35,7 @@ export const changeUserImg = (user: userType) => ({
   payload: user
 })
 
-const handleUserData = (data: data) => {
+const handleUserData = (data: UserDataType) => {
   localStorage.setItem('token', data.tokens.accessToken);
   localStorage.setItem('refreshToken', data.tokens.refreshToken);
   return data.userData;

@@ -6,14 +6,14 @@ import {
   DropdownButton,
   Row,
 } from "react-bootstrap";
-import { getAll } from "../../api/bookApi";
+import { getAllBooks } from "../../api/bookApi";
 
 const SortForm = () => {
   const [title, setTitle] = useState("Name");
   const [type, setType] = useState("asc");
 
-  const handleSort = async (e: any) => {
-    const value = e.target.innerText;
+  const handleSort = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const value = e.currentTarget.innerText
     setTitle(value);
     sort(value, type);
   };
@@ -25,7 +25,7 @@ const SortForm = () => {
   const sort = (title: string, type: string) => {
     const sortTarget = title.toLowerCase();
     const direction = type.toUpperCase();
-    getAll({sortTarget, direction});
+    getAllBooks({sortTarget, direction});
   };
   return (
     <Row className="justify-content-end mr-3 pb-2">

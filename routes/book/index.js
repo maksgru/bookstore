@@ -8,8 +8,13 @@ const isAuth = require("../../middleware/auth");
 const router = express.Router();
 
 router.get("/", getAllBooks);
-router.get("/id", getBook);
+router.get("/:id", getBook);
 router.post('/',isAuth, createBook);
-router.patch("/id", patchBook);
+router.patch("/:id", patchBook);
+// router.delete("/:id", patchBook);
 
 module.exports = router;
+
+
+
+// router.patch("/book/:book_id/comments/:comment_id", getBook);

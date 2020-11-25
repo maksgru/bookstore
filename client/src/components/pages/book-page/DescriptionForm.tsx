@@ -27,7 +27,7 @@ const DescriptionForm = ({bookId, description, isShow }: Dprops) => {
   };
   let handleForm = isFormShow ? submitForm : toggleForm;
   return (
-    <div>
+    <div className='my-4'>
       {isFormShow ? (
         <Form>
           <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -35,10 +35,15 @@ const DescriptionForm = ({bookId, description, isShow }: Dprops) => {
               onChange={textAreaHandleChange}
               as="textarea"
               rows={3}
+              value={descriptionText}
             />
           </Form.Group>
           <Button
-            onClick={() => setFormShow(false)}
+            onClick={() => {
+              setFormShow(false);
+              setDescriptionText(description);
+              return;
+            }}
             variant="outline-danger"
             size="sm"
             className="float-right"

@@ -15,7 +15,7 @@ interface getAllType {
   page?: number;
 };
 
-export const getAll = async (data?: getAllType) => {
+export const getAllBooks = async (data?: getAllType) => {
 const books: bookType[] = await axios.get('/books', { params: {...data}  });
 store.dispatch(booksLoaded(books))
 return books;
@@ -72,10 +72,10 @@ interface GetDataType {
 };
 
 /** 
-  * @param {boolean} params.authors - optional
+  * @param {object} params.authors - 
   * @param {boolean} params.geners - optional
   * @param {boolean} params.price - optional
-  * @returns {object} {[authorNames], [generNames], [priceRange]} 
+  * @returns {object} {[authors], [geners], [priceRange]} 
   */
 export const getData = async (params: GetDataType) => {
   const data: dataType = await axios.get('/data', { params: {...params} });

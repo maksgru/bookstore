@@ -49,3 +49,11 @@ body {
   overflow: hidden; 
   text-overflow: ellipsis;
  }
+
+ .swiper-slide {
+  list-style-type: none;
+ }
+
+ .swiper-wrapper {
+   padding: 0;
+ }

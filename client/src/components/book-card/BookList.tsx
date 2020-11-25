@@ -3,7 +3,7 @@ import { Row, Col, CardGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import PaginationForm from "./PaginationForm";
 import BookCard from "./BookCard";
-import { getAll } from "../../api/bookApi";
+import { getAllBooks } from "../../api/bookApi";
 import Spinner from "../spinner/Spinner";
 import { getFavorites } from "../../api/bookApi";
 import { RootState } from "../../reducers";
@@ -17,7 +17,7 @@ const BookList = () => {
   }));
 
   useEffect(() => {
-    getAll();
+    getAllBooks();
     if (isAuth) getFavorites();
   },[isAuth]);
   return (

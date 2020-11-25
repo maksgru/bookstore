@@ -2,7 +2,7 @@ import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 
 type UserNameProps = {
-  handleName: any;
+  handleName: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const UserName = ({ handleName }: UserNameProps) => {
@@ -25,7 +25,7 @@ export const UserName = ({ handleName }: UserNameProps) => {
 };
 
 type UserEmailProps = {
-  handleEmail: any;
+  handleEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const UserEmail = ({ handleEmail }: UserEmailProps) => {
@@ -49,7 +49,7 @@ export const UserEmail = ({ handleEmail }: UserEmailProps) => {
 };
 
 type PasswordProps = {
-  handlePassword: any;
+  handlePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
 };
 
@@ -76,7 +76,7 @@ export const Password = ({ handlePassword, placeholder }: PasswordProps) => {
 type FormButtonsProps = {
   submitBtnText: string;
   toggleBtnText: string;
-  togglePage: any;
+  togglePage: VoidFunction;
 };
 
 export const FormButtons = ({

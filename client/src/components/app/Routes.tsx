@@ -15,7 +15,7 @@ const Routes = () => {
       <Switch>
         <Route path="/" exact component={Main} />
         <Route path="/book" exact component={BookPage} />
-        <Route path="/profile" component={UserPage} />
+        <Route path="/profile" exact component={UserPage} />
       </Switch>
     );
   } else {

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     userImg: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'User'
   });
   return User;
 };

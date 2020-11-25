@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { UserName, UserEmail, Password, FormButtons } from "./auth-components";
 import { Form, Jumbotron, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
-import { signIn, signOut } from "../../../actions/authActions";
+import { signIn, signOut, UserDataType } from "../../../actions/authActions";
 import { login, register } from "../../../api/authApi";
 
 interface Lprops {
-  signIn: any;
-  signOut: any;
+  signIn: Function;
+  signOut: Function;
 }
 
 interface Lstate {
@@ -46,7 +46,7 @@ class LoginPage extends Component<Lprops, Lstate> {
 
   auth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let user: any;
+    let user;
     if (this.state.pageName === "login") {
       user = {
         email: this.state.email,
@@ -152,9 +152,9 @@ class LoginPage extends Component<Lprops, Lstate> {
   }
 }
 
-const mdtp = (dispatch: any) => ({
-  signIn: (user: any) => dispatch(signIn(user)),
-  signOut: () => dispatch(signOut()),
-});
+const mdtp = {
+  signIn: (user: UserDataType) => signIn(user),
+  signOut: () => signOut()
+};
 
 export default connect(null, mdtp)(LoginPage);

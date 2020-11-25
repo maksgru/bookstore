@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+const Review = require('./review');
+
+
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
     /**
@@ -47,10 +50,28 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    bookIcon: DataTypes.STRING
+    bookIcon: DataTypes.STRING,
+    ratings: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        // console.log('this.reviews', this.reviews);
+        return 4;
+      }
+    }
   }, {
     sequelize,
     modelName: 'Book',
+    defaultScope: {
+      include: [{
+        model: Review(sequelize, DataTypes),
+        as: 'reviews'
+      }],
+    },
+    scopes: {
+      base: {
+        include: []
+      }
+    }
   });
   return Book;
 };

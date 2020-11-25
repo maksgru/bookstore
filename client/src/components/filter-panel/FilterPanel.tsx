@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authorsLoaded } from "../../actions/authorActions";
 import { genersLoaded } from "../../actions/generActions";
 import { priceLoaded } from "../../actions/priceActions";
-import { getAll, getData } from "../../api/bookApi";
+import { getAllBooks, getData } from "../../api/bookApi";
 import { RootState } from "../../reducers";
 import Authors from "./Authors";
 import Geners from "./Geners";
@@ -17,15 +17,15 @@ const FilterPanel = () => {
     filter: state.filter
   }))
   const handleFilter = () => {
-    getAll(filter);
+    getAllBooks(filter);
   };
 
   useEffect(() => {
     const loadData = async () => {
       const data = await getData({authors: true, geners: true, price: true});
-      if (data.authors) dispatch(authorsLoaded(data.authors));
-      if (data.geners) dispatch(genersLoaded(data.geners));
-      if (data.priceRange) dispatch(priceLoaded(data.priceRange));
+      dispatch(authorsLoaded(data.authors));
+      dispatch(genersLoaded(data.geners));
+      dispatch(priceLoaded(data.priceRange));
     };
     loadData()
   }, [dispatch]);

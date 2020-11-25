@@ -15,7 +15,7 @@ const Price = () => {
 
   const [min, max] = priceRange;
   const [minPrice = "", maxPrice = ""] = price.split(",");
-  
+
   const handleSlider = (...args: any) => {
     const [ value ] = args;
     const [ min, max ] = value;
