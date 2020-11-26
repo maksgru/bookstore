@@ -49,7 +49,7 @@ axiosInstance.interceptors.response.use(
           }
         });
     }
-    store.dispatch(error());
+    store.dispatch(error);
     throw err;
   }
 );

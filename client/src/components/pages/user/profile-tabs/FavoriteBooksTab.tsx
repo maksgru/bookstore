@@ -44,7 +44,7 @@ const FavoreteBooksTab = () => {
             </Button>
             <span className="mx-4 float-right">
               {Array.from(Array(5).keys()).map((item) => {
-                const idx = +item < book.rating ? "" : "-o";
+                const idx = +item < book.ratings ? "" : "-o";
                 return (
                     <i key={item + 'y'} className={`fa fa-star${idx} text-warning`} aria-hidden="true" />
                 );

@@ -22,7 +22,7 @@ const Authors = () => {
   return (
     <Form className="mb-2">
       <strong>Authors</strong>
-      {authors.map((author: string) => (
+      {authors && authors.map((author: string) => (
         <Form.Check
           onChange={handleChange}
           className="ml-1"

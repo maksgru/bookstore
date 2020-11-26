@@ -46,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   Book.init({
     name: DataTypes.STRING,
-    // author: DataTypes.STRING,
     description: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
@@ -54,8 +53,9 @@ module.exports = (sequelize, DataTypes) => {
     ratings: {
       type: DataTypes.VIRTUAL,
       get() {
-        // console.log('this.reviews', this.reviews);
-        return 4;
+        const sum = this.reviews.reduce((sum, review) => sum + review.grade, 0);
+        const count = this.reviews.length;
+        return Math.round(sum/count);
       }
     }
   }, {
@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     defaultScope: {
       include: [{
         model: Review(sequelize, DataTypes),
-        as: 'reviews'
+        as: 'reviews',
       }],
     },
     scopes: {

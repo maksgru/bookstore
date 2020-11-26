@@ -5,11 +5,15 @@ const getBook = async (req, res) => {
   try {
     const book = await models.Book.findOne({ 
       where: { id: id },
-      include: {
+      include: [{
         model: models.Author,
         as: "writer",
         attributes: ["name"],
-      }
+      },
+      {
+        model: models.Review,
+        as: 'reviews'
+      }]
     });
     if (!book) {
       res.status(404).json({ message: "book not found" });

@@ -9,6 +9,7 @@ import Comment from "./Comment";
 import { getReviews } from "../../../api/reviewApi";
 import { RootState } from "../../../reducers";
 import BookImagesSlider from './BookImagesSlider';
+
 const BookPage = () => {
   const { book, bookImages, userId } = useSelector((state: RootState) => ({
     book: state.bookPage.book,

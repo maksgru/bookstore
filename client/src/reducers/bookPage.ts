@@ -7,7 +7,7 @@ const initialState: bookDetailsType = {
     writer: {name: ''},
     name: '',
     description: '',
-    rating: 0,
+    ratings: 0,
     price: 0,
     userId: 0,
     user: [{id: 0}]
