@@ -5,29 +5,33 @@ import { socket } from '../components/navbar/UserIcon';
 import { store } from '../index';
 import axios from './axios';
 
-interface getAllType {
-  sortTarget?: string;
-  direction?: string;
+interface getAllBooksType {
   gener?: string;
   authors?: string[];
   price?: string;
   rating?: number;
-  page?: number;
 };
 
-export const getAllBooks = async (data?: getAllType) => {
-const books: bookType[] = await axios.get('/books', { params: {...data}  });
-store.dispatch(booksLoaded(books))
-return books;
+interface BookListType {
+count: number;
+rows: bookType[];
+}
+
+export const getAllBooks = async (data?: getAllBooksType) => {
+  const { sortTarget, direction } = store.getState().sort;
+  const { page } = store.getState()
+const bookList: BookListType = await axios.get('/books', { params: {...data, sortTarget, direction, page}  });
+store.dispatch(booksLoaded(bookList.rows))
+return bookList;
 };
 
 export const getBook = async (id: number) => {
-  const bookDetails: bookDetailsType = await axios.get(`/books/id`, { params: { id } });
+  const bookDetails: bookDetailsType = await axios.get(`/books/:${id}`);
   store.dispatch(bookPageLoaded(bookDetails))
 };
 
 export const setBookDescription = async (id: number, description: string) => {
-  const data: string = await axios.patch('/books/id', { id , description });
+  const data: string = await axios.patch(`/books/:${id}`, { description });
   return data;
 };
 
@@ -46,12 +50,13 @@ export const handleFavorites = async (bookId: number, type: string) => {
   if (type === 'add') {
     const books: bookType[] = await axios.post('/favorites', { bookId, type });
     store.dispatch(favoritesLoaded(books));
-    socket.emit('bookCreated'); // replace to addNewBook function
   }
   if (type === 'del') {
     const books: bookType[] = await axios.delete('/favorites', { params: { bookId, type } })
     store.dispatch(favoritesLoaded(books));
   }
+  const id = store.getState().auth.id;
+  socket.emit('bookCreated', {'userId': `${id}`});
 };
 
 export const getFavorites = async () => {

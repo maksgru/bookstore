@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Pagination } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../actions/pageActions";
 import { getAllBooks } from "../../api/bookApi";
+import { RootState } from "../../reducers";
 
 const PaginationForm = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+  const { page } = useSelector((state: RootState) => ({
+    page: state.page
+  }));
   const handleFocus = (e: React.FocusEvent<HTMLElement>) => {
-    const page = +e.target.innerText;
-    getAllBooks({ page });
-    setCurrentPage(page)
+    const pageNumber = +e.target.innerText;
+    dispatch(setPage(+pageNumber));
+    getAllBooks();
   };
   return (
     <Pagination size="sm">
@@ -15,7 +21,7 @@ const PaginationForm = () => {
       {Array.from(Array(5).keys()).map((item: number) => (
         <Pagination.Item
           key={item + "t"}
-          active={item+1 === currentPage}
+          active={item+1 === page}
           onFocus={handleFocus}
         >
           {item + 1}

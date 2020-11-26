@@ -31,7 +31,7 @@ const FilterPanel = () => {
   }, [dispatch]);
 
   return (
-    <Col style={{maxWidth: '200px'}}>
+    <Col style={{maxWidth: '200px'}} className='mb-2'>
       <Geners />
       <RatingForm />
       <Authors />

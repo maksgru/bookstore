@@ -24,8 +24,8 @@ module.exports = io;
 
 io.on("connection", socket => {
    console.log("New client connected" + socket.id);
-    socket.on("bookCreated", () => {
-        io.sockets.emit("newBook");
+    socket.on("bookCreated", (data) => {
+        io.sockets.emit("newBook", {'userId': data.userId});
     });
   // disconnect is fired when a client leaves the server
     socket.on("disconnect", () => {

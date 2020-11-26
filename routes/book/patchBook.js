@@ -2,7 +2,8 @@ const models = require('../../database/models');
 
 
 const patchBook = async (req, res) => {
-  const { id, description } = req.body;
+  const id = req.params.id.replace(':','');
+  const { description } = req.body;
   try {
     const book = await models.Book.findOne({ where: { id } });
     if (!book) {

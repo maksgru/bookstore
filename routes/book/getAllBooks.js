@@ -8,12 +8,14 @@ const getGenerId = async (generName) => {
 
 const getAllBooks = async (req, res) => {
   let books;
-  const {
+  let {
     sortTarget = "name",
     direction = "ASC",
-    limit = 2  ,
+    limit = 3,
     page = 1
   } = req.query;
+  if (sortTarget === 'rating' && direction === 'ASC') direction = 'ASC NULLS FIRST';
+  if (sortTarget === 'rating' && direction === 'DESC') direction = 'DESC NULLS LAST';
   let where = {};
   let include = [
     {
@@ -55,10 +57,11 @@ const getAllBooks = async (req, res) => {
     where.rating = { [Op.gte]: rating };
   }
   try {
-    books = await models.Book.findAll({
+    books = await models.Book.findAndCountAll({
+      distinct: 'Book.id',
+      order: [[sortTarget, direction]],
       where,
       include,
-      order: [[sortTarget, direction]],
       offset: limit * (page - 1),
       limit,
     });

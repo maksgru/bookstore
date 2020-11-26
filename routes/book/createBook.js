@@ -10,7 +10,7 @@ const createBook = async (req, res) => {
     const authorId = writer.id;
     const book = await models.Book.create({authorId, name, bookIcon, price, userId, description});
     const bookGener = await models.Gener.findOne({where: {name: gener}});
-    book.addGener(bookGener);
+    await book.addGener(bookGener);
     res.json('book created')
   } catch (error) {
     return res.status(500).json({ message: error.message });

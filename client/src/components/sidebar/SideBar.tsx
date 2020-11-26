@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Navbar } from "react-bootstrap";
 import React from "react";
 import "./sidebar.css";
 
@@ -14,14 +14,12 @@ interface SideBarType {
  * @param children props.children
  */
 const Sidebar = (props: SideBarType) => {
-
     return (
-        <Modal show={props.isVisible} onHide={props.onHide} >
-          <Modal.Header style={{border: 'none'}} closeButton/>
-          <Modal.Body>
-
+        <Modal id="sidebar" show={props.isVisible} onHide={props.onHide} >
+          <Modal.Header style={{border: 'none'}} closeButton>
+          <Navbar.Brand href="/" className="align-middle"><strong className='text-danger'>bookSTORE</strong></Navbar.Brand>
+          </Modal.Header>
             {props.children}
-          </Modal.Body>
         </Modal>
     );
 };

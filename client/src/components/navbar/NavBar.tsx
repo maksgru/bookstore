@@ -9,11 +9,12 @@ import { hideSidebar, showSidebar } from "../../actions/sidebarActions";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const { userName, userIcon, isLoggedIn, sidebarState } = useSelector((state: RootState) => ({
+  const { userName, userIcon, isLoggedIn, sidebarState, viewportWidth } = useSelector((state: RootState) => ({
     userName: state.auth.name,
     userIcon: state.auth.userImg, 
     isLoggedIn: state.auth.isLoggedIn,
-    sidebarState: state.sidebar
+    sidebarState: state.sidebar,
+    viewportWidth: state.viewport
   }));
   const [modalShow, setModalShow] = useState(false);
   let modal = true;
@@ -33,8 +34,10 @@ const NavBar = () => {
     <Navbar expand="md" bg="dark" variant="dark" className="mb-3">
       {modal && <AuthModal show={modalShow} onHide={() => setModalShow(false)} />}
       <Container>
-        <Button variant='dark' onClick={toggleSidebar}>| | |</Button>
-        <Navbar.Brand href="/">bookSTORE</Navbar.Brand>
+       <div>
+          {viewportWidth <= 768 && <Button variant='dark' onClick={toggleSidebar}>| | |</Button>}
+          {viewportWidth > 768 && <Navbar.Brand href="/" className="align-middle">bookSTORE</Navbar.Brand>}
+       </div>
         <span className="navbar-text">
           {isLoggedIn && <UserIcon iconUrl={userIcon} userName={userName} />}
           <Button

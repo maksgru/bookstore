@@ -1,7 +1,7 @@
 const models = require('../../database/models');
 
 const getBook = async (req, res) => {
-  const id = req.query.id;
+  const id = req.params.id.replace(':','');
   try {
     const book = await models.Book.findOne({ 
       where: { id: id },

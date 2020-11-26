@@ -11,6 +11,7 @@ interface Astate {
   price: string;
   description: string;
   bookImage: string | Blob;
+  isSendPossible: boolean;
 }
 interface Aprops {
   geners: string[];
@@ -20,21 +21,31 @@ interface Aprops {
 class AddBookTab extends Component<Aprops, Astate> {
   constructor(props: Aprops) {
     super(props);
-    this.state = {
-      name: "",
-      author: "",
-      gener: "",
-      price: "",
-      description: "",
-      bookImage: '',
-    };
+    this.state = this.initialState;
   }
+  initialState = {
+    name: "",
+    author: "",
+    gener: "",
+    price: "",
+    description: "",
+    bookImage: '',
+    isSendPossible: false
+  };
+
+  checkForm = (state: any) => {
+    for (let key in state) {
+      if (key === 'isSendPossible') continue;
+      if (!state[key]) return false 
+    }
+    return true;
+  };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const key = e.target.name;
     this.setState({ [key]: value } as any);
-    console.log(this.state)
+    this.setState((state) => ({isSendPossible: this.checkForm(state)}));
   };
   handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -42,6 +53,7 @@ class AddBookTab extends Component<Aprops, Astate> {
   };
   createBook = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
+    if (!this.state.isSendPossible) return;  
     const formData = new FormData();
     formData.append("bookImg", this.state.bookImage);
     formData.append("name", this.state.name);
@@ -50,6 +62,7 @@ class AddBookTab extends Component<Aprops, Astate> {
     formData.append("price", this.state.price);
     formData.append("description", this.state.description);
     await addNewBook(formData);
+    this.setState({...this.initialState});
   };
 
   render() {
@@ -61,6 +74,7 @@ class AddBookTab extends Component<Aprops, Astate> {
             name="name"
             onChange={this.handleChange}
             placeholder="Book Title"
+            value={this.state.name}
           />
         </Form.Group>
         <Form.Group>
@@ -89,6 +103,7 @@ class AddBookTab extends Component<Aprops, Astate> {
             name="price"
             onChange={this.handleChange}
             placeholder="Book price"
+            value={this.state.price}
           />
         </Form.Group>
         <Form.Group>
@@ -105,6 +120,7 @@ class AddBookTab extends Component<Aprops, Astate> {
             onChange={this.handleChange}
             as="textarea"
             rows={3}
+            value={this.state.description}
           />
         </Form.Group>
         <Button
@@ -112,6 +128,7 @@ class AddBookTab extends Component<Aprops, Astate> {
           type="submit"
           variant="outline-primary"
           className="float-right"
+          disabled={!this.state.isSendPossible}
         >
           <span>
             <span>Add Book</span>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   ButtonGroup,
@@ -6,27 +6,28 @@ import {
   DropdownButton,
   Row,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setSortDirection, setSortTarget } from "../../actions/sortActions";
 import { getAllBooks } from "../../api/bookApi";
+import { RootState } from "../../reducers";
 
 const SortForm = () => {
-  const [title, setTitle] = useState("Name");
-  const [type, setType] = useState("asc");
+  const dispatch = useDispatch();
+  const { sortDirection, sortTarget } = useSelector((state: RootState) => ({
+    sortDirection: state.sort.direction,
+    sortTarget: state.sort.sortTarget
+  }));
 
   const handleSort = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    const value = e.currentTarget.innerText
-    setTitle(value);
-    sort(value, type);
+    const value = e.currentTarget.innerText;
+    dispatch(setSortTarget(value.toLowerCase()));
+    getAllBooks();
   };
   const handleDirection = async () => {
-    type === "asc" ? setType("desc") : setType("asc");
-    const direction = type === "desc" ? "asc" : "desc";
-    sort(title, direction);
+    sortDirection === "ASC" ? dispatch(setSortDirection('DESC')) : dispatch(setSortDirection("ASC"));
+    getAllBooks();
   };
-  const sort = (title: string, type: string) => {
-    const sortTarget = title.toLowerCase();
-    const direction = type.toUpperCase();
-    getAllBooks({sortTarget, direction});
-  };
+
   return (
     <Row className="justify-content-end mr-3 pb-2">
       <ButtonGroup>
@@ -35,13 +36,13 @@ const SortForm = () => {
           variant="outline-info"
           size="sm"
         >
-          <i className={`fa fa-sort-amount-${type}`} aria-hidden="true" />
+          <i className={`fa fa-sort-amount-${sortDirection.toLowerCase()}`} aria-hidden="true" />
         </Button>
 
         <DropdownButton
           variant="outline-info"
           as={ButtonGroup}
-          title={title}
+          title={sortTarget.charAt(0).toUpperCase() + sortTarget.slice(1)}
           id="bg-nested-dropdown"
           size="sm"
         >
