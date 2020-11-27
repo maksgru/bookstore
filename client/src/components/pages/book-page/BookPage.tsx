@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, Card, Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBook } from "../../../api/bookApi";
 import { bookImageType } from "../../../actions/bookActions";
 import DescriptionForm from "./DescriptionForm";
@@ -9,13 +9,18 @@ import Comment from "./Comment";
 import { getReviews } from "../../../api/reviewApi";
 import { RootState } from "../../../reducers";
 import BookImagesSlider from './BookImagesSlider';
+import Sidebar from "../../sidebar/SideBar";
+import { hideSidebar } from "../../../actions/sidebarActions";
 
 const BookPage = () => {
-  const { book, bookImages, userId } = useSelector((state: RootState) => ({
+  const dispatch = useDispatch();
+  const { book, bookImages, userId, viewportWidth, isSidebarVisible } = useSelector((state: RootState) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
     isAuth: state.auth.isLoggedIn,
     userId: state.auth.id,
+    viewportWidth: state.viewport,
+    isSidebarVisible: state.sidebar
   }));
   
   useEffect(() => {
@@ -29,6 +34,13 @@ const BookPage = () => {
   const images=[book.bookIcon, ...bookImages.map((img: bookImageType) => img.url)];
   return (
     <Container>
+      {viewportWidth < 768 &&
+          <Sidebar
+            isVisible={isSidebarVisible}
+            onHide={() => dispatch(hideSidebar)}
+          > 
+          </Sidebar>
+        }
       <Card>
         <Card.Header as="h5">
           {book.writer.name}

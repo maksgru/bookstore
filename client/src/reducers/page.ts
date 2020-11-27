@@ -1,10 +1,17 @@
 import { actionTypes } from "../actions/action-types";
 import { SetPageType } from "../actions/pageActions";
 
-const pageRaducer = (state: number=1, action: SetPageType): number => {
+const initialState ={
+  page: 1,
+  pageCount: 5
+};
+
+const pageRaducer = (state=initialState, action: SetPageType): {page: number; pageCount: number}=> {
   switch (action.type) {
     case actionTypes.SET_PAGE_NUMBER:
-      return action.page;
+      return {...state, page: action.payload};
+    case actionTypes.SET_PAGE_COUNT:
+      return {...state, pageCount: action.payload};
     default:
       return state;
   }

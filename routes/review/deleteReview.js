@@ -14,6 +14,11 @@ module.exports = async (req, res) => {
        }]
       });
       const reviewerId = req.query.userId;
+
+      const sum = bookReviews.reduce((sum, review) => sum + review.grade, 0);
+      const rating = Math.round(sum / bookReviews.length);
+      await models.Book.update({ rating }, { where: { id: bookId } });
+
     res.json({bookReviews, reviewerId});
   } catch (error) {
     res.status(500).json({message: error.message});

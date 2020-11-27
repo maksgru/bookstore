@@ -14,7 +14,7 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://192.168.1.113:3000",
+    origin: "http://192.168.1.115:3000",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
@@ -27,7 +27,6 @@ io.on("connection", socket => {
     socket.on("bookCreated", (data) => {
         io.sockets.emit("newBook", {'userId': data.userId});
     });
-  // disconnect is fired when a client leaves the server
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });

@@ -2,10 +2,15 @@ import { actionTypes } from "./action-types";
 
 export interface SetPageType {
   type: string;
-  page: number;
+  payload: number;
 };
 
 export const setPage = (page: number) => ({
   type: actionTypes.SET_PAGE_NUMBER,
-  page
+  payload:page
+});
+
+export const setPageCount = (pageCount: number) => ({
+  type: actionTypes.SET_PAGE_COUNT,
+  payload:pageCount
 });

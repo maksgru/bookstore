@@ -33,10 +33,10 @@ class AddBookTab extends Component<Aprops, Astate> {
     isSendPossible: false
   };
 
-  checkForm = (state: any) => {
+  checkForm = (state: Astate) => {
     for (let key in state) {
       if (key === 'isSendPossible') continue;
-      if (!state[key]) return false 
+      if (!key) return false 
     }
     return true;
   };

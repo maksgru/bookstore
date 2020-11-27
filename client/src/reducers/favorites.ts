@@ -13,7 +13,7 @@ const initialState: bookType[] = [
     writer: { name: '' },
     name: '',
     description: '',
-    ratings: 0,
+    rating: 0,
     price: 0,
     userId: 0,
     user: [{ id: 0 }]

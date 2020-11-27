@@ -12,21 +12,26 @@ const RatingForm = () => {
 
   const stars = Array.from(Array(5).keys());
   
-  const handleClick = (e: React.FocusEvent<HTMLElement>) => {
-    const value = e.target.id;
-    dispatch(handleRating(+value+1));
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    const value = +e.currentTarget.id;
+    // alert(`value - ${value}, rating - ${rating}`)
+    if (value === rating) {
+      dispatch(handleRating(null));
+      return;
+    }
+    dispatch(handleRating(value));
   };
   return (
     <div>
       <strong>Rating</strong>
       <Row className="mt-1 ml-1">
         {stars.map((item) => {
-          const starType = item >= rating ? '-o' : '';
+          const starType = item+1 <= rating ? '' : '-o';
           return (
             <div key={item + "q"}>
               <Button
-                onFocus={handleClick}
-                id={item.toString()}
+                onClick={handleClick}
+                id={(1+item).toString()}
                 variant="outline-warning btn-tog btn-bdnone star-rat mb-2"
                 size="sm"
               >

@@ -6,7 +6,7 @@ export interface bookType {
   writer: { name: string };
   name: string;
   description: string;
-  ratings: number;
+  rating: number;
   price: number;
   userId: number;
   user: [{id: number}];

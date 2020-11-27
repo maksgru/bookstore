@@ -11,7 +11,7 @@ const CommentForm = () => {
   }))
   const [isFormShow, setFormShow] = useState(false);
   const [comment, setComment] = useState("");
-  const [grade, setGrade] = useState(0);
+  const [grade, setGrade] = useState(1);
   const stars = Array.from(Array(5).keys());
 
   const textAreaHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

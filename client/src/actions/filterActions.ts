@@ -10,7 +10,12 @@ export const handlePrice = (price: string) => ({
   price
 });
 
-export const handleRating = (rating: number) => ({
+export const handleRating = (rating: number | null) => ({
   type: actionTypes.SET_RATING,
   rating
+});
+
+export const handleGener = (gener: string) => ({
+  type: actionTypes.SET_GENER,
+  gener
 });

@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ErrorNotice from "../error-notice/ErrorNotice";
 import { RootState } from "../../reducers";
 import { setViewportWidth } from '../../actions/viewportActions';
+import { hideSidebar } from "../../actions/sidebarActions";
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const handleWidth = () => {
-      dispatch(setViewportWidth(window.innerWidth));
+      const viewportWidth =window.innerWidth;
+      if (viewportWidth <= 768) dispatch(hideSidebar)
+      dispatch(setViewportWidth(viewportWidth));
     };
 
     window.addEventListener("resize", handleWidth);

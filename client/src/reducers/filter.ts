@@ -1,6 +1,7 @@
 import { actionTypes } from "../actions/action-types";
 interface filterType {
   authors: string[];
+  gener: string;
   price: string;
   rating: number;
 };
@@ -11,6 +12,7 @@ interface actionType extends filterType {
 
 const filterState: filterType = {
   authors: [],
+  gener: '',
   price: '',
   rating: 3
 };
@@ -22,6 +24,8 @@ const filterReducer = (state=filterState, action: actionType): filterType => {
       return {...state, price: action.price};
     case actionTypes.SET_RATING:
       return {...state, rating: action.rating};
+    case actionTypes.SET_GENER:
+      return {...state, gener: action.gener}
     default:
       return state;
   }

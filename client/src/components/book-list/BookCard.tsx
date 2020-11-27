@@ -33,7 +33,7 @@ const BookCard = ({ book }: bookCardProps) => {
           </Card.Text>
         </Card.Body>
       </Link>
-      <CardFooter rating={book.ratings} id={book.id}  />
+      <CardFooter rating={book.rating} id={book.id}  />
     </Card>
   );
 };

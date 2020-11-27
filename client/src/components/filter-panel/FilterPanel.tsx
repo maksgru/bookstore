@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Col, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authorsLoaded } from "../../actions/authorActions";
 import { genersLoaded } from "../../actions/generActions";
+import { setPage } from "../../actions/pageActions";
 import { priceLoaded } from "../../actions/priceActions";
+import { hideSidebar } from "../../actions/sidebarActions";
 import { getAllBooks, getData } from "../../api/bookApi";
-import { RootState } from "../../reducers";
 import Authors from "./Authors";
 import Geners from "./Geners";
 import Price from "./Price";
@@ -13,11 +14,11 @@ import RatingForm from "./Rating";
 
 const FilterPanel = () => {
   const dispatch = useDispatch();
-  const { filter } = useSelector((state: RootState) => ({
-    filter: state.filter
-  }))
+
   const handleFilter = () => {
-    getAllBooks(filter);
+    dispatch(setPage(1));
+    dispatch(hideSidebar);
+    getAllBooks();
   };
 
   useEffect(() => {

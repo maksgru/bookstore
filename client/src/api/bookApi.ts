@@ -1,15 +1,14 @@
 import { bookDetailsType, bookPageLoaded, booksLoaded } from '../actions/bookActions';
 import { bookType } from '../actions/bookActions';
 import { favoritesLoaded } from '../actions/favoritesActions';
+import { setPageCount } from '../actions/pageActions';
 import { socket } from '../components/navbar/UserIcon';
 import { store } from '../index';
 import axios from './axios';
 
 interface getAllBooksType {
-  gener?: string;
   authors?: string[];
   price?: string;
-  rating?: number;
 };
 
 interface BookListType {
@@ -19,9 +18,15 @@ rows: bookType[];
 
 export const getAllBooks = async (data?: getAllBooksType) => {
   const { sortTarget, direction } = store.getState().sort;
-  const { page } = store.getState()
-const bookList: BookListType = await axios.get('/books', { params: {...data, sortTarget, direction, page}  });
+  const { page } = store.getState().page;
+  const { gener } = store.getState().filter;
+  const { price } = store.getState().filter;
+  const { rating } = store.getState().filter;
+  const { authors } = store.getState().filter;
+const bookList: BookListType = await axios.get('/books', { params: {...data, sortTarget, direction, page, gener, price, rating, authors}  });
+console.log(bookList.rows)
 store.dispatch(booksLoaded(bookList.rows))
+store.dispatch(setPageCount(bookList.count));
 return bookList;
 };
 

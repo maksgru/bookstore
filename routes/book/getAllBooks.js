@@ -22,7 +22,7 @@ const getAllBooks = async (req, res) => {
       model: models.Author,
       as: "writer",
       attributes: ["name"],
-    },
+    }
   ];
   if (req.userId) {
     include.push({
@@ -58,13 +58,14 @@ const getAllBooks = async (req, res) => {
   }
   try {
     books = await models.Book.findAndCountAll({
-      distinct: 'Book.id',
+      distinct: 'Book.id', // without this field count more than existing
       order: [[sortTarget, direction]],
       where,
       include,
       offset: limit * (page - 1),
       limit,
-    });
+    })
+    
     res.json(books);
   } catch (err) {
     res.status(500).json({ message: err.message });

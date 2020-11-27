@@ -47,31 +47,31 @@ module.exports = (sequelize, DataTypes) => {
   Book.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
+    rating: DataTypes.INTEGER,
     bookIcon: DataTypes.STRING,
-    ratings: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        const sum = this.reviews.reduce((sum, review) => sum + review.grade, 0);
-        const count = this.reviews.length;
-        return Math.round(sum/count);
-      }
-    }
+    // rating: {
+    //   type: DataTypes.VIRTUAL,
+    //   get() {
+    //     const sum = this.reviews.reduce((sum, review) => sum + review.grade, 0);
+    //     const count = this.reviews.length;
+    //     return Math.round(sum/count);
+    //   }
+    // }
   }, {
     sequelize,
     modelName: 'Book',
-    defaultScope: {
-      include: [{
-        model: Review(sequelize, DataTypes),
-        as: 'reviews',
-      }],
-    },
-    scopes: {
-      base: {
-        include: []
-      }
-    }
+    // defaultScope: {
+    //   include: [{
+    //     model: Review(sequelize, DataTypes),
+    //     as: 'reviews',
+    //   }],
+    // },
+    // scopes: {
+    //   base: {
+    //     include: []
+    //   }
+    // }
   });
   return Book;
 };

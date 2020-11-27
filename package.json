@@ -27,6 +27,7 @@
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
+    "sequelize-virtual-fields": "^1.1.0",
     "socket.io": "^3.0.2",
     "uuid": "^8.3.1"
   }
