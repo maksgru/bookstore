@@ -63,6 +63,10 @@ class LoginPage extends Component<Lprops, Lstate> {
       this.props.signOut();
     }
     if (this.state.pageName === "register") {
+      if (this.state.password !== this.state.confirmedPassword) {
+        this.setState({error: true});
+        return
+      };
       user = {
         name: this.state.userName,
         email: this.state.email,
@@ -143,7 +147,7 @@ class LoginPage extends Component<Lprops, Lstate> {
           />
           {this.state.error && (
             <Alert variant="danger mt-5">
-              {`Incorrect ${this.state.pageName} data! Please try again...`}
+              {`Incorrect ${this.state.pageName} data!`}<br/>{`Please insert correct data and try again...`}
             </Alert>
           )}
         </Form>

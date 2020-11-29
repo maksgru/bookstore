@@ -48,7 +48,7 @@ const UserCard = () => {
                 <Form.File
                   onChange={handleChange}
                   id="exampleFormControlFile1"
-                  label="Example file input"
+                  // label="Example file input"
                 />
                 <Button
                   variant="outline-primary"

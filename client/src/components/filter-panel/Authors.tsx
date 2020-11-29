@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { authorsLoaded } from "../../actions/authorActions";
 import { handleAuthors } from "../../actions/filterActions";
+import { getData } from "../../api/bookApi";
 import { RootState } from "../../reducers";
 
 const Authors = () => {
@@ -19,6 +21,15 @@ const Authors = () => {
         dispatch(handleAuthors(selectedAuthors.filter((author: string) => author !== value)))
     }
   };
+
+  useEffect(() => {
+    const loadAuthors = async () => {
+      const data = await getData({authors: true});
+      dispatch(authorsLoaded(data.authors));
+    };
+    loadAuthors()
+  }, [dispatch]);
+  
   return (
     <Form className="mb-2">
       <strong>Authors</strong>

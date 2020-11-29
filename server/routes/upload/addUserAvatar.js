@@ -1,3 +1,4 @@
+require("dotenv").config();
 const multer = require("multer");
 const models = require('../../database/models');
 const fs = require('fs')
@@ -6,6 +7,8 @@ const storageConfig = multer.diskStorage({
     cb(null, "uploads");
   },
 });
+
+const baseUrl = process.env.BASE_URL;
 
 const multerConfig = multer({ storage: storageConfig }).single("filedata");
 
@@ -36,7 +39,7 @@ const addUserAvatar = async (req, res, next) => {
     const userData = {
       id: user.id,
       userName: user.name,
-      iconUrl: profileImg
+      iconUrl: baseUrl + profileImg
     }
     return res.json(userData);
   } catch (error) {

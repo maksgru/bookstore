@@ -3,7 +3,7 @@ interface filterType {
   authors: string[];
   gener: string;
   price: string;
-  rating: number;
+  rating: number | null;
 };
 
 interface actionType extends filterType {
@@ -14,7 +14,7 @@ const filterState: filterType = {
   authors: [],
   gener: '',
   price: '',
-  rating: 3
+  rating: null
 };
 const filterReducer = (state=filterState, action: actionType): filterType => {
   switch (action.type) {

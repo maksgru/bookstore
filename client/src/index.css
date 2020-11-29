@@ -57,3 +57,8 @@ body {
  .swiper-wrapper {
    padding: 0;
  }
+
+ .selected {
+   text-decoration: underline !important;
+   font-weight: bold;
+ }

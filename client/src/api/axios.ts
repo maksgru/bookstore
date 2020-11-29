@@ -4,7 +4,7 @@ import { error } from '../actions/errorActions';
 import { store } from '../index';
 
 const axiosInstance = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:4000',
 });
 
 
@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
   (err) => {
     const originalRequest = err.config;
     const { status } = err.response;
-    const refreshUrl = '/auth/refresh-tokens';
+    const refreshUrl = 'http://localhost:4000/auth/refresh-tokens';
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) {
       store.dispatch(signOut());

@@ -2,6 +2,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const models = require("../../database/models");
 
+const baseUrl = process.env.BASE_URL;
 const jwtSecret = process.env.JWT_SECRET;
 
 const updateUserData = async (req, res) => {
@@ -29,10 +30,18 @@ const updateUserData = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+  const userIcon = (userImg) => {
+    if (!userImg) {
+    userImg = 'https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png';
+    } else {
+      userImg = baseUrl + userImg;
+    }
+    return userImg;
+  }
   user = {
     id: user.id,
     userName: user.name,
-    iconUrl: user.userImg,
+    iconUrl: userIcon(user.userImg),
   };
   res.json(user);
 };

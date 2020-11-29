@@ -24,7 +24,6 @@ export const getAllBooks = async (data?: getAllBooksType) => {
   const { rating } = store.getState().filter;
   const { authors } = store.getState().filter;
 const bookList: BookListType = await axios.get('/books', { params: {...data, sortTarget, direction, page, gener, price, rating, authors}  });
-console.log(bookList.rows)
 store.dispatch(booksLoaded(bookList.rows))
 store.dispatch(setPageCount(bookList.count));
 return bookList;

@@ -17,10 +17,18 @@ const signIn = async (req, res) => {
       return res.status(400).json({ message: "incorrect password" });
 
     const tokens = await updateTokens(user.id);
+    const userIcon = (userImg) => {
+      if (!userImg) {
+      userImg = 'https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png';
+      } else {
+        userImg = baseUrl + userImg;
+      }
+      return userImg;
+    }
     const userData = {
       id: user.id,
       userName: user.name,
-      iconUrl: user.userImg,
+      iconUrl: userIcon(user.userImg),
     };
     res.json({ userData, tokens });
   } catch (err) {

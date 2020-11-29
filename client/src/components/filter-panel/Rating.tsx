@@ -26,7 +26,12 @@ const RatingForm = () => {
       <strong>Rating</strong>
       <Row className="mt-1 ml-1">
         {stars.map((item) => {
-          const starType = item+1 <= rating ? '' : '-o';
+          let starType: string;
+          if (rating) {
+            starType = item+1 <= rating ? '' : '-o';
+          } else {
+            starType = '';
+          }
           return (
             <div key={item + "q"}>
               <Button

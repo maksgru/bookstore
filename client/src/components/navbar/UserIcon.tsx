@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { io } from "socket.io-client";
 import { RootState } from "../../reducers";
-export const socket = io("http://192.168.1.115:4000/");
+export const socket = io("http://localhost:4000/");
 
 interface userIconType {
   iconUrl: string;

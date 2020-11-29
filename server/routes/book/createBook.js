@@ -8,9 +8,9 @@ const createBook = async (req, res) => {
   try {
     const writer = await models.Author.findOne({where: {name: author}});
     const authorId = writer.id;
-    const book = await models.Book.create({authorId, name, bookIcon, price, userId, description});
+    const book = await models.Book.create({authorId, name, bookIcon, price: +price, userId, description});
     const bookGener = await models.Gener.findOne({where: {name: gener}});
-    await book.addGener(bookGener);
+    await book.addGeners(bookGener);
     res.json('book created')
   } catch (error) {
     return res.status(500).json({ message: error.message });

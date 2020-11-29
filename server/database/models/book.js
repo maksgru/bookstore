@@ -1,4 +1,8 @@
 'use strict';
+require("dotenv").config();
+
+const baseUrl = process.env.BASE_URL;
+
 const {
   Model
 } = require('sequelize');
@@ -49,7 +53,13 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
     rating: DataTypes.INTEGER,
-    bookIcon: DataTypes.STRING,
+    bookIcon: {
+      type: DataTypes.STRING,
+      get() {
+        const bookPath = this.getDataValue('bookIcon');
+        return baseUrl + bookPath;
+      }
+    },
     // rating: {
     //   type: DataTypes.VIRTUAL,
     //   get() {

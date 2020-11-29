@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Badge, Container } from "react-bootstrap";
 import Nouislider from "nouislider-react";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePrice } from "../../actions/filterActions";
 import { RootState } from "../../reducers";
+import { priceLoaded } from "../../actions/priceActions";
+import { getData } from "../../api/bookApi";
 
 const Price = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,14 @@ const Price = () => {
     const maxPrice = Math.floor(max);
     dispatch(handlePrice(`${minPrice},${maxPrice}`));
   };
+
+  useEffect(() => {
+    const loadPriceRange = async () => {
+      const data = await getData({price: true});
+      dispatch(priceLoaded(data.priceRange));
+    };
+    loadPriceRange()
+  }, [dispatch]);
 
   return (
     <Container className="pl-0 ml-2" style={{maxWidth: '200px'}}>

@@ -17,7 +17,6 @@ const BookPage = () => {
   const { book, bookImages, userId, viewportWidth, isSidebarVisible } = useSelector((state: RootState) => ({
     book: state.bookPage.book,
     bookImages: state.bookPage.bookImages,
-    isAuth: state.auth.isLoggedIn,
     userId: state.auth.id,
     viewportWidth: state.viewport,
     isSidebarVisible: state.sidebar
@@ -27,7 +26,7 @@ const BookPage = () => {
     const bookId = +localStorage.getItem("bookId")!;
       getReviews(bookId);
       getBook(bookId);
-  }, [book.bookIcon]);
+  }, [userId]);
 
   const isBookUsers = userId === book.userId;
 
