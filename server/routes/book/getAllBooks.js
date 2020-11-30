@@ -11,7 +11,7 @@ const getAllBooks = async (req, res) => {
   let {
     sortTarget = "name",
     direction = "ASC",
-    limit = 10,
+    limit = 3,
     page = 1
   } = req.query;
   if (sortTarget === 'rating' && direction === 'ASC') direction = 'ASC NULLS FIRST';

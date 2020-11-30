@@ -30,7 +30,7 @@ const RatingForm = () => {
           if (rating) {
             starType = item+1 <= rating ? '' : '-o';
           } else {
-            starType = '';
+            starType = '-o';
           }
           return (
             <div key={item + "q"}>
