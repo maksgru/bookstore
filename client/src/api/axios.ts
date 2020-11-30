@@ -4,7 +4,7 @@ import { error } from '../actions/errorActions';
 import { store } from '../index';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'http://ec2-3-127-148-123.eu-central-1.compute.amazonaws.com:4000',
 });
 
 
